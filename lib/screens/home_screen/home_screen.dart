@@ -35,25 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               HomeBanner(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    MyText.large("Дасгал"),
-                    const SizedBox(height: 10),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

@@ -11,7 +11,7 @@ class ListMenu {
   static final List<Menu> listMenu = [
     Menu(
       type: MenuType.vocabulary,
-      name: "Үг",
+      name: "Үг цээжлэх",
       icon: "assets/images/ic_home_vocabulary.png",
     ),
     Menu(
