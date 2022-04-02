@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:husky/components/my_text.dart';
+import 'package:husky/global/style.dart';
 
 class HomeBanner extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class HomeBanner extends StatefulWidget {
 class _HomeBannerState extends State<HomeBanner> {
   final List<String> listBanner = [
     "https://studyinchinas.com/wp-content/uploads/2020/02/Study-in-Beijing-min-798x599.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU7adimEWjO8NMlVfBl4_Cez1BlKr2Z51gTTqK_Spicbw4eqnQl0ltiMOiwWfVi4o7I3k&usqp=CAU",
   ];
 
   int bannerIndex = 0;
@@ -54,49 +56,48 @@ class _HomeBannerState extends State<HomeBanner> {
           },
         ),
         const SizedBox(height: 10),
-        //_carouselSlider(),
+        _carouselSlider(),
       ],
     );
   }
 
-  // _carouselSlider() {
-  //   return Container(
-  //     margin: EdgeInsets.symmetric(horizontal: ResponsiveFlutter.of(context).fontSize(2.5)),
-  //     child: Stack(
-  //       children: [
-  //         SingleChildScrollView(
-  //           scrollDirection: Axis.horizontal,
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: map<Widget>(list, (index, url) {
-  //               return Container(
-  //                 width: ResponsiveFlutter.of(context).fontSize(0.7),
-  //                 height: ResponsiveFlutter.of(context).fontSize(0.7),
-  //                 margin: EdgeInsets.only(right: ResponsiveFlutter.of(context).fontSize(0.8)),
-  //                 decoration: BoxDecoration(
-  //                   shape: BoxShape.circle,
-  //                   color: AppStyles.whiteColor,
-  //                 ),
-  //               );
-  //             }),
-  //           ),
-  //         ),
-  //         AnimatedPositioned(
-  //           left: ResponsiveFlutter.of(context).fontSize(1.5) * informationIndex,
-  //           duration: Duration(milliseconds: 500),
-  //           curve: Curves.bounceOut,
-  //           child: Container(
-  //             width: ResponsiveFlutter.of(context).fontSize(0.7),
-  //             height: ResponsiveFlutter.of(context).fontSize(0.7),
-  //             margin: EdgeInsets.only(right: ResponsiveFlutter.of(context).fontSize(0.8)),
-  //             decoration: BoxDecoration(
-  //               shape: BoxShape.circle,
-  //               color: AppStyles.baseColor,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  _carouselSlider() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 25),
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              for (var item in listBanner)
+                Container(
+                  width: 8,
+                  height: 8,
+                  margin: EdgeInsets.only(right: 6),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Styles.whiteColor,
+                    border: Border.all(color: Styles.textColor30, width: 1.5),
+                  ),
+                ),
+            ]),
+          ),
+          AnimatedPositioned(
+            left: (15 * bannerIndex).toDouble(),
+            duration: Duration(milliseconds: 500),
+            curve: Curves.bounceOut,
+            child: Container(
+              width: 8,
+              height: 8,
+              margin: EdgeInsets.only(right: 6),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Styles.baseColor,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
