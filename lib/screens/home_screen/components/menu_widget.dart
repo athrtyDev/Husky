@@ -9,39 +9,38 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Styles.whiteColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Styles.textColor10,
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: 8),
-          Image.asset(
-            menu.icon,
-            height: 50,
-          ),
-          SizedBox(height: 8),
-          Container(
-            height: 27,
-            alignment: Alignment.center,
-            child: MyText.small(
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, '/${menu.type}_home_screen'),
+      child: Container(
+        height: 110,
+        decoration: BoxDecoration(
+          color: Styles.whiteColor,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Styles.baseColor.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 3),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              menu.icon,
+              height: 35,
+            ),
+            SizedBox(height: 15),
+            MyText.small(
               menu.name ?? "",
-              textColor: Styles.textColor,
+              textColor: Styles.baseColor,
+              fontWeight: Styles.wSemiBold,
               textAlign: TextAlign.center,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

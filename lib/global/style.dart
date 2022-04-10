@@ -4,8 +4,8 @@ class Styles {
   Styles._();
 
   // color
-  static const Color baseColor = const Color(0xff1679D5);
-  static Color baseColor10 = const Color(0xff1679D5).withOpacity(0.1);
+  static const Color baseColor = const Color(0xFF636bdb);
+  static Color baseColor70 = baseColor.withOpacity(0.7);
   static const Color textColor = const Color(0xFF003566);
   static Color textColor5 = const Color(0xFF003566).withOpacity(0.05);
   static Color textColor10 = const Color(0xFF003566).withOpacity(0.1);
@@ -26,20 +26,13 @@ class Styles {
   // gradient
   static Gradient baseGradient = LinearGradient(
     colors: [
-      const Color(0xFF003566),
-      const Color(0xFF1679D5),
-    ],
-    stops: [0.0, 1.0],
-  );
-  static Gradient baseGradient90 = LinearGradient(
-    colors: [
-      const Color(0xFF003566).withOpacity(0.9),
-      const Color(0xFF1679D5).withOpacity(0.9),
+      baseColor,
+      const Color(0xFF703ade),
     ],
     stops: [0.0, 1.0],
   );
 
-  static BoxDecoration myBoxDecoration = BoxDecoration(borderRadius: BorderRadius.circular(5), color: baseColor10);
+  static BoxDecoration myBoxDecoration = BoxDecoration(borderRadius: BorderRadius.circular(5), color: baseColor70);
 
   // FontWeight
   static const FontWeight wNormal = FontWeight.w300;

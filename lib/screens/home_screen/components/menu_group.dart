@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:husky/global/global.dart';
 import 'package:husky/screens/home_screen/components/menu_widget.dart';
 import 'package:husky/utils/constants.dart';
 

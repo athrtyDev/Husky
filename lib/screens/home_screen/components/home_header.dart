@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:husky/components/hsk_level_selection.dart';
 import 'package:husky/global/global.dart';
 import 'package:husky/components/my_text.dart';
 
@@ -8,53 +8,64 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20, top: 60),
+      decoration: BoxDecoration(
+          gradient: Styles.baseGradient,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.elliptical(30, 15),
+            bottomLeft: Radius.elliptical(30, 15),
+          )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(
-                "assets/images/ic_menu.svg",
-                color: Styles.textColor70,
-                height: 30,
-              ),
-              SizedBox(height: 20),
-              MyText.large("Сайн уу, Хулан", fontWeight: Styles.wSemiBold),
-              SizedBox(height: 10),
-              Wrap(
+              Row(
                 children: [
-                  MyText.large(
-                    "Энэ 7 хоногт",
-                    fontWeight: Styles.wNormal,
-                    textColor: Styles.textColor,
-                  ),
-                  MyText.large(
-                    " 27 ",
-                    fontWeight: Styles.wNormal,
-                    textColor: Styles.orangeColor,
-                  ),
-                  MyText.large(
-                    "шинэ ",
-                    fontWeight: Styles.wNormal,
-                    textColor: Styles.textColor,
-                  ),
-                  MyText.large(
-                    "үг сурсан байна.",
-                    fontWeight: Styles.wNormal,
-                    textColor: Styles.textColor,
+                  MyText.large("Сайн уу, Дэлгэрэх", fontWeight: Styles.wSemiBold, textColor: Styles.whiteColor),
+                  SizedBox(width: 5),
+                  Image.asset(
+                    "assets/images/ic_wave_hand.png",
+                    height: 20,
                   ),
                 ],
               ),
+              HskLevelSelection(),
             ],
           ),
-        ),
-        SizedBox(width: 5),
-        Image.asset(
-          "assets/images/bg_home_header.png",
-          height: 180,
-        ),
-      ],
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: Wrap(
+              children: [
+                MyText.large(
+                  "Энэ долоо хоногт",
+                  fontWeight: Styles.wNormal,
+                  textColor: Styles.whiteColor,
+                ),
+                MyText.large(
+                  " 27 ",
+                  fontWeight: Styles.wBold,
+                  textColor: Colors.yellow,
+                ),
+                MyText.large(
+                  "шинэ ",
+                  fontWeight: Styles.wNormal,
+                  textColor: Styles.whiteColor,
+                ),
+                MyText.large(
+                  "үг сурсан байна.",
+                  fontWeight: Styles.wNormal,
+                  textColor: Styles.whiteColor,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 25),
+        ],
+      ),
     );
   }
 }

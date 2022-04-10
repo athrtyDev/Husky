@@ -11,8 +11,9 @@ class HomeBanner extends StatefulWidget {
 
 class _HomeBannerState extends State<HomeBanner> {
   final List<String> listBanner = [
-    "https://studyinchinas.com/wp-content/uploads/2020/02/Study-in-Beijing-min-798x599.jpg",
+    "https://i.pinimg.com/736x/db/ac/32/dbac32146104c67946de2a6d857a57c0.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU7adimEWjO8NMlVfBl4_Cez1BlKr2Z51gTTqK_Spicbw4eqnQl0ltiMOiwWfVi4o7I3k&usqp=CAU",
+    "https://i.pinimg.com/736x/bf/06/3a/bf063a19d01d5fbdf38a8fd72c723815.jpg",
   ];
 
   int bannerIndex = 0;
@@ -69,33 +70,34 @@ class _HomeBannerState extends State<HomeBanner> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              for (var item in listBanner)
-                Container(
-                  width: 8,
+              for (int i = 0; i < listBanner.length; i++)
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  width: bannerIndex == i ? 13 : 9,
                   height: 8,
                   margin: EdgeInsets.only(right: 6),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Styles.whiteColor,
-                    border: Border.all(color: Styles.textColor30, width: 1.5),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    color: bannerIndex == i ? Styles.baseColor : Styles.whiteColor,
+                    border: Border.all(color: Styles.textColor30, width: 1),
                   ),
                 ),
             ]),
           ),
-          AnimatedPositioned(
-            left: (15 * bannerIndex).toDouble(),
-            duration: Duration(milliseconds: 500),
-            curve: Curves.bounceOut,
-            child: Container(
-              width: 8,
-              height: 8,
-              margin: EdgeInsets.only(right: 6),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Styles.baseColor,
-              ),
-            ),
-          ),
+          // AnimatedPositioned(
+          //   left: (15 * bannerIndex).toDouble(),
+          //   duration: Duration(milliseconds: 500),
+          //   curve: Curves.bounceOut,
+          //   child: Container(
+          //     width: 8,
+          //     height: 8,
+          //     margin: EdgeInsets.only(right: 6),
+          //     decoration: BoxDecoration(
+          //       shape: BoxShape.circle,
+          //       color: Styles.baseColor,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
