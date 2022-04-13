@@ -25,12 +25,12 @@ class VocabularyListItem extends StatelessWidget {
               children: [
                 MyText.medium(
                   "yi",
-                  textColor: index.isEven ? Styles.textColor : Styles.textColor,
+                  textColor: Styles.textColor,
                 ),
                 MyText.medium(
                   "一",
                   fontWeight: Styles.wBold,
-                  textColor: index.isEven ? Styles.textColor : Styles.textColor,
+                  textColor: Styles.textColor,
                 )
               ],
             ),
@@ -41,12 +41,12 @@ class VocabularyListItem extends StatelessWidget {
               children: [
                 MyText.medium(
                   "n",
-                  textColor: index.isEven ? Styles.textColor : Styles.textColor,
+                  textColor: Styles.textColor,
                 ),
                 MyText.medium(
                   "нэг",
                   fontWeight: Styles.wBold,
-                  textColor: index.isEven ? Styles.textColor : Styles.textColor,
+                  textColor: Styles.textColor,
                 )
               ],
             ),

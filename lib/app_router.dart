@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:husky/components/my_app_bar.dart';
+import 'package:husky/screens/grammar_home_screen/grammar_detail_screen.dart';
 import 'package:husky/screens/grammar_home_screen/grammar_home_screen.dart';
+import 'package:husky/screens/grammar_home_screen/grammar_list_screen.dart';
 import 'package:husky/screens/mockTest_home_screen/mockTest_home_screen.dart';
 import 'package:husky/screens/studyChina_home_screen/study_china_home_screen.dart';
 import 'package:husky/screens/vocabulary_home_screen/vocabulary_detail_screen.dart';
@@ -21,6 +23,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => VocabularyDetailScreen(args: settings.arguments));
       case '/grammar_home_screen':
         return MaterialPageRoute(builder: (_) => GrammarHomeScreen());
+      case '/grammar_list_screen':
+        return MaterialPageRoute(builder: (_) => GrammarListScreen());
+      case '/grammar_detail_screen':
+        return MaterialPageRoute(builder: (_) => GrammarDetailScreen());
+
       case '/mockTest_home_screen':
         return MaterialPageRoute(builder: (_) => MockTestHomeScreen());
       case '/studyChina_home_screen':

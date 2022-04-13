@@ -3,15 +3,15 @@ import 'package:husky/components/my_app_bar.dart';
 import 'package:husky/components/my_text.dart';
 import 'package:husky/global/global.dart';
 
-class VocabularyDetailScreen extends StatefulWidget {
+class GrammarDetailScreen extends StatefulWidget {
   final dynamic args;
-  const VocabularyDetailScreen({Key key, this.args}) : super(key: key);
+  const GrammarDetailScreen({Key key, this.args}) : super(key: key);
 
   @override
-  _VocabularyDetailScreenState createState() => _VocabularyDetailScreenState();
+  _GrammarDetailScreenState createState() => _GrammarDetailScreenState();
 }
 
-class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
+class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,38 +52,22 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                          width: 32,
+                          child: MyText.medium(
+                            "shi",
+                            textColor: Styles.textColor,
+                            fontWeight: Styles.wSemiBold,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                         MyText(
-                          "三",
+                          "貞",
                           textColor: Styles.textColor,
                           size: 32,
                         ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        MyText.medium(
-                          "san",
-                          textColor: Styles.textColor,
-                          fontWeight: Styles.wSemiBold,
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        MyText.medium(
-                          "Гурав",
-                          textColor: Styles.baseColor,
-                          fontWeight: Styles.wBold,
-                        ),
                       ],
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(color: Styles.baseColor, borderRadius: BorderRadius.circular(10)),
-                      child: MyText.small(
-                        "Нэр үг",
-                        textColor: Styles.whiteColor,
-                      ),
-                    )
                   ],
                 ),
                 Container(
@@ -94,6 +78,18 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                 )
               ],
             ),
+            SizedBox(height: 15),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              decoration: BoxDecoration(color: Styles.baseColor, borderRadius: BorderRadius.circular(5)),
+              child: MyText(
+                "Дүрмийн тайлбар ийм учиртай. \n1.Үг холбоно.\n2.Дагавар",
+                textColor: Styles.whiteColor,
+                size: 11,
+                height: 1.7,
+              ),
+            )
           ],
         ));
   }
@@ -110,9 +106,9 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
             ),
             Column(
               children: [
-                CustomStepper(type: "first", text: "San shi ba"),
-                CustomStepper(type: "", text: "三十八"),
-                CustomStepper(type: "last", text: "Гучин найм"),
+                CustomStepper(type: "first", text: "We shi"),
+                CustomStepper(type: "", text: "私中国人"),
+                CustomStepper(type: "last", text: "Би хятад хүн"),
               ],
             )
           ],
