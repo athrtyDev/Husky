@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:husky/app_router.dart';
-import 'package:husky/providers/counter_provider.dart';
+import 'package:husky/providers/tts_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<CounterProvider>(
-          create: (_) => CounterProvider(),
+        ChangeNotifierProvider<TtsProvider>(
+          create: (_) => TtsProvider(),
         ),
       ],
       child: MyApp(),
