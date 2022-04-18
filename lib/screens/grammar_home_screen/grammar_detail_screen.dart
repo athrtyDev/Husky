@@ -15,7 +15,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: "Шинэ үг"),
+      appBar: myAppBar(title: "Дүрэм"),
       backgroundColor: Styles.greyColor,
       body: Column(
         children: [
