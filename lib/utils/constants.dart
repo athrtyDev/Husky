@@ -5,6 +5,7 @@ class MenuType {
   static const grammar = "grammar";
   static const test = "mockTest";
   static const studyChina = "studyChina";
+  static const videoLesson = "videoLesson";
 }
 
 class ListMenu {
