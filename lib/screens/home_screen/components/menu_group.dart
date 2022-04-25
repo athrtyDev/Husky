@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:husky/screens/home_screen/components/menu_widget.dart';
-import 'package:husky/utils/constants.dart';
+import 'package:diyi/screens/home_screen/components/menu_widget.dart';
+import 'package:diyi/utils/constants.dart';
 
 class MenuGroup extends StatelessWidget {
   const MenuGroup();

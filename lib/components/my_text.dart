@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:husky/global/style.dart';
+import 'package:diyi/global/style.dart';
 
 class MyText extends StatelessWidget {
   final String text;

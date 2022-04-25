@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/providers/tts_provider.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/providers/tts_provider.dart';
 import 'package:provider/provider.dart';
 
 class StudyChinaHomeScreen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/screens/grammar_home_screen/components/grammar_levels.dart';
-import 'package:husky/screens/grammar_home_screen/components/grammar_sub_levels.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/screens/grammar_home_screen/components/grammar_levels.dart';
+import 'package:diyi/screens/grammar_home_screen/components/grammar_sub_levels.dart';
 
 class GrammarHomeScreen extends StatefulWidget {
   const GrammarHomeScreen();

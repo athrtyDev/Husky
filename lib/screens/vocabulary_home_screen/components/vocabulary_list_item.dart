@@ -1,10 +1,11 @@
+import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/global.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/global.dart';
 
 class VocabularyListItem extends StatelessWidget {
-  final int index;
-  const VocabularyListItem({this.index, Key key}) : super(key: key);
+  final Vocabulary vocabulary;
+  const VocabularyListItem({this.vocabulary});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +25,14 @@ class VocabularyListItem extends StatelessWidget {
             Column(
               children: [
                 MyText.medium(
-                  "yi",
+                  vocabulary.word,
                   textColor: Styles.textColor,
                 ),
-                MyText.medium(
-                  "一",
-                  fontWeight: Styles.wBold,
-                  textColor: Styles.textColor,
-                )
+                // MyText.medium(
+                //   "一",
+                //   fontWeight: Styles.wBold,
+                //   textColor: Styles.textColor,
+                // )
               ],
             ),
             SizedBox(
@@ -40,11 +41,11 @@ class VocabularyListItem extends StatelessWidget {
             Column(
               children: [
                 MyText.medium(
-                  "n",
+                  vocabulary.pronunciation,
                   textColor: Styles.textColor,
                 ),
                 MyText.medium(
-                  "нэг",
+                  vocabulary.translation,
                   fontWeight: Styles.wBold,
                   textColor: Styles.textColor,
                 )

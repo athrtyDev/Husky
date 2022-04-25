@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/screens/grammar_home_screen/components/grammar_list_item.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/screens/grammar_home_screen/components/grammar_list_item.dart';
 
 class GrammarListScreen extends StatefulWidget {
   final dynamic args;

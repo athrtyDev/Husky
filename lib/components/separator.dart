@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:husky/global/global.dart';
+import 'package:diyi/global/global.dart';
 
 class Separator extends StatelessWidget {
   const Separator();

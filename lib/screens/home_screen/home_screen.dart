@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/separator.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/screens/home_screen/components/home_banner.dart';
-import 'package:husky/screens/home_screen/components/home_exercise.dart';
-import 'package:husky/screens/home_screen/components/home_header.dart';
-import 'package:husky/screens/home_screen/components/menu_group.dart';
+import 'package:diyi/components/separator.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/screens/home_screen/components/home_banner.dart';
+import 'package:diyi/screens/home_screen/components/home_practice.dart';
+import 'package:diyi/screens/home_screen/components/home_header.dart';
+import 'package:diyi/screens/home_screen/components/menu_group.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen();

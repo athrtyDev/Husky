@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_level.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_level.dart';
 
 class GrammarLevels extends StatefulWidget {
   const GrammarLevels({Key key}) : super(key: key);

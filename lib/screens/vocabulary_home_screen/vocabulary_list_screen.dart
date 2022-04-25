@@ -1,7 +1,8 @@
+import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_list_item.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_list_item.dart';
 
 class VocabularyListScreen extends StatefulWidget {
   final dynamic args;
@@ -12,6 +13,14 @@ class VocabularyListScreen extends StatefulWidget {
 }
 
 class _VocabularyListScreenState extends State<VocabularyListScreen> {
+  List<Vocabulary> listVocabulary;
+
+  @override
+  void initState() {
+    listVocabulary = widget.args['listVocabulary'];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +32,9 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                for (int index = 0; index < 10; index++)
+                for (int index = 0; index < listVocabulary.length; index++)
                   VocabularyListItem(
-                    index: index,
+                    vocabulary: listVocabulary[index],
                   )
               ],
             ),

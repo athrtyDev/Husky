@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:husky/screens/grammar_home_screen/components/grammar_sub_level.dart';
+import 'package:diyi/screens/grammar_home_screen/components/grammar_sub_level.dart';
 
 class GrammarSubLevels extends StatefulWidget {
   const GrammarSubLevels({Key key}) : super(key: key);

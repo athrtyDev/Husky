@@ -1,5 +1,7 @@
+import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_sub_level.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_sub_level.dart';
+import 'package:provider/provider.dart';
 
 class VocabularySubLevels extends StatefulWidget {
   const VocabularySubLevels({Key key}) : super(key: key);
@@ -9,7 +11,6 @@ class VocabularySubLevels extends StatefulWidget {
 }
 
 class _VocabularySubLevelsState extends State<VocabularySubLevels> {
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,17 +18,10 @@ class _VocabularySubLevelsState extends State<VocabularySubLevels> {
       height: MediaQuery.of(context).size.height * 0.75,
       child: GridView.count(
         crossAxisCount: 3,
-        children: List.generate(15, (index) {
-          return InkWell(
-            onTap: () {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            child: VocabularySubLevel(
-              index: index + 1,
-              isSelected: _selectedIndex == index,
-            ),
+        children: List.generate(Provider.of<VocabularyProvider>(context).listGroup.length, (index) {
+          return VocabularySubLevel(
+            name: Provider.of<VocabularyProvider>(context).listGroup[index].name,
+            listVocabulary: Provider.of<VocabularyProvider>(context).listGroup[index].listVocabulary,
           );
         }),
       ),

@@ -1,6 +1,8 @@
+import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/global.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/global.dart';
+import 'package:provider/provider.dart';
 
 class VocabularyLevel extends StatelessWidget {
   final int index;
@@ -22,7 +24,7 @@ class VocabularyLevel extends StatelessWidget {
             ),
             SizedBox(height: 3),
             MyText.small(
-              "100 үг",
+              "${Provider.of<VocabularyProvider>(context).hskTotal.containsKey(index.toString()) ? Provider.of<VocabularyProvider>(context).hskTotal[index.toString()] : 0} үг",
               textColor: isSelected ? Styles.whiteColor : Styles.baseColor,
               fontWeight: Styles.wBold,
             )

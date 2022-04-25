@@ -1,8 +1,10 @@
+import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_levels.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_sub_levels.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_levels.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_sub_levels.dart';
+import 'package:provider/provider.dart';
 
 class VocabularyHomeScreen extends StatefulWidget {
   const VocabularyHomeScreen();
@@ -12,6 +14,16 @@ class VocabularyHomeScreen extends StatefulWidget {
 }
 
 class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  initData() async {
+    await Provider.of<VocabularyProvider>(context, listen: false).init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/style.dart';
-import 'package:husky/utils/constants.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
+import 'package:diyi/utils/constants.dart';
 
 class HomePractice extends StatefulWidget {
   @override
@@ -39,7 +39,10 @@ class _HomePracticeState extends State<HomePractice> {
         if (menuType == MenuType.videoLesson)
           return;
         else
-          Navigator.pushNamed(context, '/practice_screen', arguments: {'menu_type': menuType});
+          Navigator.pushNamed(context, '/practice_screen', arguments: {
+            'menu_type': menuType,
+            'menu_name': title,
+          });
       },
       child: Container(
         height: 50,

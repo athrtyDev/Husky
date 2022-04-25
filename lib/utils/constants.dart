@@ -1,4 +1,4 @@
-import 'package:husky/core/classes/Menu.dart';
+import 'package:diyi/core/classes/Menu.dart';
 
 class MenuType {
   static const vocabulary = "vocabulary";

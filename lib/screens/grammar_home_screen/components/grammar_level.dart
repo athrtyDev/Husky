@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/global.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/global.dart';
 
 class GrammarLevel extends StatelessWidget {
   final int index;

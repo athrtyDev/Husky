@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/style.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
 
 Widget myAppBar({
   String title,

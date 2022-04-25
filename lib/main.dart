@@ -1,14 +1,25 @@
+import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/app_router.dart';
-import 'package:husky/providers/tts_provider.dart';
+import 'package:diyi/app_router.dart';
+import 'package:diyi/providers/practice_provider.dart';
+import 'package:diyi/providers/tts_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<TtsProvider>(
           create: (_) => TtsProvider(),
+        ),
+        ChangeNotifierProvider<PracticeProvider>(
+          create: (_) => PracticeProvider(),
+        ),
+        ChangeNotifierProvider<VocabularyProvider>(
+          create: (_) => VocabularyProvider(),
         ),
       ],
       child: MyApp(),

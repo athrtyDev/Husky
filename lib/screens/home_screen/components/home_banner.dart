@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/style.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
 
 class HomeBanner extends StatefulWidget {
   @override

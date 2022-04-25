@@ -1,4 +1,4 @@
-package com.example.husky
+package com.example.diyi
 
 import io.flutter.embedding.android.FlutterActivity
 

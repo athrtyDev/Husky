@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/hsk_level_selection.dart';
-import 'package:husky/global/global.dart';
-import 'package:husky/components/my_text.dart';
+import 'package:diyi/components/hsk_level_selection.dart';
+import 'package:diyi/global/global.dart';
+import 'package:diyi/components/my_text.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader();

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136664747909",
+    "project_id": "husky-65046",
+    "storage_bucket": "husky-65046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136664747909:android:bb5aa46d788ec2a59c3eec",
+        "android_client_info": {
+          "package_name": "com.example.diyi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136664747909-lcprlj573s1a3fvfe0nb3tfssql9g8jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtTsgv7z0brVfgf80JdEAqX0B98oYnpZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136664747909-lcprlj573s1a3fvfe0nb3tfssql9g8jq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

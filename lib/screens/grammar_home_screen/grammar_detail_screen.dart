@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/components/my_text.dart';
-import 'package:husky/global/global.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/global.dart';
 
 class GrammarDetailScreen extends StatefulWidget {
   final dynamic args;

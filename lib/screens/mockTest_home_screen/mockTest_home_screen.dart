@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:husky/components/my_app_bar.dart';
-import 'package:husky/global/style.dart';
+import 'package:diyi/components/my_app_bar.dart';
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
 
 class MockTestHomeScreen extends StatefulWidget {
   const MockTestHomeScreen();
@@ -15,6 +16,9 @@ class _MockTestHomeScreenState extends State<MockTestHomeScreen> {
     return Scaffold(
       appBar: myAppBar(title: "Тест"),
       backgroundColor: Styles.greyColor,
+      body: Center(
+        child: MyText.xlarge("Тун удахгүй"),
+      ),
     );
   }
 }

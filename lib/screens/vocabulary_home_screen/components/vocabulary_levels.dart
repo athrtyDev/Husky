@@ -1,5 +1,7 @@
+import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:husky/screens/vocabulary_home_screen/components/vocabulary_level.dart';
+import 'package:diyi/screens/vocabulary_home_screen/components/vocabulary_level.dart';
+import 'package:provider/provider.dart';
 
 class VocabularyLevels extends StatefulWidget {
   const VocabularyLevels({Key key}) : super(key: key);
@@ -22,6 +24,7 @@ class _VocabularyLevelsState extends State<VocabularyLevels> {
                 setState(() {
                   _selectedIndex = index;
                 });
+                Provider.of<VocabularyProvider>(context, listen: false).getGroupList((index + 1).toString());
               },
               child: VocabularyLevel(
                 index: (index + 1),
