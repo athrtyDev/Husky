@@ -1,20 +1,20 @@
-class VocabularyGroup {
+class VocabularyLevel {
   String hsk;
-  String groupName;
+  int totalGroup;
   int totalVocabulary;
 
-  VocabularyGroup({this.hsk, this.groupName, this.totalVocabulary});
+  VocabularyLevel({this.hsk, this.totalGroup, this.totalVocabulary});
 
-  VocabularyGroup.fromJson(Map<String, dynamic> json) {
+  VocabularyLevel.fromJson(Map<String, dynamic> json) {
     hsk = json['hsk'];
-    groupName = json['groupName'];
+    totalGroup = json['totalGroup'];
     totalVocabulary = json['totalVocabulary'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['hsk'] = this.hsk;
-    data['groupName'] = this.groupName;
+    data['totalGroup'] = this.totalGroup;
     data['totalVocabulary'] = this.totalVocabulary;
     return data;
   }

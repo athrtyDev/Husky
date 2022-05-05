@@ -19,7 +19,7 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(title: "БНХАУ-д сурах"),
-      backgroundColor: Styles.greyColor,
+      backgroundColor: Styles.whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(

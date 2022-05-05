@@ -39,7 +39,7 @@ class _HomePracticeState extends State<HomePractice> {
         if (menuType == MenuType.videoLesson)
           return;
         else
-          Navigator.pushNamed(context, '/practice_screen', arguments: {
+          Navigator.pushNamed(context, '/practice_screens', arguments: {
             'menu_type': menuType,
             'menu_name': title,
           });
@@ -48,18 +48,7 @@ class _HomePracticeState extends State<HomePractice> {
         height: 50,
         padding: EdgeInsets.symmetric(horizontal: 25),
         margin: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-          color: Styles.whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: [
-            BoxShadow(
-              color: Styles.baseColor.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
+        decoration: Styles.myBoxDecoration,
         child: Row(
           children: [
             Container(

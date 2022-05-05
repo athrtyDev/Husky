@@ -78,26 +78,12 @@ class _HomeBannerState extends State<HomeBanner> {
                   margin: EdgeInsets.only(right: 6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: bannerIndex == i ? Styles.baseColor : Styles.whiteColor,
-                    border: Border.all(color: Styles.textColor30, width: 1),
+                    color: bannerIndex == i ? Styles.baseColor : Styles.textColor30,
+                    //border: Border.all(color: Styles.textColor30, width: 1),
                   ),
                 ),
             ]),
           ),
-          // AnimatedPositioned(
-          //   left: (15 * bannerIndex).toDouble(),
-          //   duration: Duration(milliseconds: 500),
-          //   curve: Curves.bounceOut,
-          //   child: Container(
-          //     width: 8,
-          //     height: 8,
-          //     margin: EdgeInsets.only(right: 6),
-          //     decoration: BoxDecoration(
-          //       shape: BoxShape.circle,
-          //       color: Styles.baseColor,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

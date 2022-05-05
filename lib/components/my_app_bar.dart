@@ -8,9 +8,12 @@ Widget myAppBar({
   List<Widget> actions,
 }) {
   return AppBar(
-    title: MyText.large(title ?? '', textColor: Styles.whiteColor),
+    title: MyText.large(title ?? '', textColor: Styles.textColor),
     actions: actions ?? [SizedBox(width: 50)],
+    iconTheme: IconThemeData(
+      color: Styles.baseColor,
+    ),
     shadowColor: Colors.transparent,
-    flexibleSpace: Container(decoration: BoxDecoration(gradient: Styles.baseGradient)),
+    flexibleSpace: Container(decoration: BoxDecoration(color: Styles.whiteColor)),
   );
 }

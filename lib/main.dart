@@ -1,3 +1,4 @@
+import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
@@ -20,6 +21,9 @@ void main() async {
         ),
         ChangeNotifierProvider<VocabularyProvider>(
           create: (_) => VocabularyProvider(),
+        ),
+        ChangeNotifierProvider<GrammarProvider>(
+          create: (_) => GrammarProvider(),
         ),
       ],
       child: MyApp(),

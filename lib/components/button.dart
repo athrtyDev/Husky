@@ -80,7 +80,7 @@ class Button extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 45,
+        height: 55,
         margin: margin ?? EdgeInsets.zero,
         padding: padding ?? EdgeInsets.all(3),
         decoration: BoxDecoration(

@@ -6,7 +6,7 @@ import 'package:diyi/components/progress_bar.dart';
 import 'package:diyi/components/word_big_container.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/practice_provider.dart';
-import 'package:diyi/screens/practice_screen/components/practice_choices.dart';
+import 'package:diyi/screens/practice_screens/components/practice_choices.dart';
 import 'package:provider/provider.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(title: menuName),
-      backgroundColor: Styles.greyColor,
+      backgroundColor: Styles.whiteColor,
       body: Column(
         children: [
           Padding(
@@ -54,7 +54,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 children: [
                   _status(),
                   SizedBox(height: 15),
-                  WordBigContainer(text: "爸爸", description: "bàbà"),
+                  WordBigContainer(text: "爸爸", pronunciation: "bàbà"),
                   SizedBox(height: 20),
                   MyText(
                     "Сонголтууд",

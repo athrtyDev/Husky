@@ -16,7 +16,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(title: "Дүрэм"),
-      backgroundColor: Styles.greyColor,
+      backgroundColor: Styles.whiteColor,
       body: Column(
         children: [
           _wordWidget(),

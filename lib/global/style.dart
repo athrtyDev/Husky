@@ -6,6 +6,7 @@ class Styles {
   // color
   static const Color baseColor = const Color(0xFF636bdb);
   static Color baseColor70 = baseColor.withOpacity(0.7);
+  static Color baseColor20 = baseColor.withOpacity(0.2);
   static const Color textColor = const Color(0xFF003566);
   static Color textColor5 = const Color(0xFF003566).withOpacity(0.05);
   static Color textColor10 = const Color(0xFF003566).withOpacity(0.1);
@@ -32,7 +33,19 @@ class Styles {
     stops: [0.0, 1.0],
   );
 
-  static BoxDecoration myBoxDecoration = BoxDecoration(borderRadius: BorderRadius.circular(5), color: baseColor70);
+  static BoxDecoration myBoxDecoration = BoxDecoration(
+    color: Styles.whiteColor,
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    border: Border.all(width: 1, color: Styles.baseColor20),
+    boxShadow: [
+      BoxShadow(
+        color: Styles.baseColor20,
+        spreadRadius: 1,
+        blurRadius: 2,
+        offset: Offset(0, 1),
+      )
+    ],
+  );
 
   // FontWeight
   static const FontWeight wNormal = FontWeight.w300;

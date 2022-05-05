@@ -13,18 +13,7 @@ class MenuWidget extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, '/${menu.type}_home_screen'),
       child: Container(
         height: 110,
-        decoration: BoxDecoration(
-          color: Styles.whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Styles.baseColor.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0, 3),
-            )
-          ],
-        ),
+        decoration: Styles.myBoxDecoration,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

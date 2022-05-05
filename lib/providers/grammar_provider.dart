@@ -1,23 +1,23 @@
 import 'package:diyi/core/api.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
+import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
 import 'package:flutter/foundation.dart';
 
-class VocabularyProvider with ChangeNotifier {
+class GrammarProvider with ChangeNotifier {
   List<VocabularyLevel> listLevel;
   List<VocabularyGroup> listAllGroup;
-  List<Vocabulary> listAllVocabulary;
+  List<Grammar> listAllGrammar;
 
   String selectedLevel;
   List<VocabularyGroup> listSelectedGroup;
-  List<Vocabulary> listSelectedVocabulary;
+  List<Grammar> listSelectedGrammar;
 
   Future<void> cacheAllData() async {
     Api _api = Api();
     if (listLevel == null) listLevel = await _api.getVocabularyLevel();
     if (listAllGroup == null) listAllGroup = await _api.getVocabularyGroup();
-    if (listAllVocabulary == null) listAllVocabulary = await _api.getAllVocabulary();
+    if (listAllGrammar == null) listAllGrammar = await _api.getAllGrammar();
     notifyListeners();
   }
 
@@ -33,10 +33,10 @@ class VocabularyProvider with ChangeNotifier {
   }
 
   void selectGroup(String groupName) {
-    listSelectedVocabulary = [];
-    for (var item in listAllVocabulary) {
+    listSelectedGrammar = [];
+    for (var item in listAllGrammar) {
       if (item.hsk == selectedLevel && item.group == groupName) {
-        listSelectedVocabulary.add(item);
+        listSelectedGrammar.add(item);
       }
     }
     notifyListeners();

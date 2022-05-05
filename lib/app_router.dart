@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
-import 'package:diyi/screens/grammar_home_screen/grammar_detail_screen.dart';
-import 'package:diyi/screens/grammar_home_screen/grammar_home_screen.dart';
-import 'package:diyi/screens/grammar_home_screen/grammar_list_screen.dart';
-import 'package:diyi/screens/mockTest_home_screen/mockTest_home_screen.dart';
-import 'package:diyi/screens/practice_screen/practice_screen.dart';
-import 'package:diyi/screens/studyChina_home_screen/study_china_home_screen.dart';
-import 'package:diyi/screens/vocabulary_home_screen/vocabulary_detail_screen.dart';
-import 'package:diyi/screens/vocabulary_home_screen/vocabulary_home_screen.dart';
-import 'package:diyi/screens/vocabulary_home_screen/vocabulary_list_screen.dart';
+import 'package:diyi/screens/grammar_screens/grammar_detail_screen.dart';
+import 'package:diyi/screens/grammar_screens/grammar_home_screen.dart';
+import 'package:diyi/screens/grammar_screens/grammar_list_screen.dart';
+import 'package:diyi/screens/mockTest_screens/mockTest_home_screen.dart';
+import 'package:diyi/screens/practice_screens/practice_screen.dart';
+import 'package:diyi/screens/studyChina_screens/study_china_home_screen.dart';
+import 'package:diyi/screens/vocabulary_screens/vocabulary_detail_screen.dart';
+import 'package:diyi/screens/vocabulary_screens/vocabulary_home_screen.dart';
+import 'package:diyi/screens/vocabulary_screens/vocabulary_list_screen.dart';
 import 'screens/home_screen/home_screen.dart';
 
 class AppRouter {
@@ -25,15 +25,15 @@ class AppRouter {
       case '/grammar_home_screen':
         return MaterialPageRoute(builder: (_) => GrammarHomeScreen());
       case '/grammar_list_screen':
-        return MaterialPageRoute(builder: (_) => GrammarListScreen());
+        return MaterialPageRoute(builder: (_) => GrammarListScreen(args: settings.arguments));
       case '/grammar_detail_screen':
-        return MaterialPageRoute(builder: (_) => GrammarDetailScreen());
+        return MaterialPageRoute(builder: (_) => GrammarDetailScreen(args: settings.arguments));
 
       case '/mockTest_home_screen':
         return MaterialPageRoute(builder: (_) => MockTestHomeScreen());
       case '/studyChina_home_screen':
         return MaterialPageRoute(builder: (_) => StudyChinaHomeScreen());
-      case '/practice_screen':
+      case '/practice_screens':
         return MaterialPageRoute(builder: (_) => PracticeScreen(args: settings.arguments));
       default:
         return MaterialPageRoute(

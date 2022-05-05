@@ -15,7 +15,7 @@ class _MockTestHomeScreenState extends State<MockTestHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(title: "Тест"),
-      backgroundColor: Styles.greyColor,
+      backgroundColor: Styles.whiteColor,
       body: Center(
         child: MyText.xlarge("Тун удахгүй"),
       ),
