@@ -34,7 +34,8 @@ class _HomeBannerState extends State<HomeBanner> {
             viewportFraction: 1,
             initialPage: bannerIndex,
             enableInfiniteScroll: true,
-            autoPlay: false,
+            autoPlay: true,
+            autoPlayAnimationDuration: Duration(seconds: 2),
             onPageChanged: (index, reason) {
               setState(() {
                 bannerIndex = index;

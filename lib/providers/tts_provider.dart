@@ -10,17 +10,50 @@ class TtsProvider with ChangeNotifier {
   String engine;
   bool get isIOS => !kIsWeb && Platform.isIOS;
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  TtsState ttsState = TtsState.stopped;
+
+  get isPlaying => ttsState == TtsState.playing;
+  get isStopped => ttsState == TtsState.stopped;
+  get isPaused => ttsState == TtsState.paused;
+  get isContinued => ttsState == TtsState.continued;
 
   void init() async {
     flutterTts = FlutterTts();
-    await flutterTts.setLanguage("zh-CN");
-    await flutterTts.setVolume(1);
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.setPitch(1);
     _setAwaitOptions();
     if (isAndroid) {
       _getDefaultEngine();
     }
+    flutterTts.setStartHandler(() {
+      print("Playing");
+      ttsState = TtsState.playing;
+    });
+
+    flutterTts.setCompletionHandler(() {
+      print("Complete");
+      ttsState = TtsState.stopped;
+    });
+
+    flutterTts.setCancelHandler(() {
+      print("Cancel");
+      ttsState = TtsState.stopped;
+    });
+
+    if (isIOS) {
+      flutterTts.setPauseHandler(() {
+        print("Paused");
+        ttsState = TtsState.paused;
+      });
+
+      flutterTts.setContinueHandler(() {
+        print("Continued");
+        ttsState = TtsState.continued;
+      });
+    }
+
+    flutterTts.setErrorHandler((msg) {
+      print("error: $msg");
+      ttsState = TtsState.stopped;
+    });
   }
 
   Future speak(String text) async {
@@ -36,7 +69,7 @@ class TtsProvider with ChangeNotifier {
   }
 
   Future _getDefaultEngine() async {
-    var engine = await flutterTts.getDefaultEngine;
+    engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
       print(engine);
     }
