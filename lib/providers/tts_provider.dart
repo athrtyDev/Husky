@@ -24,42 +24,48 @@ class TtsProvider with ChangeNotifier {
       _getDefaultEngine();
     }
     flutterTts.setStartHandler(() {
-      print("Playing");
+      print("Tts Playing");
       ttsState = TtsState.playing;
     });
 
     flutterTts.setCompletionHandler(() {
-      print("Complete");
+      print("Tts Complete");
       ttsState = TtsState.stopped;
     });
 
     flutterTts.setCancelHandler(() {
-      print("Cancel");
+      print("Tts Cancel");
       ttsState = TtsState.stopped;
     });
 
     if (isIOS) {
       flutterTts.setPauseHandler(() {
-        print("Paused");
+        print("Tts Paused");
         ttsState = TtsState.paused;
       });
 
       flutterTts.setContinueHandler(() {
-        print("Continued");
+        print("Tts Continued");
         ttsState = TtsState.continued;
       });
     }
 
     flutterTts.setErrorHandler((msg) {
-      print("error: $msg");
+      print("Tts error: $msg");
       ttsState = TtsState.stopped;
     });
+
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
   }
 
   Future speak(String text) async {
-    if (flutterTts == null) await init();
-
+    if (flutterTts == null) {
+      await init();
+    }
     if (text != null && text != "") {
+      print("speaking: $text");
       await flutterTts.speak(text);
     }
   }

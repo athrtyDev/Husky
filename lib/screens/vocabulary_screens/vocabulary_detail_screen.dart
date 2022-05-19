@@ -122,8 +122,8 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                         ),
                       ),
                 Container(
-                  width: 15,
-                  height: 15,
+                  width: 10,
+                  height: 10,
                   decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.baseColor70),
                 ),
                 type == "last"

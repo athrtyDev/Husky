@@ -1,140 +1,118 @@
+import 'package:diyi/components/button.dart';
+import 'package:diyi/components/word_big_container.dart';
+import 'package:diyi/core/classes/Grammar.dart';
+import 'package:diyi/providers/tts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
+import 'package:provider/provider.dart';
 
 class GrammarDetailScreen extends StatefulWidget {
   final dynamic args;
-  const GrammarDetailScreen({Key key, this.args}) : super(key: key);
+  const GrammarDetailScreen({this.args});
 
   @override
   _GrammarDetailScreenState createState() => _GrammarDetailScreenState();
 }
 
 class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
+  Grammar grammar;
+
+  @override
+  void initState() {
+    super.initState();
+    grammar = widget.args['grammar'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: "Дүрэм"),
+      appBar: myAppBar(title: "Шинэ үг"),
       backgroundColor: Styles.whiteColor,
-      body: Column(
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    WordBigContainer(
+                      text: grammar.grammar,
+                      pronunciation: grammar.pronunciation,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyText.large("Тайлбар:", fontWeight: Styles.wSemiBold),
+                          SizedBox(height: 5),
+                          Container(
+                            color: Styles.textColor10,
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            child: MyText.large(grammar.translation, fontWeight: Styles.wSemiBold),
+                          ),
+                          SizedBox(height: 40),
+                          if (grammar.example1 != null && grammar.example1 != "")
+                            MyText.large("Жишээ өгүүлбэр:", fontWeight: Styles.wSemiBold),
+                          SizedBox(height: 20),
+                          if (grammar.example1 != null && grammar.example1 != "")
+                            _exampleWidget(grammar.example1, grammar.example1Pronunciation, grammar.example1Translation),
+                          SizedBox(height: 20),
+                          if (grammar.example2 != null && grammar.example2 != "")
+                            _exampleWidget(grammar.example2, grammar.example2Pronunciation, grammar.example2Translation),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 15, bottom: 25),
+              child: Button(
+                text: "Дараагийнх",
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _exampleWidget(String example, String pronunciation, String translation) {
+    return InkWell(
+      onTap: () => Provider.of<TtsProvider>(context, listen: false).speak(example),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _wordWidget(),
-          _exampleWidget(),
-          SizedBox(
-            height: 20,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                exampleStepper("first", example),
+                exampleStepper("", pronunciation),
+                exampleStepper("last", translation),
+              ],
+            ),
           ),
-          _exampleWidget(),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Icon(
+              Icons.record_voice_over_rounded,
+              color: Styles.baseColor,
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget _wordWidget() {
-    return Container(
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(30),
-        width: MediaQuery.of(context).size.width * 0.9,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Styles.whiteColor),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-                    //   margin: EdgeInsets.symmetric(horizontal: 10),
-                    //   decoration: BoxDecoration(color: Styles.whiteColor, borderRadius: BorderRadius.circular(20)),
-                    //   child: MyText.medium("n"),
-                    // ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 32,
-                          child: MyText.medium(
-                            "shi",
-                            textColor: Styles.textColor,
-                            fontWeight: Styles.wSemiBold,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        MyText(
-                          "貞",
-                          textColor: Styles.textColor,
-                          size: 32,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  child: Icon(
-                    Icons.record_voice_over_rounded,
-                    color: Styles.baseColor,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 15),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-              decoration: BoxDecoration(color: Styles.baseColor, borderRadius: BorderRadius.circular(5)),
-              child: MyText(
-                "Дүрмийн тайлбар ийм учиртай. \n1.Үг холбоно.\n2.Дагавар",
-                textColor: Styles.whiteColor,
-                size: 11,
-                height: 1.7,
-              ),
-            )
-          ],
-        ));
-  }
-
-  Widget _exampleWidget() {
-    return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              children: [
-                CustomStepper(type: "first", text: "We shi"),
-                CustomStepper(type: "", text: "私中国人"),
-                CustomStepper(type: "last", text: "Би хятад хүн"),
-              ],
-            )
-          ],
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 50),
-          child: Icon(
-            Icons.record_voice_over_rounded,
-            color: Styles.baseColor,
-          ),
-        )
-      ],
-    ));
-  }
-}
-
-class CustomStepper extends StatelessWidget {
-  const CustomStepper({Key key, this.type, this.text}) : super(key: key);
-  final String type;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
+  exampleStepper(String type, String text) {
     return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             width: 20,
@@ -150,8 +128,8 @@ class CustomStepper extends StatelessWidget {
                         ),
                       ),
                 Container(
-                  width: 15,
-                  height: 15,
+                  width: 10,
+                  height: 10,
                   decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.baseColor70),
                 ),
                 type == "last"
@@ -166,11 +144,23 @@ class CustomStepper extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 10),
-            padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
-            width: MediaQuery.of(context).size.width * 0.25,
-            child: MyText.medium(text),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
+              child: type == "first"
+                  ? Wrap(
+                      children: [
+                        MyText.large(
+                          text.split(grammar.grammar)[0] ?? "",
+                          fontWeight: Styles.wNormal,
+                          letterSpacing: 0.5,
+                        ),
+                        MyText.large(grammar.grammar, textColor: Styles.orangeColor),
+                        MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
+                      ],
+                    )
+                  : MyText.large(text ?? "", fontWeight: Styles.wNormal),
+            ),
           )
         ],
       ),

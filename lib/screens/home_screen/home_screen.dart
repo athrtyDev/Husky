@@ -1,3 +1,4 @@
+import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/separator.dart';
 import 'package:diyi/global/style.dart';
@@ -14,6 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    baseFunctions.initFToast(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

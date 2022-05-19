@@ -40,7 +40,7 @@ class WordBigContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MyText(pronunciation ?? "", textColor: Styles.whiteColor, size: 20),
-                        MyText(text, textColor: Styles.whiteColor, size: 60),
+                        MyText(text, textColor: Styles.whiteColor, size: 60, fontWeight: FontWeight.w200),
                       ],
                     ),
                   ),

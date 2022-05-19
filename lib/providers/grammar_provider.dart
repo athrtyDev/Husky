@@ -1,22 +1,22 @@
 import 'package:diyi/core/api.dart';
 import 'package:diyi/core/classes/Grammar.dart';
-import 'package:diyi/core/classes/VocabularyGroup.dart';
-import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/core/classes/GrammarGroup.dart';
+import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:flutter/foundation.dart';
 
 class GrammarProvider with ChangeNotifier {
-  List<VocabularyLevel> listLevel;
-  List<VocabularyGroup> listAllGroup;
+  List<GrammarLevel> listLevel;
+  List<GrammarGroup> listAllGroup;
   List<Grammar> listAllGrammar;
 
   String selectedLevel;
-  List<VocabularyGroup> listSelectedGroup;
+  List<GrammarGroup> listSelectedGroup;
   List<Grammar> listSelectedGrammar;
 
   Future<void> cacheAllData() async {
     Api _api = Api();
-    if (listLevel == null) listLevel = await _api.getVocabularyLevel();
-    if (listAllGroup == null) listAllGroup = await _api.getVocabularyGroup();
+    if (listLevel == null) listLevel = await _api.getGrammarLevel();
+    if (listAllGroup == null) listAllGroup = await _api.getGrammarGroup();
     if (listAllGrammar == null) listAllGrammar = await _api.getAllGrammar();
     notifyListeners();
   }

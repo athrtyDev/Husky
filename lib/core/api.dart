@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diyi/core/classes/Grammar.dart';
+import 'package:diyi/core/classes/GrammarGroup.dart';
+import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
@@ -35,11 +37,29 @@ class Api {
   }
 
   Future<List<Grammar>> getAllGrammar() async {
-    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('Vocabulary').get();
+    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('Grammar').get();
     if (itemSnapshot.docs.isEmpty)
       return null;
     else
       return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
+  }
+
+  Future<List<GrammarLevel>> getGrammarLevel() async {
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('GrammarLevel').orderBy('hsk', descending: false).get();
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else
+      return itemSnapshot.docs.map((type) => new GrammarLevel.fromJson(type.data())).toList();
+  }
+
+  Future<List<GrammarGroup>> getGrammarGroup() async {
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('GrammarGroup').orderBy('groupName', descending: false).get();
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else
+      return itemSnapshot.docs.map((type) => new GrammarGroup.fromJson(type.data())).toList();
   }
 
   // Future<List<Activity>> getActivityByType(String activityType) async {

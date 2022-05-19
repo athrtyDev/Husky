@@ -24,7 +24,7 @@ class GrammarListItem extends StatelessWidget {
                 textColor: Styles.textColor,
               ),
               MyText.xlarge(
-                grammar.word,
+                grammar.grammar,
                 textColor: Styles.textColor,
               ),
             ],

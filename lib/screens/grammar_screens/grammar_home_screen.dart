@@ -1,7 +1,7 @@
 import 'package:diyi/components/group_widget.dart';
 import 'package:diyi/components/level_widget.dart';
-import 'package:diyi/core/classes/VocabularyGroup.dart';
-import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/core/classes/GrammarGroup.dart';
+import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -43,7 +43,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
   }
 
   _levels() {
-    List<VocabularyLevel> listLevel = Provider.of<GrammarProvider>(context, listen: true).listLevel;
+    List<GrammarLevel> listLevel = Provider.of<GrammarProvider>(context, listen: true).listLevel;
     if (listLevel == null) return SizedBox();
     return Row(
       children: [
@@ -54,7 +54,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
             },
             child: LevelWidget(
               name: "HSK ${level.hsk}",
-              total: level.totalVocabulary,
+              total: level.totalGrammar,
               isSelected: level.hsk == Provider.of<GrammarProvider>(context, listen: true).selectedLevel,
               type: "дүрэм",
             ),
@@ -64,7 +64,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
   }
 
   _groups() {
-    List<VocabularyGroup> listSelectedGroup = Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup;
+    List<GrammarGroup> listSelectedGroup = Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup;
     if (listSelectedGroup == null) return SizedBox();
     return Column(
       children: [
@@ -81,7 +81,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
             },
             child: GroupWidget(
               name: "Бүлэг ${group.groupName}",
-              total: group.totalVocabulary,
+              total: group.totalGrammar,
               studied: 0,
             ),
           ),
