@@ -36,6 +36,17 @@ class Api {
       return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
   }
 
+  Future<List<Vocabulary>> getVocabularyByLevel(String hskLevel) async {
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('Vocabulary').where('hsk', isEqualTo: hskLevel).get();
+
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else {
+      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
+    }
+  }
+
   Future<List<Grammar>> getAllGrammar() async {
     QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('Grammar').get();
     if (itemSnapshot.docs.isEmpty)
