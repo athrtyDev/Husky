@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
@@ -52,9 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<UserCredential> signInWithFacebook() async {
+  Future<dynamic> signInWithFacebook() async {
     // Trigger the sign-in flow
     final _instance = FacebookAuth.instance;
+    // print("instance:: ${_instance.login()}");
     final result = await _instance.login();
     // final LoginResult loginResult = await FacebookAuth.instance.login();
     print("helloo1:: ${result.status}");

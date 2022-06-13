@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.generatedRoute,
       //initialRoute: ('/splash'),
-      initialRoute: ('/home'),
+      initialRoute: ('/login'),
     );
   }
 }
