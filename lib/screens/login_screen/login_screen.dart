@@ -1,5 +1,7 @@
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
+import 'package:diyi/screens/login_screen/components/login_container.dart';
+import 'package:diyi/screens/login_screen/components/login_tile.dart';
 import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -19,55 +21,45 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              Container(
-                margin: EdgeInsets.all(30),
-                child: InkWell(
-                  onTap: () {
-                    // todo login
-                    // signInWithFacebook();
-                    signInWithFacebook1();
-                  },
+              Positioned(
+                  top: 50,
+                  left: MediaQuery.of(context).size.width * 0.1,
                   child: Container(
-                    padding: EdgeInsets.all(30),
-                    decoration: BoxDecoration(color: Styles.baseColor, borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        Icon(Icons.phone),
-                        SizedBox(width: 10),
-                        MyText.medium(
-                          "Facebook нэвтрэх",
-                          textColor: Styles.whiteColor,
-                        )
-                      ],
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Image.asset(
+                      "assets/images/bg_login_icon.png",
+                      fit: BoxFit.fitWidth,
                     ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(30),
-                child: InkWell(
-                  onTap: () {
-                    signInWithGoogle();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(30),
-                    decoration: BoxDecoration(color: Styles.baseColor, borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        Icon(Icons.phone),
-                        SizedBox(width: 10),
-                        MyText.medium(
-                          "Google нэвтрэх",
-                          textColor: Styles.whiteColor,
-                        )
-                      ],
+                  )),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: LoginContainer(
+                  child: [
+                    LoginTile(
+                      login: () {
+                        signInWithFacebook1();
+                      },
+                      icon: "assets/icons/ic_login_facebook.png",
+                      title: "Facebook-р нэвтрэх",
                     ),
-                  ),
+                    LoginTile(
+                      login: () {
+                        signInWithGoogle();
+                      },
+                      icon: "assets/icons/ic_login_google.png",
+                      title: "Google-р нэвтрэх",
+                    ),
+                    SizedBox(height: 5),
+                    MyText.medium(
+                      "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
+                      textColor: Styles.whiteColor,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-              ),
+              )
             ],
           ),
         ),
