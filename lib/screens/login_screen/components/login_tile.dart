@@ -1,7 +1,6 @@
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginTile extends StatelessWidget {
   final Function login;
@@ -15,7 +14,6 @@ class LoginTile extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: InkWell(
         onTap: () {
-          // signInWithGoogle();
           login();
         },
         child: Container(

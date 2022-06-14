@@ -1,13 +1,21 @@
+import 'package:diyi/providers/user_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/hsk_level_selection.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/components/my_text.dart';
+import 'package:provider/provider.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader();
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<UserProvider>(context, listen: false).user;
+    String name;
+    if (user != null) {
+      name = user.displayName;
+    }
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20, top: 60),
       decoration: BoxDecoration(
@@ -24,7 +32,8 @@ class HomeHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  MyText.large("Сайн уу, Дэлгэрэх", fontWeight: Styles.wSemiBold, textColor: Styles.whiteColor),
+                  MyText.large(name != null ? "Сайн уу, $name" : "Сайн уу",
+                      fontWeight: Styles.wSemiBold, textColor: Styles.whiteColor),
                   SizedBox(width: 5),
                   Image.asset(
                     "assets/images/ic_wave_hand.png",
@@ -34,6 +43,17 @@ class HomeHeader extends StatelessWidget {
               ),
               HskLevelSelection(),
             ],
+          ),
+          InkWell(
+            onTap: () {
+              Provider.of<UserProvider>(context, listen: false).logout();
+            },
+            child: MyText.medium(
+              "Logout",
+              textColor: Styles.whiteColor,
+              fontWeight: Styles.wBold,
+              decoration: TextDecoration.underline,
+            ),
           ),
           SizedBox(height: 20),
           Padding(
