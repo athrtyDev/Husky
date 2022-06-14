@@ -1,6 +1,10 @@
 import 'package:diyi/providers/grammar_provider.dart';
+import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
+import 'package:diyi/screens/home_screen/home_screen.dart';
+import 'package:diyi/screens/login_screen/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
 import 'package:diyi/providers/tts_provider.dart';
@@ -13,6 +17,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        Provider<UserProvider>(
+          create: (_) => UserProvider(FirebaseAuth.instance),
+        ),
+        StreamProvider(create: (context) => context.read<UserProvider>().authState, initialData: null),
         ChangeNotifierProvider<TtsProvider>(
           create: (_) => TtsProvider(),
         ),
@@ -48,8 +56,22 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(fontFamily: 'Mulish'),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.generatedRoute,
-      //initialRoute: ('/splash'),
-      initialRoute: ('/home'),
+      // initialRoute: isAuth(context) ? ('/home') : ('/login'),
+      home: AuthWrapper(),
     );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+    if (firebaseUser != null) {
+      return HomeScreen();
+    } else {
+      return LoginScreen();
+    }
   }
 }

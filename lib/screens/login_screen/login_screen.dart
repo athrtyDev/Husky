@@ -1,0 +1,67 @@
+import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/global.dart';
+import 'package:diyi/providers/user_provider.dart';
+import 'package:diyi/screens/login_screen/components/login_container.dart';
+import 'package:diyi/screens/login_screen/components/login_tile.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Stack(
+            children: [
+              Positioned(
+                  top: 50,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Image.asset(
+                      "assets/images/bg_login_icon.png",
+                      fit: BoxFit.fitWidth,
+                    ),
+                  )),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: LoginContainer(
+                  child: [
+                    LoginTile(
+                      login: () {
+                        Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
+                      },
+                      icon: "assets/icons/ic_login_facebook.png",
+                      title: "Facebook-р нэвтрэх",
+                    ),
+                    LoginTile(
+                      login: () {
+                        Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
+                      },
+                      icon: "assets/icons/ic_login_google.png",
+                      title: "Google-р нэвтрэх",
+                    ),
+                    SizedBox(height: 5),
+                    MyText.medium(
+                      "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
+                      textColor: Styles.whiteColor,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
