@@ -21,9 +21,6 @@ void main() async {
           create: (_) => UserProvider(FirebaseAuth.instance),
         ),
         StreamProvider(create: (context) => context.read<UserProvider>().authState, initialData: null),
-        // ChangeNotifierProvider<UserProvider>(
-        //   create: (_) => UserProvider(FirebaseAuth.instance),
-        // ),
         ChangeNotifierProvider<TtsProvider>(
           create: (_) => TtsProvider(),
         ),
@@ -59,7 +56,6 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(fontFamily: 'Mulish'),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.generatedRoute,
-      //initialRoute: ('/splash'),
       // initialRoute: isAuth(context) ? ('/home') : ('/login'),
       home: AuthWrapper(),
     );
