@@ -1,12 +1,12 @@
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
+import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:diyi/screens/home_screen/home_screen.dart';
 import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
-import 'package:diyi/providers/practice_provider.dart';
 import 'package:diyi/providers/tts_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

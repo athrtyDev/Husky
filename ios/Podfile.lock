@@ -675,8 +675,8 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - google_sign_in_ios (0.0.1):
-    - Flutter
-    - GoogleSignIn (~> 6.2)
+      - Flutter
+      - GoogleSignIn (~> 6.2)
   - GoogleDataTransport (9.1.4):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
