@@ -632,7 +632,7 @@ PODS:
     - Firebase/Auth (= 8.15.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.15.0):
+  - firebase_core (1.17.1):
     - Firebase/CoreOnly (= 8.15.0)
     - Flutter
   - FirebaseAuth (8.15.0):
@@ -675,8 +675,8 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - google_sign_in_ios (0.0.1):
-      - Flutter
-      - GoogleSignIn (~> 6.2)
+    - Flutter
+    - GoogleSignIn (~> 6.2)
   - GoogleDataTransport (9.1.4):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -848,7 +848,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 19e2a878556c2ee4f20486dc406e582783cd7578
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
   firebase_auth: a6470a6974d42f83117932c913aecb926182f907
-  firebase_core: fa19947d8db1c0a62d8872c45039b3113829cd2e
+  firebase_core: 318de541b0e61d3f24262982a3f0b54afe72439b
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
@@ -874,6 +874,6 @@ SPEC CHECKSUMS:
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 1f0e16a78a0b1dc3bf463d757873b796accefcc5
+PODFILE CHECKSUM: 1f3b729933df783d00939f7001628eb680d18119
 
 COCOAPODS: 1.11.2
