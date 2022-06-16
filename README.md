@@ -17,5 +17,6 @@ samples, guidance on mobile development, and a full API reference.
 
 flutter build appbundle --release
 
-pod install --repo-update
-arch -x86_64 pod install --repo-update
+1. delete pubspec.lock, podfile.lock
+2. flutter clean && flutter pub get
+3. arch -x86_64 pod install --repo-update
