@@ -1,3 +1,4 @@
+import 'package:diyi/components/loader.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       appBar: myAppBar(title: menuName),
       backgroundColor: Styles.whiteColor,
       body: listPractice == null
-          ? SizedBox()
+          ? Loader()
           : Column(
               children: [
                 Padding(

@@ -13,6 +13,8 @@ class PracticeProvider with ChangeNotifier {
   bool isAnswered;
 
   void initTest() async {
+    listPractice = null;
+    notifyListeners();
     await initPracticeQuestions(hskLevel: "1");
     questionIndex = 0;
     totalQuestions = Constants.practiceVocabularyQuestions;

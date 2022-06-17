@@ -1,4 +1,5 @@
 import 'package:diyi/components/level_widget.dart';
+import 'package:diyi/components/loader.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
@@ -36,7 +37,10 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
           child: Column(
             children: [
               SingleChildScrollView(scrollDirection: Axis.horizontal, child: _levels()),
-              Expanded(child: SingleChildScrollView(child: _groups())),
+              Expanded(
+                  child: Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup == null
+                      ? Loader()
+                      : SingleChildScrollView(child: _groups())),
             ],
           ),
         ));
