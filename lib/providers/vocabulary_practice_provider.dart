@@ -51,20 +51,25 @@ class PracticeProvider with ChangeNotifier {
     for (int i = 0; i < Constants.practiceVocabularyQuestions; i++) {
       Vocabulary correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
       listAllExceptAsked.remove(correctVocabulary);
+      bool askChinese = Random().nextBool();
+
       // populate choices
       List<PracticeChoice> listChoice = [];
       // add correct choice
       listChoice.add(PracticeChoice(
-        text: correctVocabulary.translation,
+        text: askChinese ? correctVocabulary.translation : "${correctVocabulary.word} (${correctVocabulary.pronunciation})",
         isCorrect: true,
       ));
+
       // add wrong choices
       List<Vocabulary> listAllExceptCorrect = List.from(listAll);
       listAllExceptCorrect.remove(correctVocabulary);
       listAllExceptCorrect.shuffle();
       for (int c = 0; c < 3; c++) {
         listChoice.add(PracticeChoice(
-          text: listAllExceptCorrect[c].translation,
+          text: askChinese
+              ? listAllExceptCorrect[c].translation
+              : "${listAllExceptCorrect[c].word} (${listAllExceptCorrect[c].pronunciation})",
           isCorrect: false,
         ));
       }
@@ -72,8 +77,8 @@ class PracticeProvider with ChangeNotifier {
 
       // practice model
       PracticeModel practice = PracticeModel(
-        question: correctVocabulary.word,
-        questionDesc: correctVocabulary.pronunciation,
+        question: askChinese ? correctVocabulary.word : correctVocabulary.translation,
+        questionDesc: askChinese ? correctVocabulary.pronunciation : null,
         listChoice: listChoice,
       );
       listPractice.add(practice);

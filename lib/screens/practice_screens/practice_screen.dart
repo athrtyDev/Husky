@@ -62,8 +62,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         _status(),
                         SizedBox(height: 15),
                         WordBigContainer(
-                            text: listPractice[Provider.of<PracticeProvider>(context).questionIndex].questionDesc,
-                            pronunciation: listPractice[Provider.of<PracticeProvider>(context).questionIndex].question),
+                            text: listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
+                            pronunciation: listPractice[Provider.of<PracticeProvider>(context).questionIndex].questionDesc),
                         SizedBox(height: 20),
                         MyText(
                           "Сонголтууд",
@@ -90,23 +90,23 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         ),
                         SizedBox(height: 20),
                         Center(
-                          child: Provider.of<PracticeProvider>(context, listen: true).isAnswered
-                              ? Button(
-                                  text: "Дараагийнх",
-                                  width: 200,
-                                  onClick: () {
-                                    if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                        Provider.of<PracticeProvider>(context, listen: false).totalQuestions)
-                                      print('aaaaa');
-                                    else
-                                      Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
-                                  },
-                                )
-                              : Button.secondary(
-                                  text: "Дараагийнх",
-                                  width: 200,
-                                ),
-                        ),
+                            child: Provider.of<PracticeProvider>(context, listen: true).isAnswered
+                                ? Button(
+                                    text: (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
+                                            Provider.of<PracticeProvider>(context, listen: false).totalQuestions)
+                                        ? "Дуусгах"
+                                        : "Дараагийнх",
+                                    width: 200,
+                                    onClick: () {
+                                      if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
+                                          Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
+                                        print('aaaaa');
+                                      } else {
+                                        Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
+                                      }
+                                    },
+                                  )
+                                : SizedBox()),
                       ],
                     ),
                   ),

@@ -67,7 +67,7 @@ class _PracticeChoicesState extends State<PracticeChoices> {
             SizedBox(width: 25),
             MyText.large(
               widget.choice.text,
-              fontWeight: Styles.wSemiBold,
+              fontWeight: Styles.wNormal,
               textColor: Provider.of<PracticeProvider>(context).isAnswered
                   ? (widget.choice.status == ChoiceStatus.correct
                       ? Styles.greenColor
