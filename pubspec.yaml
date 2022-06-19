@@ -43,6 +43,7 @@ dependencies:
   flutter_facebook_auth: ^4.3.4+2
   firebase_auth: ^3.3.19
   google_sign_in: ^5.3.3
+  percent_indicator: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -16,10 +16,12 @@ class PracticeChoice {
   String text;
   bool isCorrect;
   ChoiceStatus status;
+  dynamic data;
 
   PracticeChoice({
     this.text,
     this.isCorrect,
     this.status = ChoiceStatus.undefined,
+    this.data,
   });
 }

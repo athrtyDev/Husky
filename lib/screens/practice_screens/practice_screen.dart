@@ -100,7 +100,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                     onClick: () {
                                       if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
                                           Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
-                                        print('aaaaa');
+                                        Navigator.pushNamed(context, '/practice_result_screens');
                                       } else {
                                         Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
                                       }

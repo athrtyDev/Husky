@@ -11,6 +11,7 @@ class PracticeProvider with ChangeNotifier {
   int totalQuestions;
   int totalCorrectAnswers;
   bool isAnswered;
+  List<Vocabulary> listWrongVocabulary;
 
   void initTest() async {
     listPractice = null;
@@ -20,6 +21,7 @@ class PracticeProvider with ChangeNotifier {
     totalQuestions = Constants.practiceVocabularyQuestions;
     totalCorrectAnswers = 0;
     isAnswered = false;
+    listWrongVocabulary = [];
     notifyListeners();
   }
 
@@ -30,7 +32,10 @@ class PracticeProvider with ChangeNotifier {
       choice.status = ChoiceStatus.correct;
     } else {
       for (var item in listPractice[questionIndex].listChoice) {
-        if (item.isCorrect) item.status = ChoiceStatus.correct;
+        if (item.isCorrect) {
+          item.status = ChoiceStatus.correct;
+          listWrongVocabulary.add(item.data);
+        }
       }
       choice.status = ChoiceStatus.wrong;
     }
@@ -59,6 +64,7 @@ class PracticeProvider with ChangeNotifier {
       listChoice.add(PracticeChoice(
         text: askChinese ? correctVocabulary.translation : "${correctVocabulary.word} (${correctVocabulary.pronunciation})",
         isCorrect: true,
+        data: correctVocabulary,
       ));
 
       // add wrong choices
@@ -71,6 +77,7 @@ class PracticeProvider with ChangeNotifier {
               ? listAllExceptCorrect[c].translation
               : "${listAllExceptCorrect[c].word} (${listAllExceptCorrect[c].pronunciation})",
           isCorrect: false,
+          data: listAllExceptCorrect[c],
         ));
       }
       listChoice.shuffle();
