@@ -6,7 +6,10 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(),
+      child: Image.asset(
+        "assets/images/loader.gif",
+        height: 70,
+      ),
     );
   }
 }
