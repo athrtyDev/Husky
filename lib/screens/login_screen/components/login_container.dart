@@ -13,10 +13,10 @@ class LoginContainer extends StatelessWidget {
     }
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      decoration: BoxDecoration(
-          gradient: Styles.baseGradient,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-      padding: EdgeInsets.only(left: 20, right: 20, top: 40),
+      // decoration: BoxDecoration(
+      //     gradient: Styles.baseGradient,
+      //     borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
       child: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
