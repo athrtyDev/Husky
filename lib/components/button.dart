@@ -55,8 +55,8 @@ class Button extends StatelessWidget {
     this.icon,
     this.iconSvg,
     Null Function() handleClear,
-  })  : buttonColor = Styles.greyColor,
-        textColor = Styles.textColor50,
+  })  : buttonColor = Styles.textColor30,
+        textColor = Styles.whiteColor,
         border = Border.all(width: 0, color: Colors.transparent),
         hasShadow = false;
 
