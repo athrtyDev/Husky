@@ -1,5 +1,4 @@
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/screens/login_screen/components/login_container.dart';
 import 'package:diyi/screens/login_screen/components/login_tile.dart';
@@ -18,15 +17,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Styles.baseColor,
-              Styles.baseColor.withOpacity(0.7),
-            ],
-            stops: [0.0, 1.0],
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     colors: [
+        //       Styles.baseColor,
+        //       Styles.baseColor.withOpacity(0.7),
+        //     ],
+        //     stops: [0.0, 1.0],
+        //   ),
+        // ),
         child: SafeArea(
           bottom: false,
           child: Center(
@@ -63,9 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 5),
                       MyText.medium(
                         "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
-                        textColor: Styles.whiteColor,
+                        // textColor: Styles.whiteColor,
                         textAlign: TextAlign.center,
-                      )
+                      ),
+                      SizedBox(height: 80),
                     ],
                   ),
                 )

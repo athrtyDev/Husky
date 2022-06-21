@@ -1,11 +1,14 @@
+import 'package:diyi/global/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class UserProvider {
+class UserProvider with ChangeNotifier {
   FirebaseAuth _auth;
   UserProvider(this._auth);
   User get user => _auth.currentUser;
+  String hsk = Hsk.hsk1;
 
   Stream<User> get authState => _auth.authStateChanges();
 
@@ -46,5 +49,10 @@ class UserProvider {
     } catch (e) {
       print("error $e");
     }
+  }
+
+  void setHsk(String hsk) {
+    this.hsk = hsk;
+    notifyListeners();
   }
 }
