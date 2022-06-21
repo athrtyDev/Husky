@@ -1,30 +1,28 @@
+import 'package:diyi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/global/global.dart';
+import 'package:provider/provider.dart';
 
-class HskLevelSelection extends StatelessWidget {
+import '../global/style.dart';
+
+class HskLevelSelection extends StatefulWidget {
+  @override
+  State<HskLevelSelection> createState() => _HskLevelSelectionState();
+}
+
+class _HskLevelSelectionState extends State<HskLevelSelection> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // TODO switch hsk level
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        child: Row(
-          children: [
-            MyText.large(
-              "HSK 1",
-              textColor: Styles.whiteColor,
-              fontWeight: Styles.wSemiBold,
-            ),
-            SizedBox(width: 5),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: Styles.whiteColor,
-            )
-          ],
-        ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      decoration: BoxDecoration(
+        color: Styles.whiteColor.withOpacity(0.1),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
+      child: MyText(
+        "HSK ${Provider.of<UserProvider>(context, listen: true).hsk}",
+        textColor: Styles.whiteColor,
+        fontWeight: Styles.wBold,
       ),
     );
   }

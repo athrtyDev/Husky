@@ -2,8 +2,7 @@ import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
-import 'package:diyi/screens/home_screen/home_screen.dart';
-import 'package:diyi/screens/login_screen/login_screen.dart';
+import 'package:diyi/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
@@ -17,7 +16,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<UserProvider>(
+        ChangeNotifierProvider<UserProvider>(
           create: (_) => UserProvider(FirebaseAuth.instance),
         ),
         StreamProvider(create: (context) => context.read<UserProvider>().authState, initialData: null),
@@ -67,11 +66,11 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-    if (firebaseUser != null) {
-      return HomeScreen();
-    } else {
-      return LoginScreen();
-    }
+    //final firebaseUser = context.watch<User>();
+    //if (firebaseUser != null) {
+    return MainScreen();
+    // } else {
+    //   return LoginScreen();
+    // }
   }
 }

@@ -1,7 +1,7 @@
+import 'package:diyi/components/hsk_level_selection.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:diyi/components/hsk_level_selection.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:provider/provider.dart';
@@ -43,17 +43,6 @@ class HomeHeader extends StatelessWidget {
               ),
               HskLevelSelection(),
             ],
-          ),
-          InkWell(
-            onTap: () {
-              Provider.of<UserProvider>(context, listen: false).logout();
-            },
-            child: MyText.medium(
-              "Logout",
-              textColor: Styles.whiteColor,
-              fontWeight: Styles.wBold,
-              decoration: TextDecoration.underline,
-            ),
           ),
           SizedBox(height: 20),
           Padding(

@@ -1,7 +1,6 @@
 import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/separator.dart';
-import 'package:diyi/global/style.dart';
 import 'package:diyi/screens/home_screen/components/home_banner.dart';
 import 'package:diyi/screens/home_screen/components/home_practice.dart';
 import 'package:diyi/screens/home_screen/components/home_header.dart';
@@ -23,29 +22,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Styles.whiteColor,
-      body: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HomeHeader(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Separator(),
-                    MenuGroup(),
-                  ],
-                ),
-              ),
-              HomeBanner(),
-              HomePractice(),
-            ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HomeHeader(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Separator(),
+                MenuGroup(),
+              ],
+            ),
           ),
-        ),
+          HomeBanner(),
+          HomePractice(),
+        ],
       ),
     );
   }

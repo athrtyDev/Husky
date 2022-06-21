@@ -129,7 +129,7 @@ class _PracticeResultScreenState extends State<PracticeResultScreen> {
             child: Button(
               text: "Дуусгах",
               onClick: () {
-                Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil("/main", (route) => false);
               },
             ),
           ),

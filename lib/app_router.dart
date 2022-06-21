@@ -1,4 +1,5 @@
 import 'package:diyi/screens/login_screen/login_screen.dart';
+import 'package:diyi/screens/main_screen.dart';
 import 'package:diyi/screens/practice_screens/practice_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -11,15 +12,14 @@ import 'package:diyi/screens/studyChina_screens/study_china_home_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_detail_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_home_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_list_screen.dart';
-import 'screens/home_screen/home_screen.dart';
 
 class AppRouter {
   Route<dynamic> generatedRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case '/home':
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+      case '/main':
+        return MaterialPageRoute(builder: (_) => MainScreen());
       case '/vocabulary_home_screen':
         return MaterialPageRoute(builder: (_) => VocabularyHomeScreen());
       case '/vocabulary_list_screen':
