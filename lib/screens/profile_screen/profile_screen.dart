@@ -26,9 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 _profileWidget(),
-                SizedBox(height: 40),
+                Expanded(child: SizedBox()),
                 _hskLevelWidget(),
-                SizedBox(height: 40),
+                Expanded(child: SizedBox()),
                 _listSettingWidget(),
                 Expanded(child: SizedBox()),
                 Button.secondary(
