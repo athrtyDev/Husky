@@ -1,4 +1,6 @@
 import 'package:diyi/components/button.dart';
+import 'package:diyi/components/tts_speed_icon.dart';
+import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/components/word_big_container.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/providers/tts_provider.dart';
@@ -34,7 +36,7 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: title),
+      appBar: myAppBar(title: title, actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -104,10 +106,7 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(
-              Icons.record_voice_over_rounded,
-              color: Styles.baseColor,
-            ),
+            child: VoiceIcon(isWhite: false),
           )
         ],
       ),

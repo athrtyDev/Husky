@@ -1,6 +1,6 @@
 import 'package:diyi/components/button.dart';
-import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/components/my_text.dart';
+import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/tts_provider.dart';
@@ -158,9 +158,8 @@ class _PracticeResultScreenState extends State<PracticeResultScreen> {
               ],
             ),
             SizedBox(width: 30),
-            MyText.medium("${vocabulary.translation}"),
-            Expanded(child: SizedBox()),
-            Icon(Icons.record_voice_over_rounded, color: Styles.textColor50, size: 20),
+            Expanded(child: MyText.medium("${vocabulary.translation}")),
+            VoiceIcon(isWhite: false),
           ],
         ),
       ),

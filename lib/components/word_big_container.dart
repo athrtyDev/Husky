@@ -1,3 +1,4 @@
+import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/utils/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
@@ -40,17 +41,17 @@ class WordBigContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (pronunciation != null) MyText(pronunciation, textColor: Styles.whiteColor, size: 20),
-                        MyText(text, textColor: Styles.whiteColor, size: 60, fontWeight: FontWeight.w200),
+                        MyText(
+                          text,
+                          textColor: Styles.whiteColor,
+                          size: pronunciation != null ? 60 : 40,
+                          fontWeight: FontWeight.w200,
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),
-                  Positioned(
-                      top: 30,
-                      right: 30,
-                      child: Icon(
-                        Icons.record_voice_over_rounded,
-                        color: Styles.whiteColor,
-                      ))
+                  Positioned(top: 30, right: 30, child: VoiceIcon())
                 ],
               ),
             ),

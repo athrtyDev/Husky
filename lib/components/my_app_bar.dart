@@ -14,6 +14,7 @@ Widget myAppBar({
       color: Styles.baseColor,
     ),
     shadowColor: Colors.transparent,
+    centerTitle: true,
     flexibleSpace: Container(decoration: BoxDecoration(color: Styles.whiteColor)),
   );
 }

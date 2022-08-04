@@ -1,4 +1,5 @@
 import 'package:diyi/components/loader.dart';
+import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   Widget build(BuildContext context) {
     List<PracticeModel> listPractice = Provider.of<PracticeProvider>(context, listen: true).listPractice;
     return Scaffold(
-      appBar: myAppBar(title: menuName),
+      appBar: myAppBar(title: menuName, actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
       body: listPractice == null
           ? Loader()

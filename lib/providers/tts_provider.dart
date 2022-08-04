@@ -11,6 +11,7 @@ class TtsProvider with ChangeNotifier {
   bool get isIOS => !kIsWeb && Platform.isIOS;
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
   TtsState ttsState = TtsState.stopped;
+  bool isSlow = false;
 
   get isPlaying => ttsState == TtsState.playing;
   get isStopped => ttsState == TtsState.stopped;
@@ -66,8 +67,17 @@ class TtsProvider with ChangeNotifier {
     }
     if (text != null && text != "") {
       print("speaking: $text");
+      if (isSlow)
+        flutterTts.setSpeechRate(0.2);
+      else
+        flutterTts.setSpeechRate(0.5);
       await flutterTts.speak(text);
     }
+  }
+
+  void switchSpeed() {
+    isSlow = !isSlow;
+    notifyListeners();
   }
 
   Future _setAwaitOptions() async {
