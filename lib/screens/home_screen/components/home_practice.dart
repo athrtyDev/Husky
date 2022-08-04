@@ -27,7 +27,7 @@ class _HomePracticeState extends State<HomePractice> {
           SizedBox(height: 10),
           exerciseTile("Шинэ үг", MenuType.vocabulary),
           exerciseTile("Дүрэм", MenuType.grammar),
-          exerciseTile("Видео хичээл", MenuType.videoLesson),
+          // exerciseTile("Видео хичээл", MenuType.videoLesson),
         ],
       ),
     );
