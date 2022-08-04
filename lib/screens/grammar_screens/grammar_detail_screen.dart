@@ -18,17 +18,23 @@ class GrammarDetailScreen extends StatefulWidget {
 
 class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
   Grammar grammar;
+  List<Grammar> listGrammar;
+  int grammarIndex;
+  String title;
 
   @override
   void initState() {
     super.initState();
-    grammar = widget.args['grammar'];
+    listGrammar = widget.args['listGrammar'];
+    grammarIndex = widget.args['index'];
+    grammar = listGrammar[grammarIndex];
+    title = widget.args['title'];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: "Шинэ үг"),
+      appBar: myAppBar(title: title),
       backgroundColor: Styles.whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -72,9 +78,14 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
             ),
             Container(
               padding: EdgeInsets.only(top: 15, bottom: 25),
-              child: Button(
-                text: "Дараагийнх",
-              ),
+              child: grammarIndex < (listGrammar.length - 1)
+                  ? Button(
+                      text: "Дараагийнх",
+                      onClick: _next,
+                    )
+                  : Button.disabled(
+                      text: "Дараагийнх",
+                    ),
             ),
           ],
         ),
@@ -165,5 +176,12 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
         ],
       ),
     );
+  }
+
+  _next() {
+    setState(() {
+      grammarIndex++;
+      grammar = listGrammar[grammarIndex];
+    });
   }
 }

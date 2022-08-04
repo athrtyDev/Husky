@@ -41,12 +41,16 @@ class _GrammarListScreenState extends State<GrammarListScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      for (var item in listGrammar)
+                      for (int i = 0; i < listGrammar.length; i++)
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, "/grammar_detail_screen", arguments: {'grammar': item});
+                            Navigator.pushNamed(context, "/grammar_detail_screen", arguments: {
+                              'listGrammar': listGrammar,
+                              'index': i,
+                              'title': headerName,
+                            });
                           },
-                          child: GrammarListItem(grammar: item),
+                          child: GrammarListItem(grammar: listGrammar[i]),
                         )
                     ],
                   ),

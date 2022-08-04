@@ -8,7 +8,7 @@ class VocabularyGroup {
   VocabularyGroup.fromJson(Map<String, dynamic> json) {
     hsk = json['hsk'];
     groupName = json['groupName'];
-    totalVocabulary = json['totalVocabulary'];
+    totalVocabulary = int.parse(json['totalVocabulary']);
   }
 
   Map<String, dynamic> toJson() {

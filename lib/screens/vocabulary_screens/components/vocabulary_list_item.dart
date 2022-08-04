@@ -30,12 +30,13 @@ class VocabularyListItem extends StatelessWidget {
             ],
           ),
           SizedBox(width: 30),
-          MyText.medium(
-            Formatter.capitalizeFirstLetter(vocabulary.translation),
-            fontWeight: Styles.wSemiBold,
-            textColor: Styles.textColor,
+          Expanded(
+            child: MyText.medium(
+              Formatter.capitalizeFirstLetter(vocabulary.translation),
+              fontWeight: Styles.wSemiBold,
+              textColor: Styles.textColor,
+            ),
           ),
-          Expanded(child: SizedBox()),
           Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Styles.baseColor),
         ],
       ),

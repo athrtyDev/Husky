@@ -41,12 +41,16 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      for (var item in listVocabulary)
+                      for (int i = 0; i < listVocabulary.length; i++)
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, "/vocabulary_detail_screen", arguments: {'vocabulary': item});
+                            Navigator.pushNamed(context, "/vocabulary_detail_screen", arguments: {
+                              'listVocabulary': listVocabulary,
+                              'index': i,
+                              'title': headerName,
+                            });
                           },
-                          child: VocabularyListItem(vocabulary: item),
+                          child: VocabularyListItem(vocabulary: listVocabulary[i]),
                         )
                     ],
                   ),

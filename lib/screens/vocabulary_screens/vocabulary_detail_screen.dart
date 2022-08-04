@@ -18,17 +18,23 @@ class VocabularyDetailScreen extends StatefulWidget {
 
 class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
   Vocabulary vocabulary;
+  List<Vocabulary> listVocabulary;
+  int vocabularyIndex;
+  String title;
 
   @override
   void initState() {
     super.initState();
-    vocabulary = widget.args['vocabulary'];
+    listVocabulary = widget.args['listVocabulary'];
+    vocabularyIndex = widget.args['index'];
+    vocabulary = listVocabulary[vocabularyIndex];
+    title = widget.args['title'];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: "Шинэ үг"),
+      appBar: myAppBar(title: title),
       backgroundColor: Styles.whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -65,11 +71,15 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 15, bottom: 25),
-              child: Button(
-                text: "Дараагийнх",
-              ),
-            ),
+                padding: EdgeInsets.only(top: 15, bottom: 25),
+                child: vocabularyIndex < (listVocabulary.length - 1)
+                    ? Button(
+                        text: "Дараагийнх",
+                        onClick: _next,
+                      )
+                    : Button.disabled(
+                        text: "Дараагийнх",
+                      )),
           ],
         ),
       ),
@@ -159,5 +169,12 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
         ],
       ),
     );
+  }
+
+  _next() {
+    setState(() {
+      vocabularyIndex++;
+      vocabulary = listVocabulary[vocabularyIndex];
+    });
   }
 }

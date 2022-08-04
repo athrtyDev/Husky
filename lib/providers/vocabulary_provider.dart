@@ -16,7 +16,10 @@ class VocabularyProvider with ChangeNotifier {
   Future<void> cacheAllData() async {
     Api _api = Api();
     if (listLevel == null) listLevel = await _api.getVocabularyLevel();
-    if (listAllGroup == null) listAllGroup = await _api.getVocabularyGroup();
+    if (listAllGroup == null) {
+      listAllGroup = await _api.getVocabularyGroup();
+      listAllGroup.sort((a, b) => int.parse(a.groupName).compareTo(int.parse(b.groupName)));
+    }
     if (listAllVocabulary == null) listAllVocabulary = await _api.getAllVocabulary();
     notifyListeners();
   }
