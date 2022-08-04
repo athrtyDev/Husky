@@ -20,3 +20,5 @@ flutter build appbundle --release
 1. delete pubspec.lock, podfile.lock
 2. flutter clean && flutter pub get
 3. arch -x86_64 pod install --repo-update
+
+open /Applications/Android\ Studio.app
