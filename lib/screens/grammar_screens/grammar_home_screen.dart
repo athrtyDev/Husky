@@ -1,6 +1,7 @@
 import 'package:diyi/components/group_widget.dart';
 import 'package:diyi/components/level_widget.dart';
 import 'package:diyi/components/loader.dart';
+import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:diyi/providers/grammar_provider.dart';
@@ -40,7 +41,9 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
               Expanded(
                   child: Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup == null
                       ? Loader()
-                      : SingleChildScrollView(child: _groups())),
+                      : Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup.isEmpty
+                          ? NotFound()
+                          : SingleChildScrollView(child: _groups())),
             ],
           ),
         ));
