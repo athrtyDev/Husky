@@ -12,7 +12,7 @@ class BottomNavigationHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(bottom: 30, top: 15),
+      padding: EdgeInsets.only(bottom: 23, top: 15),
       decoration: BoxDecoration(
         color: Styles.whiteColor,
         borderRadius: BorderRadius.only(
@@ -51,9 +51,9 @@ class BottomNavigationHome extends StatelessWidget {
               Icon(
                 icon,
                 color: currentIndex == index ? Styles.baseColor : Styles.baseColor.withOpacity(0.5),
-                size: 20,
+                size: 23,
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 2),
               MyText.medium(
                 label,
                 fontWeight: Styles.wBold,
