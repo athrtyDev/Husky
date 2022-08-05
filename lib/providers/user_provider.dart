@@ -1,4 +1,6 @@
+
 import 'package:diyi/global/constants.dart';
+import 'package:diyi/utils/base_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -13,7 +15,9 @@ class UserProvider with ChangeNotifier {
   Stream<User> get authState => _auth.authStateChanges();
 
   Future<UserCredential> signInWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login();
+    final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
+    print("result:: $result");
+    print("result:: ${result.status}");
     if (result.status == LoginStatus.success) {
       // Create a credential from the access token
       final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
@@ -22,6 +26,9 @@ class UserProvider with ChangeNotifier {
       if (userCredential.additionalUserInfo.isNewUser) {
         // todo do smthg
       }
+    } else if (result.status == LoginStatus.failed) {
+      print("login failed");
+      showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
     return null;
   }
