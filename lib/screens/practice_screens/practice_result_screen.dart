@@ -125,7 +125,7 @@ class _PracticeResultScreenState extends State<PracticeResultScreen> {
                   ),
           ))),
           Container(
-            margin: EdgeInsets.only(left: 50, right: 50, bottom: 40, top: 20),
+            margin: EdgeInsets.only(left: 50, right: 50, bottom: 30, top: 15),
             child: Button(
               text: "Дуусгах",
               onClick: () {
