@@ -36,9 +36,9 @@ initFToast(BuildContext context) {
   fToast.init(context);
 }
 
-showWarningToasts(String msg, {String body}) {
+showWarningToasts(String msg) {
   // fToast.removeCustomToast();
-  Fluttertoast.showToast(msg: "This is toast", backgroundColor: Styles.orangeColor, toastLength: Toast.LENGTH_LONG
+  Fluttertoast.showToast(msg: msg, backgroundColor: Styles.orangeColor, toastLength: Toast.LENGTH_LONG
       // positionedToastBuilder: (context, child) {
       //   return MyToast.warningToast(
       //     title: msg,

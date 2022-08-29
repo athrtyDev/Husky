@@ -15,8 +15,6 @@ class UserProvider with ChangeNotifier {
 
   Future<UserCredential> signInWithFacebook() async {
     final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
-    print("result:: $result");
-    print("result:: ${result.status}");
     if (result.status == LoginStatus.success) {
       // Create a credential from the access token
       final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
@@ -34,6 +32,9 @@ class UserProvider with ChangeNotifier {
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      return null;
+    }
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
     if (googleAuth.accessToken != null && googleAuth.idToken != null) {
@@ -45,6 +46,8 @@ class UserProvider with ChangeNotifier {
       if (userCredential.additionalUserInfo.isNewUser) {
         // todo do smthg
       }
+    } else {
+      showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
     return null;
   }
