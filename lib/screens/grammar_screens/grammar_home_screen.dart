@@ -5,6 +5,7 @@ import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:diyi/providers/grammar_provider.dart';
+import 'package:diyi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/global/style.dart';
@@ -75,20 +76,26 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
     return Column(
       children: [
         SizedBox(height: 15),
-        for (var group in listSelectedGroup)
+        for (int groupIndex = 0; groupIndex < listSelectedGroup.length; groupIndex++)
           InkWell(
             onTap: () {
-              Provider.of<GrammarProvider>(context, listen: false).selectGroup(group.groupName);
-              Navigator.pushNamed(context, "/grammar_list_screen", arguments: {
-                'headerName':
-                    "HSK ${Provider.of<GrammarProvider>(context, listen: false).selectedLevel} - Бүлэг ${group.groupName}",
-                'listGrammar': Provider.of<GrammarProvider>(context, listen: false).listSelectedGrammar,
-              });
+              if (Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2) {
+                Provider.of<GrammarProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
+                Navigator.pushNamed(context, "/grammar_list_screen", arguments: {
+                  'headerName':
+                      "HSK ${Provider.of<GrammarProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
+                  'listGrammar': Provider.of<GrammarProvider>(context, listen: false).listSelectedGrammar,
+                });
+              } else {
+                Navigator.pushNamed(context, '/payment_screen');
+              }
             },
             child: GroupWidget(
-              name: "Бүлэг ${group.groupName}",
-              total: group.totalGrammar,
+              name: "Бүлэг ${listSelectedGroup[groupIndex].groupName}",
+              total: listSelectedGroup[groupIndex].totalGrammar,
               studied: 0,
+              // Provider.of<UserProvider>(context, listen: false).is
+              isPaid: Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2,
             ),
           ),
       ],

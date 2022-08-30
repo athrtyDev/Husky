@@ -53,18 +53,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: LoginContainer(
                         child: [
                           LoginTile(
-                            login: () {
+                            login: () async {
                               showLoading(context);
-                              Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
+                              await Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
                               hideLoading();
                             },
                             icon: "assets/icons/ic_login_facebook.png",
                             title: "Facebook-р нэвтрэх",
                           ),
                           LoginTile(
-                            login: () {
+                            login: () async {
                               showLoading(context);
-                              Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
+                              await Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
                               hideLoading();
                             },
                             icon: "assets/icons/ic_login_google.png",

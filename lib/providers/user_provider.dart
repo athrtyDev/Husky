@@ -10,6 +10,7 @@ class UserProvider with ChangeNotifier {
   UserProvider(this._auth);
   User get user => _auth.currentUser;
   String hsk = Hsk.hsk1;
+  bool isPaid = false;
 
   Stream<User> get authState => _auth.authStateChanges();
 
@@ -62,6 +63,11 @@ class UserProvider with ChangeNotifier {
 
   void setHsk(String hsk) {
     this.hsk = hsk;
+    notifyListeners();
+  }
+
+  void setPaymentStatus() {
+    this.isPaid = !isPaid;
     notifyListeners();
   }
 }

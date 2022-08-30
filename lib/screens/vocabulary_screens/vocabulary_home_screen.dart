@@ -3,6 +3,7 @@ import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:diyi/components/group_widget.dart';
 import 'package:flutter/material.dart';
@@ -77,20 +78,26 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
     return Column(
       children: [
         SizedBox(height: 15),
-        for (var group in listSelectedGroup)
+        for (int groupIndex = 0; groupIndex < listSelectedGroup.length; groupIndex++)
           InkWell(
             onTap: () {
-              Provider.of<VocabularyProvider>(context, listen: false).selectGroup(group.groupName);
-              Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
-                'headerName':
-                    "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${group.groupName}",
-                'listVocabulary': Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary,
-              });
+              if (Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2) {
+                Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
+                Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
+                  'headerName':
+                      "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
+                  'listVocabulary': Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary,
+                });
+              } else {
+                Navigator.pushNamed(context, '/payment_screen');
+              }
             },
             child: GroupWidget(
-              name: "Бүлэг ${group.groupName}",
-              total: group.totalVocabulary,
+              name: "Бүлэг ${listSelectedGroup[groupIndex].groupName}",
+              total: listSelectedGroup[groupIndex].totalVocabulary,
               studied: 0,
+              // Бүлэг болгоны эхний 2 үнэгүй
+              isPaid: Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2,
             ),
           ),
       ],
