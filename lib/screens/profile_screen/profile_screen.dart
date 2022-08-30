@@ -114,6 +114,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         MyText("Тохиргоо", textColor: Styles.textColor70),
         SizedBox(height: 10),
         _settingsTile(
+            title: "Төлбөр төлөх",
+            icon: Icons.credit_card_rounded,
+            onTap: () {
+              Navigator.pushNamed(context, '/payment_screen');
+            }),
+        _separator(),
+        _settingsTile(
             title: "Санал хүсэлт",
             icon: Icons.note_add,
             onTap: () {
