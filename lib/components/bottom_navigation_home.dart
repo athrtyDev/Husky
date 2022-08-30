@@ -50,14 +50,18 @@ class BottomNavigationHome extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: currentIndex == index ? Styles.baseColor : Styles.baseColor.withOpacity(0.5),
+                color: currentIndex == index
+                    ? Styles.baseColor
+                    : Styles.baseColor.withOpacity(0.5),
                 size: 23,
               ),
               SizedBox(height: 2),
               MyText.medium(
                 label,
                 fontWeight: Styles.wBold,
-                textColor: currentIndex == index ? Styles.baseColor : Styles.baseColor.withOpacity(0.5),
+                textColor: currentIndex == index
+                    ? Styles.baseColor
+                    : Styles.baseColor.withOpacity(0.5),
               ),
             ],
           ),
