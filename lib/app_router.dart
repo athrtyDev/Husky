@@ -1,5 +1,6 @@
 import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:diyi/screens/main_screen.dart';
+import 'package:diyi/screens/payment_screen.dart';
 import 'package:diyi/screens/practice_screens/practice_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -32,7 +33,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => GrammarListScreen(args: settings.arguments));
       case '/grammar_detail_screen':
         return MaterialPageRoute(builder: (_) => GrammarDetailScreen(args: settings.arguments));
-
       case '/mockTest_home_screen':
         return MaterialPageRoute(builder: (_) => MockTestHomeScreen());
       case '/studyChina_home_screen':
@@ -41,6 +41,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PracticeScreen(args: settings.arguments));
       case '/practice_result_screens':
         return MaterialPageRoute(builder: (_) => PracticeResultScreen());
+      case '/payment_screen':
+        return MaterialPageRoute(builder: (_) => PaymentScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

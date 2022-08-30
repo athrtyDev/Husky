@@ -67,7 +67,7 @@ class BottomNavigationHome extends StatelessWidget {
   static final List<TitleWithIconModel> menuList = [
     TitleWithIconModel(title: "Нүүр", icon: Icons.home_rounded),
     TitleWithIconModel(title: "Чат", icon: Icons.chat_rounded),
-    TitleWithIconModel(title: "Би", icon: Icons.person),
+    TitleWithIconModel(title: "Миний", icon: Icons.person),
   ];
 }
 
