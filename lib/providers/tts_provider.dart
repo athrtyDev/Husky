@@ -50,6 +50,7 @@ class TtsProvider with ChangeNotifier {
         ttsState = TtsState.continued;
       });
     }
+    flutterTts.setLanguage('zh');
 
     flutterTts.setErrorHandler((msg) {
       print("Tts error: $msg");
