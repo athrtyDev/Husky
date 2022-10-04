@@ -25,17 +25,27 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            // decoration: BoxDecoration(color: Styles.baseColor),
-            child: SafeArea(
-                bottom: false,
-                child: Center(
-                    child: Stack(
-                  children: [
-                    Positioned(top: -10, left: -150, child: birCircle(400, null)),
-                    Positioned(bottom: -25, right: -70, child: birCircle(280, null)),
-                    Align(
-                      alignment: Alignment.center,
-                      child: LoginContainer(
+            decoration: BoxDecoration(color: Styles.baseColor),
+            child: Center(
+                child: Stack(
+              children: [
+                // Positioned(top: 0, child: backGround()),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Image.asset(
+                        "assets/logo/logo_white.png",
+                        fit: BoxFit.fitWidth,
+                        height: 200,
+                      ),
+                      SizedBox(
+                        height: 70,
+                      ),
+                      LoginContainer(
                         child: [
                           LoginTile(
                             login: () async {
@@ -61,12 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             // textColor: Styles.whiteColor,
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 80),
                         ],
                       ),
-                    )
-                  ],
-                )))));
+                    ],
+                  ),
+                )
+              ],
+            ))));
   }
 
   birCircle(double radius, double insideRadius) {
@@ -83,6 +94,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             )
           : SizedBox(),
+    );
+  }
+
+  backGround() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.62,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          color: Styles.baseColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          )),
     );
   }
 }

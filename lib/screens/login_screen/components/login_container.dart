@@ -19,7 +19,7 @@ class LoginContainer extends StatelessWidget {
           offset: Offset(0, 2),
         ),
       ]),
-      padding: EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 0),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
       child: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
