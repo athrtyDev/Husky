@@ -1,4 +1,5 @@
 import 'package:diyi/components/my_text.dart';
+import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/screens/login_screen/components/login_container.dart';
 import 'package:diyi/screens/login_screen/components/login_tile.dart';
@@ -24,33 +25,28 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     colors: [
-            //       Styles.baseColor,
-            //       Styles.baseColor.withOpacity(0.7),
-            //     ],
-            //     stops: [0.0, 1.0],
-            //   ),
-            // ),
-            child: SafeArea(
-                bottom: false,
-                child: Center(
-                    child: Stack(
-                  children: [
-                    // Positioned(
-                    //     top: 50,
-                    //     left: MediaQuery.of(context).size.width * 0.1,
-                    //     child: Container(
-                    //       width: MediaQuery.of(context).size.width * 0.8,
-                    //       child: Image.asset(
-                    //         "assets/images/bg_login_icon.png",
-                    //         fit: BoxFit.fitWidth,
-                    //       ),
-                    //     )),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: LoginContainer(
+            decoration: BoxDecoration(gradient: Styles.baseGradient),
+            child: Center(
+                child: Stack(
+              children: [
+                // Positioned(top: 0, child: backGround()),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Image.asset(
+                        "assets/logo/logo_white.png",
+                        fit: BoxFit.fitWidth,
+                        // height: MediaQuery.of(context).size.height * 0.18,
+                        height: MediaQuery.of(context).size.height * 0.19,
+                      ),
+                      SizedBox(
+                        height: 70,
+                      ),
+                      LoginContainer(
                         child: [
                           LoginTile(
                             login: () async {
@@ -76,59 +72,42 @@ class _LoginScreenState extends State<LoginScreen> {
                             // textColor: Styles.whiteColor,
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 80),
                         ],
                       ),
-                    )
-                  ],
-                )))));
+                    ],
+                  ),
+                )
+              ],
+            ))));
   }
 
-  // body
-  // body: SafeArea(
-  // child: Center(
-  // child: Stack(
-  // children: [
-  // Positioned(
-  // top: 50,
-  // left: MediaQuery.of(context).size.width * 0.1,
-  // child: Container(
-  // width: MediaQuery.of(context).size.width * 0.8,
-  // child: Image.asset(
-  // "assets/images/bg_login_icon.png",
-  // fit: BoxFit.fitWidth,
-  // ),
-  // )),
-  // Align(
-  // alignment: Alignment.bottomCenter,
-  // child: LoginContainer(
-  // child: [
-  // LoginTile(
-  // login: () {
-  // showWarningToasts("msg");
-  // // Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
-  // },
-  // icon: "assets/icons/ic_login_facebook.png",
-  // title: "Facebook-р нэвтрэх",
-  // ),
-  // LoginTile(
-  // login: () {
-  // Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
-  // },
-  // icon: "assets/icons/ic_login_google.png",
-  // title: "Google-р нэвтрэх",
-  // ),
-  // SizedBox(height: 5),
-  // MyText.medium(
-  // "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
-  // textColor: Styles.whiteColor,
-  // textAlign: TextAlign.center,
-  // )
-  // ],
-  // ),
-  // )
-  // ],
-  // ),
-  // ),
-  // )
+  birCircle(double radius, double insideRadius) {
+    return Container(
+      height: radius,
+      width: radius,
+      decoration: BoxDecoration(color: Styles.baseColor, shape: BoxShape.circle),
+      child: insideRadius != null
+          ? Center(
+              child: Container(
+                height: insideRadius,
+                width: insideRadius,
+                decoration: BoxDecoration(color: Styles.whiteColor, shape: BoxShape.circle),
+              ),
+            )
+          : SizedBox(),
+    );
+  }
+
+  backGround() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.62,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          color: Styles.baseColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          )),
+    );
+  }
 }

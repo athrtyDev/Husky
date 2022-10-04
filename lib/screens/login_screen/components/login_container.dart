@@ -8,14 +8,17 @@ class LoginContainer extends StatelessWidget {
 
   Widget build(BuildContext context) {
     // bottom padding
-    if (child != null) {
-      child.add(SizedBox(height: 60));
-    }
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      // decoration: BoxDecoration(
-      //     gradient: Styles.baseGradient,
-      //     borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      decoration: BoxDecoration(color: Styles.whiteColor, borderRadius: BorderRadius.circular(15), boxShadow: [
+        BoxShadow(
+          color: Styles.baseColor20,
+          spreadRadius: 0,
+          blurRadius: 20,
+          offset: Offset(0, 2),
+        ),
+      ]),
       padding: EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
       child: SingleChildScrollView(
         child: Column(
