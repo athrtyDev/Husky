@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(color: Styles.baseColor),
+            decoration: BoxDecoration(gradient: Styles.baseGradient),
             child: Center(
                 child: Stack(
               children: [
@@ -40,7 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Image.asset(
                         "assets/logo/logo_white.png",
                         fit: BoxFit.fitWidth,
-                        height: 200,
+                        // height: MediaQuery.of(context).size.height * 0.18,
+                        height: MediaQuery.of(context).size.height * 0.19,
                       ),
                       SizedBox(
                         height: 70,
