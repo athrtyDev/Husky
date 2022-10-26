@@ -11,6 +11,7 @@ class PracticeProvider with ChangeNotifier {
   int totalQuestions;
   int totalCorrectAnswers;
   bool isAnswered;
+  List<Vocabulary> listAllVocabulary;
   List<Vocabulary> listWrongVocabulary;
 
   void initTest() async {
@@ -48,10 +49,16 @@ class PracticeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearListVocabulary() {
+    listAllVocabulary = null;
+  }
+
   void initPracticeQuestions({String hskLevel}) async {
     Api _api = Api();
-    List<Vocabulary> listAll = await _api.getVocabularyByLevel(hskLevel);
-    List<Vocabulary> listAllExceptAsked = List.from(listAll);
+    if (listAllVocabulary == null) {
+      listAllVocabulary = await _api.getVocabularyByLevel(hskLevel);
+    }
+    List<Vocabulary> listAllExceptAsked = List.from(listAllVocabulary);
     listPractice = [];
     for (int i = 0; i < Constants.practiceVocabularyQuestions; i++) {
       Vocabulary correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
@@ -68,7 +75,7 @@ class PracticeProvider with ChangeNotifier {
       ));
 
       // add wrong choices
-      List<Vocabulary> listAllExceptCorrect = List.from(listAll);
+      List<Vocabulary> listAllExceptCorrect = List.from(listAllVocabulary);
       listAllExceptCorrect.remove(correctVocabulary);
       listAllExceptCorrect.shuffle();
       for (int c = 0; c < 3; c++) {

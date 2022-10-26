@@ -9,13 +9,6 @@ class HomePractice extends StatefulWidget {
 }
 
 class _HomePracticeState extends State<HomePractice> {
-  final List<String> listBanner = [
-    "https://studyinchinas.com/wp-content/uploads/2020/02/Study-in-Beijing-min-798x599.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU7adimEWjO8NMlVfBl4_Cez1BlKr2Z51gTTqK_Spicbw4eqnQl0ltiMOiwWfVi4o7I3k&usqp=CAU",
-  ];
-
-  int bannerIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
