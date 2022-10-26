@@ -4,6 +4,7 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/constants.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/user_provider.dart';
+import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -175,6 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return InkWell(
       onTap: () {
         Provider.of<UserProvider>(context, listen: false).setHsk(hsk);
+        Provider.of<PracticeProvider>(context, listen: false).clearListVocabulary();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
