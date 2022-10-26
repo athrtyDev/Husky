@@ -82,6 +82,7 @@ class PracticeProvider with ChangeNotifier {
     isAnswered = false;
     notifyListeners();
   }
+
   void clearListVocabulary() {
     listAllVocabulary = null;
   }

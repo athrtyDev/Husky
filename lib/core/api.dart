@@ -103,12 +103,16 @@ class Api {
       return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
     }
   }
+
   Future<List<GrammarPracticeModel>> getGrammarPracticeByLevel(String hskLevel) async {
+    print("Firestore read: getGrammarPracticeByLevel");
+
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('GrammarExercise').where('hsk', isEqualTo: hskLevel).get();
     if (itemSnapshot.docs.isEmpty)
       return null;
     else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new GrammarPracticeModel.fromJson(type.data())).toList();
     }
   }
