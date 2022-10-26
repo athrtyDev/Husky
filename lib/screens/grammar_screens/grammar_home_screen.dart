@@ -84,7 +84,6 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
                 Navigator.pushNamed(context, "/grammar_list_screen", arguments: {
                   'headerName':
                       "HSK ${Provider.of<GrammarProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
-                  'listGrammar': Provider.of<GrammarProvider>(context, listen: false).listSelectedGrammar,
                 });
               } else {
                 Navigator.pushNamed(context, '/payment_screen');

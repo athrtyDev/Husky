@@ -86,7 +86,6 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
                 Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
                   'headerName':
                       "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
-                  'listVocabulary': Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary,
                 });
               } else {
                 Navigator.pushNamed(context, '/payment_screen');

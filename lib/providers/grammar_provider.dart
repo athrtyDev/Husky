@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 class GrammarProvider with ChangeNotifier {
   List<GrammarLevel> listLevel;
   List<GrammarGroup> listAllGroup;
-  List<Grammar> listAllGrammar;
+  // List<Grammar> listAllGrammar;
 
   String selectedLevel;
   List<GrammarGroup> listSelectedGroup;
@@ -17,7 +17,7 @@ class GrammarProvider with ChangeNotifier {
     Api _api = Api();
     if (listLevel == null) listLevel = await _api.getGrammarLevel();
     if (listAllGroup == null) listAllGroup = await _api.getGrammarGroup();
-    if (listAllGrammar == null) listAllGrammar = await _api.getAllGrammar();
+    // if (listAllGrammar == null) listAllGrammar = await _api.getAllGrammar();
     notifyListeners();
   }
 
@@ -32,13 +32,9 @@ class GrammarProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void selectGroup(String groupName) {
-    listSelectedGrammar = [];
-    for (var item in listAllGrammar) {
-      if (item.hsk == selectedLevel && item.group == groupName) {
-        listSelectedGrammar.add(item);
-      }
-    }
+  void selectGroup(String groupName) async {
+    Api _api = Api();
+    listSelectedGrammar = await _api.getGrammarByLevelAndGroup(selectedLevel, groupName);
     notifyListeners();
   }
 }

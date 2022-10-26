@@ -11,93 +11,95 @@ class Api {
   var client = new http.Client();
 
   Future<List<VocabularyLevel>> getVocabularyLevel() async {
+    print("Firestore read: getVocabularyLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('VocabularyLevel').orderBy('hsk', descending: false).get();
     if (itemSnapshot.docs.isEmpty)
       return null;
-    else
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new VocabularyLevel.fromJson(type.data())).toList();
+    }
   }
 
   Future<List<VocabularyGroup>> getVocabularyGroup() async {
+    print("Firestore read: getVocabularyGroup");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('VocabularyGroup').orderBy('groupName', descending: false).get();
     if (itemSnapshot.docs.isEmpty)
       return null;
-    else
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new VocabularyGroup.fromJson(type.data())).toList();
-  }
-
-  Future<List<Vocabulary>> getAllVocabulary() async {
-    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('Vocabulary').get();
-    if (itemSnapshot.docs.isEmpty)
-      return null;
-    else
-      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
+    }
   }
 
   Future<List<Vocabulary>> getVocabularyByLevel(String hskLevel) async {
+    print("Firestore read: getVocabularyByLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('Vocabulary').where('hsk', isEqualTo: hskLevel).get();
 
     if (itemSnapshot.docs.isEmpty)
       return null;
     else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
     }
   }
 
-  Future<List<Grammar>> getAllGrammar() async {
-    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('Grammar').get();
+  Future<List<Vocabulary>> getVocabularyByLevelAndGroup(String hskLevel, String group) async {
+    print("Firestore read: getVocabularyByLevelAndGroup");
+    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
+        .collection('Vocabulary')
+        .where('hsk', isEqualTo: hskLevel)
+        .where('group', isEqualTo: group)
+        .get();
+
     if (itemSnapshot.docs.isEmpty)
       return null;
-    else
-      return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
+      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
+    }
   }
 
   Future<List<GrammarLevel>> getGrammarLevel() async {
+    print("Firestore read: getGrammarLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('GrammarLevel').orderBy('hsk', descending: false).get();
     if (itemSnapshot.docs.isEmpty)
       return null;
-    else
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new GrammarLevel.fromJson(type.data())).toList();
+    }
   }
 
   Future<List<GrammarGroup>> getGrammarGroup() async {
+    print("Firestore read: getGrammarGroup");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('GrammarGroup').orderBy('groupName', descending: false).get();
     if (itemSnapshot.docs.isEmpty)
       return null;
-    else
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new GrammarGroup.fromJson(type.data())).toList();
+    }
   }
 
-  // Future<List<Activity>> getActivityByType(String activityType) async {
-  //   QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
-  //       .collection('Activity')
-  //       .where('isActive', isEqualTo: true)
-  //       .where('activityType', isEqualTo: activityType)
-  //       .get();
-  //
-  //   if (itemSnapshot.docs.isEmpty)
-  //     return null;
-  //   else
-  //     return itemSnapshot.docs.map((activity) => new Activity.fromJson(activity.data())).toList();
-  // }
-  //
-  // Future<Activity> getActivityById(String id, String type) async {
-  //   QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
-  //       .collection('Activity')
-  //       .where('activityType', isEqualTo: type)
-  //       .where('id', isEqualTo: id)
-  //       .get();
-  //
-  //   if (itemSnapshot.docs.isEmpty)
-  //     return null;
-  //   else {
-  //     Activity activity = Activity.fromJson(itemSnapshot.docs[0].data());
-  //     return activity;
-  //   }
-  // }
+  Future<List<Grammar>> getGrammarByLevelAndGroup(String hskLevel, String group) async {
+    print("Firestore read: getGrammarByLevelAndGroup");
+    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
+        .collection('Grammar')
+        .where('hsk', isEqualTo: hskLevel)
+        .where('group', isEqualTo: group)
+        .get();
+
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
+      return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
+    }
+  }
 }

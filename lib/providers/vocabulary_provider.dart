@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 class VocabularyProvider with ChangeNotifier {
   List<VocabularyLevel> listLevel;
   List<VocabularyGroup> listAllGroup;
-  List<Vocabulary> listAllVocabulary;
 
   String selectedLevel;
   List<VocabularyGroup> listSelectedGroup;
@@ -20,7 +19,6 @@ class VocabularyProvider with ChangeNotifier {
       listAllGroup = await _api.getVocabularyGroup();
       listAllGroup.sort((a, b) => int.parse(a.groupName).compareTo(int.parse(b.groupName)));
     }
-    if (listAllVocabulary == null) listAllVocabulary = await _api.getAllVocabulary();
     notifyListeners();
   }
 
@@ -35,13 +33,9 @@ class VocabularyProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void selectGroup(String groupName) {
-    listSelectedVocabulary = [];
-    for (var item in listAllVocabulary) {
-      if (item.hsk == selectedLevel && item.group == groupName) {
-        listSelectedVocabulary.add(item);
-      }
-    }
+  void selectGroup(String groupName) async {
+    Api _api = Api();
+    listSelectedVocabulary = await _api.getVocabularyByLevelAndGroup(selectedLevel, groupName);
     notifyListeners();
   }
 }
