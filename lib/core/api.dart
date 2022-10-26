@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
+import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
@@ -101,5 +102,37 @@ class Api {
       print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
     }
+  }
+
+  Future<void> addUser(UserData user) async {
+    final CollectionReference ref = FirebaseFirestore.instance.collection('UserData');
+    ref.doc().set(user.toJson());
+  }
+
+  Future<UserData> fetchUser(String uid) async {
+    print("Firestore read: fetchUser");
+    QuerySnapshot customerSnapshot = await FirebaseFirestore.instance.collection('UserData').where('uid', isEqualTo: uid).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      return UserData.fromJson(customerSnapshot.docs[0].data());
+    }
+  }
+
+  Future<void> changeUserHsk(String uid, String hsk) async {
+    print("Firestore update: changeUserHsk");
+    UserData fetchedUser;
+    QuerySnapshot customerSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').where('uid', isEqualTo: uid).limit(1).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return;
+    } else {
+      fetchedUser = UserData.fromJson(customerSnapshot.docs[0].data());
+    }
+
+    fetchedUser.hsk = hsk;
+    FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(fetchedUser.toJson());
   }
 }

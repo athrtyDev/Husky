@@ -1,4 +1,5 @@
-import 'package:diyi/global/constants.dart';
+import 'package:diyi/core/api.dart';
+import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/utils/base_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,8 +10,8 @@ class UserProvider with ChangeNotifier {
   FirebaseAuth _auth;
   UserProvider(this._auth);
   User get user => _auth.currentUser;
-  String hsk = Hsk.hsk1;
-  bool isPaid = false;
+  // String hsk = Hsk.hsk1;
+  UserData loggedUser;
 
   Stream<User> get authState => _auth.authStateChanges();
 
@@ -21,14 +22,24 @@ class UserProvider with ChangeNotifier {
       final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
       // Once signed in, return the UserCredential
       UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (userCredential.additionalUserInfo.isNewUser) {
-        // todo do smthg
-      }
+      loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
     } else if (result.status == LoginStatus.failed) {
       print("login failed");
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
     return null;
+  }
+
+  void loginUser(bool isNew, String uid) async {
+    Api api = Api();
+    if (isNew) {
+      UserData user = UserData(uid: uid, paidStatus: "", role: "", hsk: "1");
+      api.addUser(user);
+      loggedUser = user;
+    } else {
+      loggedUser = await api.fetchUser(uid);
+    }
+    notifyListeners();
   }
 
   Future<UserCredential> signInWithGoogle() async {
@@ -44,30 +55,27 @@ class UserProvider with ChangeNotifier {
           GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       // Once signed in, return the UserCredential
       UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (userCredential.additionalUserInfo.isNewUser) {
-        // todo do smthg
-      }
+      loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
     } else {
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
     return null;
   }
 
-  Future<UserCredential> logout() async {
+  void logout() async {
     try {
       _auth.signOut();
+      loggedUser = null;
+      notifyListeners();
     } catch (e) {
       print("error $e");
     }
   }
 
   void setHsk(String hsk) {
-    this.hsk = hsk;
-    notifyListeners();
-  }
-
-  void setPaymentStatus() {
-    this.isPaid = !isPaid;
+    Api api = Api();
+    api.changeUserHsk(loggedUser.uid, hsk);
+    loggedUser.hsk = hsk;
     notifyListeners();
   }
 }

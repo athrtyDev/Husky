@@ -4,6 +4,7 @@ import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
+import 'package:diyi/global/constants.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,10 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
         for (int groupIndex = 0; groupIndex < listSelectedGroup.length; groupIndex++)
           InkWell(
             onTap: () {
-              if (Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2) {
+              if ((Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced) ||
+                  groupIndex < 1) {
                 Provider.of<GrammarProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
                 Navigator.pushNamed(context, "/grammar_list_screen", arguments: {
                   'headerName':
@@ -94,7 +98,10 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
               total: listSelectedGroup[groupIndex].totalGrammar,
               studied: 0,
               // Provider.of<UserProvider>(context, listen: false).is
-              isPaid: Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2,
+              isPaid: (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced) ||
+                  groupIndex < 1,
             ),
           ),
       ],

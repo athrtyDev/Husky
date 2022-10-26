@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diyi/components/button.dart';
+import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/constants.dart';
 import 'package:diyi/global/style.dart';
@@ -19,29 +20,39 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Future.delayed(Duration.zero, () async {
+    //   Provider.of<UserProvider>(context, listen: false).logout();
+    // });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return context.watch<User>() == null
         ? LoginScreen()
-        : Padding(
-            padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
-            child: Column(
-              children: [
-                _profileWidget(),
-                Expanded(child: SizedBox()),
-                _hskLevelWidget(),
-                Expanded(child: SizedBox()),
-                _listSettingWidget(),
-                Expanded(child: SizedBox()),
-                Button.secondary(
-                  text: "Гарах",
-                  onClick: () {
-                    Provider.of<UserProvider>(context, listen: false).logout();
-                  },
+        : Provider.of<UserProvider>(context, listen: true).loggedUser == null
+            ? Loader()
+            : Padding(
+                padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    _profileWidget(),
+                    Expanded(child: SizedBox()),
+                    _hskLevelWidget(),
+                    Expanded(child: SizedBox()),
+                    _listSettingWidget(),
+                    Expanded(child: SizedBox()),
+                    Button.secondary(
+                      text: "Гарах",
+                      onClick: () {
+                        Provider.of<UserProvider>(context, listen: false).logout();
+                      },
+                    ),
+                    SizedBox(height: 20),
+                  ],
                 ),
-                SizedBox(height: 20),
-              ],
-            ),
-          );
+              );
   }
 
   _profileWidget() {
@@ -182,12 +193,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         margin: EdgeInsets.only(right: 7),
         decoration: BoxDecoration(
-          color: Provider.of<UserProvider>(context, listen: true).hsk == hsk ? Styles.baseColor70 : Styles.baseColor20,
+          color: Provider.of<UserProvider>(context, listen: true).loggedUser.hsk == hsk ? Styles.baseColor70 : Styles.baseColor20,
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: MyText(
           "HSK $hsk",
-          textColor: Provider.of<UserProvider>(context, listen: true).hsk == hsk ? Styles.whiteColor : Styles.textColor,
+          textColor:
+              Provider.of<UserProvider>(context, listen: true).loggedUser.hsk == hsk ? Styles.whiteColor : Styles.textColor,
         ),
       ),
     );

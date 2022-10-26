@@ -3,6 +3,7 @@ import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/global/constants.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:diyi/components/group_widget.dart';
@@ -81,7 +82,11 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
         for (int groupIndex = 0; groupIndex < listSelectedGroup.length; groupIndex++)
           InkWell(
             onTap: () {
-              if (Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2) {
+              if ((Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+                      (Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.basic ||
+                          Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced)) ||
+                  groupIndex < 2) {
                 Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
                 Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
                   'headerName':
@@ -96,7 +101,11 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
               total: listSelectedGroup[groupIndex].totalVocabulary,
               studied: 0,
               // Бүлэг болгоны эхний 2 үнэгүй
-              isPaid: Provider.of<UserProvider>(context, listen: false).isPaid || groupIndex < 2,
+              isPaid: (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+                      Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+                      (Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.basic ||
+                          Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced)) ||
+                  groupIndex < 2,
             ),
           ),
       ],

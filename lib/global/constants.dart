@@ -10,3 +10,8 @@ class Hsk {
   static const hsk5 = "5";
   static const hsk6 = "6";
 }
+
+class PaidType {
+  static const basic = "basic";
+  static const advanced = "advanced";
+}
