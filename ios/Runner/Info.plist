@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Husky</string>
+	<string>Di yi</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>husky</string>
+	<string>diyi</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -35,15 +35,15 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
-    <false/>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>968197293870426</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
-    <false/>
+	<false/>
 	<key>FacebookClientToken</key>
 	<string>4a2fbc8e6db1a7ed6479ee23f61fc70f</string>
 	<key>FacebookDisplayName</key>
-	<string>Husky App</string>
+	<string>Di yi</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
