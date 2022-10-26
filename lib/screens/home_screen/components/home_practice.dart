@@ -38,11 +38,14 @@ class _HomePracticeState extends State<HomePractice> {
       onTap: () {
         if (menuType == MenuType.videoLesson)
           return;
-        else
+        else if (menuType == MenuType.grammar) {
+          Navigator.pushNamed(context, '/grammar_practice_screens');
+        } else {
           Navigator.pushNamed(context, '/practice_screens', arguments: {
             'menu_type': menuType,
             'menu_name': title,
           });
+        }
       },
       child: Container(
         height: 50,
