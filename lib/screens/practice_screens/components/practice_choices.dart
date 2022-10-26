@@ -20,7 +20,7 @@ class _PracticeChoicesState extends State<PracticeChoices> {
     return InkWell(
       onTap: () {
         if (!Provider.of<PracticeProvider>(context, listen: false).isAnswered)
-          Provider.of<PracticeProvider>(context, listen: false).chooseQuestion(widget.choice);
+          Provider.of<PracticeProvider>(context, listen: false).chooseQuestionGrammar(widget.choice);
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.065,
@@ -33,7 +33,7 @@ class _PracticeChoicesState extends State<PracticeChoices> {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           border: Border.all(
               width: 2,
-              color: Provider.of<PracticeProvider>(context).isAnswered
+              color: Provider.of<PracticeProvider>(context).isAnswered ?? false
                   ? (widget.choice.status == ChoiceStatus.correct
                       ? Styles.greenColor
                       : widget.choice.status == ChoiceStatus.wrong

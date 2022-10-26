@@ -3,21 +3,24 @@ import 'package:diyi/core/api.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/global/constants.dart';
+import 'package:diyi/providers/grammar_practice_model.dart';
 import 'package:flutter/foundation.dart';
 
 class PracticeProvider with ChangeNotifier {
-  List<PracticeModel> listPractice;
+  List<PracticeModel> listVocabularyPractice;
+  List<GrammarPracticeModel> listGrammarPractice;
   int questionIndex;
   int totalQuestions;
   int totalCorrectAnswers;
   bool isAnswered;
   List<Vocabulary> listAllVocabulary;
   List<Vocabulary> listWrongVocabulary;
+  List<GrammarPracticeModel> listWrongGrammar;
 
-  void initTest() async {
-    listPractice = null;
+  void initVocabularyTest() async {
+    listVocabularyPractice = null;
     notifyListeners();
-    await initPracticeQuestions(hskLevel: "1");
+    await initVocabularyPracticeQuestions(hskLevel: "1");
     questionIndex = 0;
     totalQuestions = Constants.practiceVocabularyQuestions;
     totalCorrectAnswers = 0;
@@ -26,16 +29,47 @@ class PracticeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void chooseQuestion(PracticeChoice choice) {
+  void initGrammarTest(String hskLevel) async {
+    listGrammarPractice = null;
+    notifyListeners();
+    listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
+    listGrammarPractice.shuffle();
+    listGrammarPractice = listGrammarPractice.take(10).toList();
+    questionIndex = 0;
+    totalQuestions = listGrammarPractice.length;
+    totalCorrectAnswers = 0;
+    isAnswered = false;
+    listWrongGrammar = [];
+    notifyListeners();
+  }
+
+  void chooseQuestionVocabulary(PracticeChoice choice) {
     totalCorrectAnswers = totalCorrectAnswers + (choice.isCorrect ? 1 : 0);
     isAnswered = true;
     if (choice.isCorrect) {
       choice.status = ChoiceStatus.correct;
     } else {
-      for (var item in listPractice[questionIndex].listChoice) {
+      for (var item in listVocabularyPractice[questionIndex].listChoice) {
         if (item.isCorrect) {
           item.status = ChoiceStatus.correct;
           listWrongVocabulary.add(item.data);
+        }
+      }
+      choice.status = ChoiceStatus.wrong;
+    }
+    notifyListeners();
+  }
+
+  void chooseQuestionGrammar(PracticeChoice choice) {
+    totalCorrectAnswers = totalCorrectAnswers + (choice.isCorrect ? 1 : 0);
+    isAnswered = true;
+    if (choice.isCorrect) {
+      choice.status = ChoiceStatus.correct;
+    } else {
+      for (var item in listGrammarPractice[questionIndex].listChoice) {
+        if (item.isCorrect) {
+          item.status = ChoiceStatus.correct;
+          listWrongGrammar.add(listGrammarPractice[questionIndex]);
         }
       }
       choice.status = ChoiceStatus.wrong;
@@ -53,13 +87,13 @@ class PracticeProvider with ChangeNotifier {
     listAllVocabulary = null;
   }
 
-  void initPracticeQuestions({String hskLevel}) async {
+  void initVocabularyPracticeQuestions({String hskLevel}) async {
     Api _api = Api();
     if (listAllVocabulary == null) {
       listAllVocabulary = await _api.getVocabularyByLevel(hskLevel);
     }
     List<Vocabulary> listAllExceptAsked = List.from(listAllVocabulary);
-    listPractice = [];
+    listVocabularyPractice = [];
     for (int i = 0; i < Constants.practiceVocabularyQuestions; i++) {
       Vocabulary correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
       listAllExceptAsked.remove(correctVocabulary);
@@ -95,7 +129,7 @@ class PracticeProvider with ChangeNotifier {
         questionDesc: askChinese ? correctVocabulary.pronunciation : null,
         listChoice: listChoice,
       );
-      listPractice.add(practice);
+      listVocabularyPractice.add(practice);
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/providers/grammar_practice_model.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -134,5 +135,18 @@ class Api {
 
     fetchedUser.hsk = hsk;
     FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(fetchedUser.toJson());
+  }
+
+  Future<List<GrammarPracticeModel>> getGrammarPracticeByLevel(String hskLevel) async {
+    print("Firestore read: getGrammarPracticeByLevel");
+
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('GrammarExercise').where('hsk', isEqualTo: hskLevel).get();
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
+      return itemSnapshot.docs.map((type) => new GrammarPracticeModel.fromJson(type.data())).toList();
+    }
   }
 }
