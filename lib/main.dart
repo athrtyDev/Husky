@@ -32,6 +32,9 @@ void main() async {
         ChangeNotifierProvider<GrammarProvider>(
           create: (_) => GrammarProvider(),
         ),
+        ChangeNotifierProvider<PracticeProvider>(
+          create: (_) => PracticeProvider(),
+        ),
       ],
       child: MyApp(),
     ),

@@ -1,7 +1,9 @@
 import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
+import 'package:diyi/providers/grammar_practice_model.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
+import 'package:diyi/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -12,33 +14,29 @@ import 'package:diyi/global/global.dart';
 import 'package:diyi/screens/practice_screens/components/practice_choices.dart';
 import 'package:provider/provider.dart';
 
-class PracticeScreen extends StatefulWidget {
+class GrammarPracticeScreen extends StatefulWidget {
   final dynamic args;
-  const PracticeScreen({this.args});
+  const GrammarPracticeScreen({this.args});
 
   @override
-  _PracticeScreenState createState() => _PracticeScreenState();
+  _GrammarPracticeScreenState createState() => _GrammarPracticeScreenState();
 }
 
-class _PracticeScreenState extends State<PracticeScreen> {
-  String menuType;
-  String menuName;
-
+class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
   @override
   void initState() {
     super.initState();
-    menuType = widget.args['menu_type'];
-    menuName = widget.args['menu_name'];
     Future.delayed(Duration.zero, () async {
-      await Provider.of<PracticeProvider>(context, listen: false).initVocabularyTest();
+      await Provider.of<PracticeProvider>(context, listen: false).initGrammarTest("2");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<PracticeModel> listPractice = Provider.of<PracticeProvider>(context, listen: true).listVocabularyPractice;
+    List<GrammarPracticeModel> listPractice = Provider.of<PracticeProvider>(context, listen: true).listGrammarPractice;
+
     return Scaffold(
-      appBar: myAppBar(title: menuName, actions: TtsSpeedIcon(context)),
+      appBar: myAppBar(title: "Дүрэм", actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
       body: listPractice == null
           ? Loader()
@@ -62,30 +60,50 @@ class _PracticeScreenState extends State<PracticeScreen> {
                       children: [
                         _status(),
                         SizedBox(height: 15),
-                        WordBigContainer(
-                            text: listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
-                            pronunciation: listPractice[Provider.of<PracticeProvider>(context).questionIndex].questionDesc),
-                        SizedBox(height: 20),
                         MyText(
-                          "Сонголтууд",
+                          listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
                           textColor: Styles.textColor,
-                          size: 16,
-                          fontWeight: Styles.wBold,
+                          size: 25,
+                          fontWeight: FontWeight.w200,
+                          textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 15),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        SizedBox(height: 20),
+                        Container(
+                          decoration:
+                              BoxDecoration(color: Styles.baseColor.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PracticeChoices(
-                                  listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex].listChoice[0]),
-                              PracticeChoices(
-                                  listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex].listChoice[1]),
-                              PracticeChoices(
-                                  listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex].listChoice[2]),
-                              PracticeChoices(
-                                  listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex].listChoice[3]),
+                              SizedBox(height: 15),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    PracticeChoices(
+                                        listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                            .listChoice[0]),
+                                    PracticeChoices(
+                                        listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                            .listChoice[1]),
+                                    if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                        .listChoice[2]
+                                        .text
+                                        .isNotEmpty)
+                                      PracticeChoices(
+                                          listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                              .listChoice[2]),
+                                    if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                        .listChoice[3]
+                                        .text
+                                        .isNotEmpty)
+                                      PracticeChoices(
+                                          listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                              .listChoice[3]),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -101,7 +119,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                     onClick: () {
                                       if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
                                           Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
-                                        Navigator.pushNamed(context, '/practice_result_screens');
+                                        Navigator.pushNamed(context, '/grammar_practice_result_screens');
                                       } else {
                                         Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
                                       }
