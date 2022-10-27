@@ -16,18 +16,23 @@ class UserProvider with ChangeNotifier {
   Stream<User> get authState => _auth.authStateChanges();
 
   void signInWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
-    if (result.status == LoginStatus.success) {
-      // Create a credential from the access token
-      final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
-      // Once signed in, return the UserCredential
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
-    } else if (result.status == LoginStatus.failed) {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
+      if (result.status == LoginStatus.success) {
+        // Create a credential from the access token
+        final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
+        // Once signed in, return the UserCredential
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
+      } else if (result.status == LoginStatus.failed) {
+        print("login failed");
+        showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
+      }
+      return null;
+    } catch (e) {
       print("login failed");
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
-    return null;
   }
 
   void loginUser(bool isNew, String uid) async {
@@ -44,23 +49,28 @@ class UserProvider with ChangeNotifier {
   }
 
   void signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
-      return null;
-    }
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    try {
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return null;
+      }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-    if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-      // Create a credential from tokens
-      final OAuthCredential credential =
-          GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      // Once signed in, return the UserCredential
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
-    } else {
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        // Create a credential from tokens
+        final OAuthCredential credential =
+            GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+        // Once signed in, return the UserCredential
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
+      } else {
+        showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
+      }
+      return null;
+    } catch (e) {
+      print("login failed");
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
-    return null;
   }
 
   void logout() async {
