@@ -15,16 +15,21 @@ class _HskLevelSelectionState extends State<HskLevelSelection> {
     return Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
             Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null
         ? SizedBox()
-        : Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            decoration: BoxDecoration(
-              color: Styles.whiteColor.withOpacity(0.1),
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-            ),
-            child: MyText(
-              "HSK ${Provider.of<UserProvider>(context, listen: false).loggedUser.hsk}",
-              textColor: Styles.whiteColor,
-              fontWeight: Styles.wBold,
+        : InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 2});
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: Styles.whiteColor.withOpacity(0.1),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: MyText(
+                "HSK ${Provider.of<UserProvider>(context, listen: false).loggedUser.hsk}",
+                textColor: Styles.whiteColor,
+                fontWeight: Styles.wBold,
+              ),
             ),
           );
   }

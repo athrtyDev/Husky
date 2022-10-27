@@ -22,7 +22,7 @@ class AppRouter {
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/main':
-        return MaterialPageRoute(builder: (_) => MainScreen());
+        return MaterialPageRoute(builder: (_) => MainScreen(args: settings.arguments));
       case '/vocabulary_home_screen':
         return MaterialPageRoute(builder: (_) => VocabularyHomeScreen());
       case '/vocabulary_list_screen':

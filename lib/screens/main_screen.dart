@@ -26,6 +26,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     super.initState();
     int startingIndex = 0;
     int tabLength = 3;
+    if (widget.args != null && widget.args['defaultTab'] != null) {
+      startingIndex = int.tryParse(widget.args['defaultTab'].toString()) ?? 0;
+    }
     _controller = TabController(initialIndex: startingIndex, length: tabLength, vsync: this);
 
     Future.delayed(Duration.zero, () async {
