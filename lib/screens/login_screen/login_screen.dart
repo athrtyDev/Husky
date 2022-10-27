@@ -1,5 +1,5 @@
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/global/style.dart';
+import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/screens/login_screen/components/login_container.dart';
 import 'package:diyi/screens/login_screen/components/login_tile.dart';

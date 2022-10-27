@@ -1,3 +1,4 @@
+import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
@@ -13,6 +14,8 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  app = await Globals();
+
   runApp(
     MultiProvider(
       providers: [

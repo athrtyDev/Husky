@@ -1,7 +1,11 @@
+import 'package:diyi/global/constants.dart';
+import 'package:diyi/providers/user_provider.dart';
+import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class HomePractice extends StatefulWidget {
   @override
@@ -32,12 +36,25 @@ class _HomePracticeState extends State<HomePractice> {
         if (menuType == MenuType.videoLesson)
           return;
         else if (menuType == MenuType.grammar) {
-          Navigator.pushNamed(context, '/grammar_practice_screens');
+          if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced) {
+            Navigator.pushNamed(context, '/grammar_practice_screens');
+          } else {
+            showWarningToasts("Уучлаарай, төлбөр төлөгдөөгүй байна.");
+          }
         } else {
-          Navigator.pushNamed(context, '/practice_screens', arguments: {
-            'menu_type': menuType,
-            'menu_name': title,
-          });
+          if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
+              (Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.basic ||
+                  Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced)) {
+            Navigator.pushNamed(context, '/practice_screens', arguments: {
+              'menu_type': menuType,
+              'menu_name': title,
+            });
+          } else {
+            showWarningToasts("Уучлаарай, төлбөр төлөгдөөгүй байна.");
+          }
         }
       },
       child: Container(

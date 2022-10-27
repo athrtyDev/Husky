@@ -11,7 +11,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context, listen: false).user;
+    User user = Provider.of<UserProvider>(context, listen: false).firebaseUser;
     String name;
     if (user != null) {
       name = user.displayName;
