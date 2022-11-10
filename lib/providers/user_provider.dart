@@ -38,8 +38,8 @@ class UserProvider with ChangeNotifier {
   void loginUser(bool isNew, String uid) async {
     Api api = Api();
     if (isNew) {
-      UserData user = UserData(uid: uid, paidStatus: "", role: "", hsk: "1");
-      api.addUser(user);
+      UserData user = UserData(uid: uid, paidStatus: "", role: "", hsk: "1", name: firebaseUser.displayName);
+      user.shortId = await api.addUser(user);
       loggedUser = user;
     } else {
       loggedUser = await api.fetchUser(uid);

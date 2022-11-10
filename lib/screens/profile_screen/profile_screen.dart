@@ -129,22 +129,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: "Төлбөр төлөх",
             icon: Icons.credit_card_rounded,
             onTap: () {
-              Navigator.pushNamed(context, '/payment_screen');
+              Navigator.pushNamed(context, '/payment_choice_screen');
             }),
         _separator(),
         _settingsTile(
             title: "Санал хүсэлт",
             icon: Icons.note_add,
             onTap: () {
-              print('aaa');
+              print('sanal huselt');
             }),
         _separator(),
         _settingsTile(
             title: "Холбоо барих",
             icon: Icons.phone,
             onTap: () {
-              print('aaa');
+              print('holboo barih');
             }),
+        if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+            Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
+            Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
+          _settingsTile(
+              title: "Админ тохиргоо",
+              icon: Icons.admin_panel_settings_rounded,
+              onTap: () {
+                Navigator.pushNamed(context, '/admin_home_screen');
+              }),
       ],
     );
   }

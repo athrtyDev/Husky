@@ -1,11 +1,12 @@
+import 'package:diyi/core/classes/AppStaticData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 export 'style.dart';
 
 Globals app = Globals();
 
 class Globals {
   static Globals _instance = Globals();
+  AppStaticData appStaticData;
   SharedPreferences cacheStorage;
 
   factory Globals() {

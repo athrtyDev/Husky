@@ -52,7 +52,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       backgroundColor: Styles.whiteColor,
       body: listPractice == null
           ? Loader()
-          : Provider.of<PracticeProvider>(context, listen: true).isGrammarEmpty
+          : listPractice.isEmpty
               ? Center(child: NotFound(text: "HSK ${hskLevel} түвшний дасгал байхгүй байна."))
               : Column(
                   children: [

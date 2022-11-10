@@ -1,3 +1,4 @@
+import 'package:diyi/core/api.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
@@ -55,15 +56,25 @@ class _MyAppState extends State<MyApp> {
   final AppRouter _appRouter = AppRouter();
 
   @override
+  void initState() {
+    super.initState();
+    getAppStaticData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Husky',
       theme: ThemeData(fontFamily: 'Mulish'),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.generatedRoute,
-      // initialRoute: isAuth(context) ? ('/home') : ('/login'),
       home: AuthWrapper(),
     );
+  }
+
+  void getAppStaticData() async {
+    Api api = Api();
+    app.appStaticData = await api.getAppStaticData();
   }
 }
 

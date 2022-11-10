@@ -1,5 +1,6 @@
 class Constants {
   static const practiceVocabularyQuestions = 15;
+  static const startingUserId = 316955;
 }
 
 class Hsk {
