@@ -6,6 +6,7 @@ Widget myAppBar({
   String title,
   Widget leading,
   List<Widget> actions,
+  Color color,
 }) {
   return AppBar(
     title: MyText.large(title ?? '', textColor: Styles.textColor),
@@ -15,6 +16,6 @@ Widget myAppBar({
     ),
     shadowColor: Colors.transparent,
     centerTitle: true,
-    flexibleSpace: Container(decoration: BoxDecoration(color: Styles.whiteColor)),
+    flexibleSpace: Container(decoration: BoxDecoration(color: color ?? Styles.whiteColor)),
   );
 }
