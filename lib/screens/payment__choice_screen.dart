@@ -1,10 +1,8 @@
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
-import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/utils/formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PaymentChoiceScreen extends StatefulWidget {
   const PaymentChoiceScreen({Key key}) : super(key: key);

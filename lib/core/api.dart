@@ -109,7 +109,7 @@ class Api {
 
   Future<int> addUser(UserData user) async {
     int newUserId;
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('UserData').get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('UserData').orderBy('shortId', descending: true).get();
     if (snapshot.docs.isEmpty) {
       newUserId = Constants.startingUserId;
     } else {
@@ -129,6 +129,31 @@ class Api {
     if (customerSnapshot.docs.isEmpty) {
       return null;
     } else {
+      return UserData.fromJson(customerSnapshot.docs[0].data());
+    }
+  }
+
+  Future<List<UserData>> fetchAllUser() async {
+    print("Firestore read: fetchAllUser");
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').orderBy('shortId', descending: true).get();
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
+      return itemSnapshot.docs.map((type) => new UserData.fromJson(type.data())).toList();
+    }
+  }
+
+  Future<UserData> fetchUserByShortId(int shortId) async {
+    print("Firestore read: fetchUserByShortId");
+    QuerySnapshot customerSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: shortId).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      print("Fetched: ${customerSnapshot.docs.length}");
       return UserData.fromJson(customerSnapshot.docs[0].data());
     }
   }
@@ -181,6 +206,18 @@ class Api {
       return;
     } else {
       FirebaseFirestore.instance.collection('AppStaticData').doc(customerSnapshot.docs[0].id).update(data);
+    }
+  }
+
+  Future<void> changeUserPaidStatus(UserData userData) async {
+    print("Firestore update: changeUserPaidStatus");
+    QuerySnapshot customerSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: userData.shortId).limit(1).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return;
+    } else {
+      FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(userData.toJson());
     }
   }
 }

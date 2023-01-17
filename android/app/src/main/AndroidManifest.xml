@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.diyi">
+    package="diyi1019.mn">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Di yi"

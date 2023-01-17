@@ -98,7 +98,10 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
                       "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
                 });
               } else {
-                Navigator.pushNamed(context, '/payment_screen');
+                if (Provider.of<UserProvider>(context, listen: false).loggedUser == null)
+                  Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 2});
+                else
+                  Navigator.pushNamed(context, '/payment_choice_screen');
               }
             },
             child: GroupWidget(

@@ -29,30 +29,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<User>() == null
+    return context.watch<User>() == null || Provider.of<UserProvider>(context, listen: true).loggedUser == null
         ? LoginScreen()
-        : Provider.of<UserProvider>(context, listen: true).loggedUser == null
-            ? SizedBox()
-            : Padding(
-                padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
-                child: Column(
-                  children: [
-                    _profileWidget(),
-                    Expanded(child: SizedBox()),
-                    _hskLevelWidget(),
-                    Expanded(child: SizedBox()),
-                    _listSettingWidget(),
-                    Expanded(child: SizedBox()),
-                    Button.secondary(
-                      text: "Гарах",
-                      onClick: () {
-                        Provider.of<UserProvider>(context, listen: false).logout();
-                      },
-                    ),
-                    SizedBox(height: 20),
-                  ],
+        : Padding(
+            padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
+            child: Column(
+              children: [
+                _profileWidget(),
+                Expanded(child: SizedBox()),
+                _hskLevelWidget(),
+                Expanded(child: SizedBox()),
+                _listSettingWidget(),
+                Expanded(child: SizedBox()),
+                Button.secondary(
+                  text: "Гарах",
+                  onClick: () {
+                    Provider.of<UserProvider>(context, listen: false).logout();
+                  },
                 ),
-              );
+                SizedBox(height: 20),
+              ],
+            ),
+          );
   }
 
   _profileWidget() {
@@ -60,20 +58,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(user.photoURL == null ? 14 : 10),
           decoration: BoxDecoration(
             color: Styles.greyColor,
             shape: BoxShape.circle,
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: user.photoURL,
-              height: 70,
-              width: 70,
-            ),
-          ),
+          child: user.photoURL == null
+              ? Icon(
+                  Icons.person,
+                  color: Styles.baseColor70,
+                )
+              : ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: user.photoURL,
+                    height: 70,
+                    width: 70,
+                  ),
+                ),
         ),
         SizedBox(width: 25),
         Expanded(
@@ -81,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyText.large(
-                user.displayName,
+                user.displayName ?? user.email,
                 fontWeight: Styles.wSemiBold,
               ),
               MyText(

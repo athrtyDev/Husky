@@ -35,7 +35,7 @@ class Globals {
   }
 
   Future<void> removeStorage(String key) async {
-    if (cacheStorage.containsKey(key)) {
+    if (cacheStorage != null && cacheStorage.containsKey(key)) {
       await cacheStorage.remove(key);
     }
   }

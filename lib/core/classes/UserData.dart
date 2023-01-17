@@ -6,6 +6,7 @@ class UserData {
   String role;
   String hsk;
   int shortId;
+  String createdDate;
 
   UserData({
     this.uid,
@@ -15,6 +16,7 @@ class UserData {
     this.role,
     this.hsk,
     this.shortId,
+    this.createdDate,
   });
 
   UserData.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class UserData {
     role = json['role'];
     hsk = json['hsk'];
     shortId = json['shortId'];
+    createdDate = json['createdDate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +39,7 @@ class UserData {
     data['role'] = this.role;
     data['hsk'] = this.hsk;
     data['shortId'] = this.shortId;
+    data['createdDate'] = this.createdDate;
     return data;
   }
 }

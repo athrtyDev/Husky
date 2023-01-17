@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/user_provider.dart';
@@ -43,11 +45,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         // height: MediaQuery.of(context).size.height * 0.18,
                         height: MediaQuery.of(context).size.height * 0.19,
                       ),
-                      SizedBox(
-                        height: 70,
-                      ),
+                      SizedBox(height: 70),
                       LoginContainer(
                         child: [
+                          Platform.isIOS
+                              ? LoginTile(
+                                  login: () async {
+                                    showLoading(context);
+                                    await Provider.of<UserProvider>(context, listen: false).signInWithApple();
+                                    hideLoading();
+                                  },
+                                  icon: "assets/icons/ic_login_apple.png",
+                                  title: "Apple-р нэвтрэх",
+                                )
+                              : const SizedBox(),
                           LoginTile(
                             login: () async {
                               showLoading(context);
@@ -66,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             icon: "assets/icons/ic_login_google.png",
                             title: "Google-р нэвтрэх",
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 20),
                           MyText.medium(
                             "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
                             // textColor: Styles.whiteColor,
