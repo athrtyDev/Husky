@@ -1,6 +1,5 @@
 import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/global/style.dart';

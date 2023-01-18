@@ -1,5 +1,6 @@
 import 'package:diyi/core/api.dart';
 import 'package:diyi/core/classes/UserData.dart';
+import 'package:diyi/global/constants.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/utils/base_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ class UserProvider with ChangeNotifier {
   User get firebaseUser => _auth.currentUser;
   UserData loggedUser;
   List<UserData> listSearchedUser;
+  String paidType = PaidType.unpaid;
 
   Stream<User> get authState => _auth.authStateChanges();
 
@@ -70,11 +72,31 @@ class UserProvider with ChangeNotifier {
       );
       user.shortId = await api.addUser(user);
       loggedUser = user;
+      calcPaidType();
     } else {
       loggedUser = await api.fetchUser(uid);
+      calcPaidType();
     }
     app.writeStorage("user_uid", loggedUser.uid);
     notifyListeners();
+  }
+
+  calcPaidType() {
+    paidType = (loggedUser.paidStatus == null || loggedUser.paidStatus == "") ? PaidType.unpaid : loggedUser.paidStatus;
+    if (loggedUser.paymentEndDate != null && loggedUser.paymentEndDate != "") {
+      DateTime expire = DateTime.parse(loggedUser.paymentEndDate);
+      if (DateTime.now().isAfter(expire)) {
+        paidType = PaidType.unpaid;
+      }
+    }
+  }
+
+  bool canAccessVocabulary(int index) {
+    return paidType == PaidType.advanced || paidType == PaidType.basic || index < 2;
+  }
+
+  bool canAccessGrammar(int index) {
+    return paidType == PaidType.advanced || index < 1;
   }
 
   void signInWithGoogle() async {
@@ -107,6 +129,7 @@ class UserProvider with ChangeNotifier {
       _auth.signOut();
       app.removeStorage("user_uid");
       loggedUser = null;
+      paidType = PaidType.unpaid;
       notifyListeners();
     } catch (e) {
       print("error $e");
@@ -116,6 +139,7 @@ class UserProvider with ChangeNotifier {
   void checkLoggedUser() async {
     if (firebaseUser == null) {
       loggedUser = null;
+      paidType = PaidType.unpaid;
       app.removeStorage("user_uid");
       return;
     }
@@ -123,6 +147,7 @@ class UserProvider with ChangeNotifier {
     if (uid != null) {
       Api api = Api();
       loggedUser = await api.fetchUser(uid);
+      calcPaidType();
     }
     notifyListeners();
   }

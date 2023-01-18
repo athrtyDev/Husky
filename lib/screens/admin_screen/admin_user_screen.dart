@@ -95,7 +95,7 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(user.name),
+              MyText(user.name ?? user.shortId.toString()),
               MyText(user.shortId.toString(), textColor: Styles.textColor70),
               // MyText(user.paymentEndDate == "" ? "" : user.paymentEndDate.substring(0, 10), textColor: Styles.textColor70),
             ],

@@ -36,18 +36,13 @@ class _HomePracticeState extends State<HomePractice> {
         if (menuType == MenuType.videoLesson)
           return;
         else if (menuType == MenuType.grammar) {
-          if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
-              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
-              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced) {
+          if (Provider.of<UserProvider>(context, listen: false).canAccessGrammar(100)) {
             Navigator.pushNamed(context, '/grammar_practice_screens');
           } else {
             showWarningToasts("Уучлаарай, төлбөр төлөгдөөгүй байна.");
           }
         } else {
-          if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
-              Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus != null &&
-              (Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.basic ||
-                  Provider.of<UserProvider>(context, listen: false).loggedUser.paidStatus == PaidType.advanced)) {
+          if (Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(100)) {
             Navigator.pushNamed(context, '/practice_screens', arguments: {
               'menu_type': menuType,
               'menu_name': title,

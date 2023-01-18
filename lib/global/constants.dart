@@ -13,6 +13,7 @@ class Hsk {
 }
 
 class PaidType {
+  static const unpaid = "unpaid";
   static const basic = "basic";
   static const advanced = "advanced";
 }
