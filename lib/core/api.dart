@@ -220,4 +220,11 @@ class Api {
       FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(userData.toJson());
     }
   }
+
+  Future<void> removeUser(String uid) async {
+    print("Request:::::: removeUser");
+    FirebaseFirestore.instance.collection('UserData').where("uid", isEqualTo: uid).get().then((snapshot) {
+      snapshot.docs.first.reference.delete();
+    });
+  }
 }

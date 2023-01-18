@@ -61,29 +61,39 @@ class UserProvider with ChangeNotifier {
   void loginUser(bool isNew, String uid) async {
     Api api = Api();
     if (isNew) {
-      UserData user = UserData(
-        uid: uid,
-        paidStatus: "",
-        role: "",
-        hsk: "1",
-        name: firebaseUser.displayName,
-        paymentEndDate: "",
-        createdDate: DateTime.now().toString(),
-      );
-      user.shortId = await api.addUser(user);
-      loggedUser = user;
+      addNewUser(uid);
       calcPaidType();
     } else {
       loggedUser = await api.fetchUser(uid);
+      if (loggedUser == null) {
+        await addNewUser(uid);
+      }
       calcPaidType();
     }
     app.writeStorage("user_uid", loggedUser.uid);
     notifyListeners();
   }
 
+  addNewUser(String uid) async {
+    Api api = Api();
+    UserData user = UserData(
+      uid: uid,
+      paidStatus: "",
+      role: "",
+      hsk: "1",
+      name: firebaseUser.displayName,
+      paymentEndDate: "",
+      createdDate: DateTime.now().toString(),
+    );
+    user.shortId = await api.addUser(user);
+    loggedUser = user;
+  }
+
   calcPaidType() {
-    paidType = (loggedUser.paidStatus == null || loggedUser.paidStatus == "") ? PaidType.unpaid : loggedUser.paidStatus;
-    if (loggedUser.paymentEndDate != null && loggedUser.paymentEndDate != "") {
+    paidType = (loggedUser == null || loggedUser.paidStatus == null || loggedUser.paidStatus == "")
+        ? PaidType.unpaid
+        : loggedUser.paidStatus;
+    if (loggedUser != null && loggedUser.paymentEndDate != null && loggedUser.paymentEndDate != "") {
       DateTime expire = DateTime.parse(loggedUser.paymentEndDate);
       if (DateTime.now().isAfter(expire)) {
         paidType = PaidType.unpaid;
@@ -186,5 +196,11 @@ class UserProvider with ChangeNotifier {
   void changeUserPaidStatus(UserData user) async {
     Api api = Api();
     api.changeUserPaidStatus(user);
+  }
+
+  void deleteUser() async {
+    final Api api = Api();
+    api.removeUser(loggedUser.uid);
+    logout();
   }
 }

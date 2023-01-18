@@ -22,33 +22,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration.zero, () async {
-    //   await Provider.of<UserProvider>(context, listen: false).logout();
-    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return context.watch<User>() == null || Provider.of<UserProvider>(context, listen: true).loggedUser == null
         ? LoginScreen()
-        : Padding(
-            padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
-            child: Column(
-              children: [
-                _profileWidget(),
-                Expanded(child: SizedBox()),
-                _hskLevelWidget(),
-                Expanded(child: SizedBox()),
-                _listSettingWidget(),
-                Expanded(child: SizedBox()),
-                Button.secondary(
-                  text: "Гарах",
-                  onClick: () {
-                    Provider.of<UserProvider>(context, listen: false).logout();
-                  },
-                ),
-                SizedBox(height: 20),
-              ],
+        : SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
+              child: Column(
+                children: [
+                  _profileWidget(),
+                  const SizedBox(height: 40),
+                  _hskLevelWidget(),
+                  const SizedBox(height: 40),
+                  _listSettingWidget(),
+                  const SizedBox(height: 60),
+                  Button.secondary(
+                    text: "Гарах",
+                    onClick: () {
+                      Provider.of<UserProvider>(context, listen: false).logout();
+                    },
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
           );
   }
@@ -157,6 +156,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 Navigator.pushNamed(context, '/admin_home_screen');
               }),
+        _settingsTile(
+            title: "Хэрэглэгч устгах",
+            icon: Icons.remove_circle_outline,
+            onTap: () {
+              deleteUser();
+            }),
       ],
     );
   }
@@ -193,6 +198,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _separator() {
     return Container(width: MediaQuery.of(context).size.width, height: 0.3, color: Styles.textColor30);
+  }
+
+  Future<void> deleteUser() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: MyText.large('Хэрэглэгч устгах'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                MyText('Устгасан тохиолдолд таны бүх мэдээлэл устах болно.\n\nТа устгахдаа итгэлтэй байна уу?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: MyText('Буцах', fontWeight: Styles.wBold),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: MyText('Устгах', fontWeight: Styles.wBold),
+              onPressed: () {
+                Provider.of<UserProvider>(context, listen: false).deleteUser();
+                Navigator.of(context).pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   _hskWidget(String hsk) {
