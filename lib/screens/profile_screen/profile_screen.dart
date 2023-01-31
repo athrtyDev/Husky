@@ -134,19 +134,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pushNamed(context, '/payment_choice_screen');
             }),
         _separator(),
-        _settingsTile(
-            title: "Санал хүсэлт",
-            icon: Icons.note_add,
-            onTap: () {
-              print('sanal huselt');
-            }),
-        _separator(),
-        _settingsTile(
-            title: "Холбоо барих",
-            icon: Icons.phone,
-            onTap: () {
-              print('holboo barih');
-            }),
+        // _settingsTile(
+        //     title: "Санал хүсэлт",
+        //     icon: Icons.note_add,
+        //     onTap: () {
+        //       print('sanal huselt');
+        //     }),
+        // _separator(),
+        // _settingsTile(
+        //     title: "Холбоо барих",
+        //     icon: Icons.phone,
+        //     onTap: () {
+        //       print('holboo barih');
+        //     }),
         if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
