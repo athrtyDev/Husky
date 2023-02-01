@@ -50,7 +50,7 @@ class HomeHeader extends StatelessWidget {
             child: Wrap(
               children: [
                 MyText.large(
-                  "万事起头难。 (wànshì qǐtóu nán)",
+                  app.appStaticData == null ? "" : app.appStaticData.static["greeting"] ?? "Энэ өдрийн мэнд",
                   fontWeight: Styles.wNormal,
                   textColor: Styles.whiteColor,
                 ),
