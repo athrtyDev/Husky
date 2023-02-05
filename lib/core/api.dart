@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diyi/core/classes/AppStaticData.dart';
 import 'package:diyi/core/classes/Grammar.dart';
@@ -136,6 +134,31 @@ class Api {
     }
   }
 
+  Future<List<UserData>> fetchAllUser() async {
+    print("Firestore read: fetchAllUser");
+    QuerySnapshot itemSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').orderBy('shortId', descending: true).get();
+    if (itemSnapshot.docs.isEmpty)
+      return null;
+    else {
+      print("Fetched: ${itemSnapshot.docs.length}");
+      return itemSnapshot.docs.map((type) => new UserData.fromJson(type.data())).toList();
+    }
+  }
+
+  Future<UserData> fetchUserByShortId(int shortId) async {
+    print("Firestore read: fetchUserByShortId");
+    QuerySnapshot customerSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: shortId).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      print("Fetched: ${customerSnapshot.docs.length}");
+      return UserData.fromJson(customerSnapshot.docs[0].data());
+    }
+  }
+
   Future<void> changeUserHsk(String uid, String hsk) async {
     print("Firestore update: changeUserHsk");
     UserData fetchedUser;
@@ -185,6 +208,25 @@ class Api {
     } else {
       FirebaseFirestore.instance.collection('AppStaticData').doc(customerSnapshot.docs[0].id).update(data);
     }
+  }
+
+  Future<void> changeUserPaidStatus(UserData userData) async {
+    print("Firestore update: changeUserPaidStatus");
+    QuerySnapshot customerSnapshot =
+        await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: userData.shortId).limit(1).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return;
+    } else {
+      FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(userData.toJson());
+    }
+  }
+
+  Future<void> removeUser(String uid) async {
+    print("Request:::::: removeUser");
+    FirebaseFirestore.instance.collection('UserData').where("uid", isEqualTo: uid).get().then((snapshot) {
+      snapshot.docs.first.reference.delete();
+    });
   }
 
   Future<List<StudyInChinaModel>> getStudyInChina() async {
