@@ -10,8 +10,7 @@ class StudyChinaProvider with ChangeNotifier {
 
   Future<void> cacheAllData() async {
     Api _api = Api();
-    // if (studyChina == null)
-    studyChina = await _api.getStudyInChina();
+    if (studyChina == null) studyChina = await _api.getStudyInChina();
     notifyListeners();
   }
 }
