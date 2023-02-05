@@ -32,11 +32,10 @@ class LoginTile extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(icon, height: 27, width: 27),
               SizedBox(width: 15),
-              Image.asset(icon),
-              SizedBox(width: 10),
               MyText.large(
                 title,
                 textColor: Styles.textColor,

@@ -50,25 +50,25 @@ class HomeHeader extends StatelessWidget {
             child: Wrap(
               children: [
                 MyText.large(
-                  "Энэ долоо хоногт",
+                  app.appStaticData == null ? "" : app.appStaticData.static["greeting"] ?? "Энэ өдрийн мэнд",
                   fontWeight: Styles.wNormal,
                   textColor: Styles.whiteColor,
                 ),
-                MyText.large(
-                  " 27 ",
-                  fontWeight: Styles.wBold,
-                  textColor: Colors.yellow,
-                ),
-                MyText.large(
-                  "шинэ ",
-                  fontWeight: Styles.wNormal,
-                  textColor: Styles.whiteColor,
-                ),
-                MyText.large(
-                  "үг сурсан байна.",
-                  fontWeight: Styles.wNormal,
-                  textColor: Styles.whiteColor,
-                ),
+                // MyText.large(
+                //   " 27 ",
+                //   fontWeight: Styles.wBold,
+                //   textColor: Colors.yellow,
+                // ),
+                // MyText.large(
+                //   "шинэ ",
+                //   fontWeight: Styles.wNormal,
+                //   textColor: Styles.whiteColor,
+                // ),
+                // MyText.large(
+                //   "үг сурсан байна.",
+                //   fontWeight: Styles.wNormal,
+                //   textColor: Styles.whiteColor,
+                // ),
               ],
             ),
           ),

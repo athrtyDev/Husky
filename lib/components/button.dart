@@ -14,6 +14,7 @@ class Button extends StatelessWidget {
   final Border border;
   final Widget iconSvg;
   final bool hasShadow;
+  final double height;
 
   Button({
     Key key,
@@ -22,6 +23,7 @@ class Button extends StatelessWidget {
     this.onClick,
     this.padding,
     this.margin,
+    this.height,
     this.icon,
     this.iconSvg,
     Null Function() handleClear,
@@ -37,6 +39,7 @@ class Button extends StatelessWidget {
     this.onClick,
     this.padding,
     this.margin,
+    this.height,
     this.icon,
     this.iconSvg,
     Null Function() handleClear,
@@ -52,6 +55,7 @@ class Button extends StatelessWidget {
     this.onClick,
     this.padding,
     this.margin,
+    this.height,
     this.icon,
     this.iconSvg,
     Null Function() handleClear,
@@ -67,6 +71,7 @@ class Button extends StatelessWidget {
     this.onClick,
     this.padding,
     this.margin,
+    this.height,
     this.icon,
     this.iconSvg,
     Null Function() handleClear,
@@ -80,7 +85,7 @@ class Button extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 55,
+        height: height ?? 55,
         margin: margin ?? EdgeInsets.zero,
         padding: padding ?? EdgeInsets.all(3),
         decoration: BoxDecoration(

@@ -41,11 +41,15 @@ dependencies:
   flutter_tts: ^3.3.3
   firebase_core: ^1.15.0
   flutter_facebook_auth: ^4.4.0
+  sign_in_with_apple: 4.3.0
+  the_apple_sign_in: ^1.1.1
 #  flutter_facebook_auth: ^3.5.7
   firebase_auth: ^3.3.19
   google_sign_in: ^5.3.3
   percent_indicator: ^4.0.0
   shared_preferences: ^2.0.11
+  in_app_purchase: ^3.1.1
+  package_info_plus: ^3.0.2
 
 dev_dependencies:
   flutter_test:
