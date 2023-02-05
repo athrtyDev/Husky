@@ -19,17 +19,11 @@ class VocabularyListScreen extends StatefulWidget {
 
 class _VocabularyListScreenState extends State<VocabularyListScreen> {
   String headerName;
-  List<Vocabulary> listVocabulary;
 
   @override
   void initState() {
     super.initState();
     headerName = widget.args['headerName'];
-    Future.delayed(Duration.zero, () async {
-      setState(() {
-        listVocabulary = Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary;
-      });
-    });
   }
 
   @override
@@ -37,30 +31,35 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
     return Scaffold(
         appBar: myAppBar(title: headerName),
         backgroundColor: Styles.whiteColor,
-        body: listVocabulary == null
+        body: Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary == null
             ? Loader()
             : Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText("Нийт ${listVocabulary.length} үг:", fontWeight: Styles.wBold),
+                    MyText("Нийт ${Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary.length} үг:",
+                        fontWeight: Styles.wBold),
                     SizedBox(height: 15),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            for (int i = 0; i < listVocabulary.length; i++)
+                            for (int i = 0;
+                                i < Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary.length;
+                                i++)
                               InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(context, "/vocabulary_detail_screen", arguments: {
-                                    'listVocabulary': listVocabulary,
+                                    'listVocabulary':
+                                        Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary,
                                     'index': i,
                                     'title': headerName,
                                   });
                                 },
-                                child: VocabularyListItem(vocabulary: listVocabulary[i]),
+                                child: VocabularyListItem(
+                                    vocabulary: Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary[i]),
                               )
                           ],
                         ),

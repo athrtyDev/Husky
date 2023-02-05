@@ -1,7 +1,9 @@
 import 'package:diyi/components/loader.dart';
+import 'package:diyi/components/not_found.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/providers/grammar_practice_model.dart';
+import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,20 @@ class GrammarPracticeScreen extends StatefulWidget {
 }
 
 class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
+  String hskLevel;
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      await Provider.of<PracticeProvider>(context, listen: false).initGrammarTest("2");
+      if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
+          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+        hskLevel = "1";
+        await Provider.of<PracticeProvider>(context, listen: false).initGrammarTest(hskLevel);
+      } else {
+        hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser.hsk;
+        await Provider.of<PracticeProvider>(context, listen: false).initGrammarTest(hskLevel);
+      }
     });
   }
 
@@ -38,100 +49,102 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
     return Scaffold(
       appBar: myAppBar(title: "Дүрэм", actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
-      body: listPractice == null
+      body: listPractice == null && !Provider.of<PracticeProvider>(context, listen: true).isGrammarEmpty
           ? Loader()
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(1),
-                  child: ProgressBar(
-                    total: Provider.of<PracticeProvider>(context, listen: false).totalQuestions,
-                    done: Provider.of<PracticeProvider>(context).questionIndex + 1,
-                    correct: Provider.of<PracticeProvider>(context).totalCorrectAnswers,
-                    width: MediaQuery.of(context).size.width,
-                    height: 8,
-                  ),
-                ),
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _status(),
-                        SizedBox(height: 15),
-                        MyText(
-                          listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
-                          textColor: Styles.textColor,
-                          size: 25,
-                          fontWeight: FontWeight.w200,
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          decoration:
-                              BoxDecoration(color: Styles.baseColor.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 15),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PracticeChoices(
-                                        listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[0]),
-                                    PracticeChoices(
-                                        listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[1]),
-                                    if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                        .listChoice[2]
-                                        .text
-                                        .isNotEmpty)
-                                      PracticeChoices(
-                                          listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                              .listChoice[2]),
-                                    if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                        .listChoice[3]
-                                        .text
-                                        .isNotEmpty)
-                                      PracticeChoices(
-                                          listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                              .listChoice[3]),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Center(
-                            child: Provider.of<PracticeProvider>(context, listen: true).isAnswered
-                                ? Button(
-                                    text: (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                            Provider.of<PracticeProvider>(context, listen: false).totalQuestions)
-                                        ? "Дуусгах"
-                                        : "Дараагийнх",
-                                    width: 200,
-                                    onClick: () {
-                                      if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                          Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
-                                        Navigator.pushNamed(context, '/grammar_practice_result_screens');
-                                      } else {
-                                        Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
-                                      }
-                                    },
-                                  )
-                                : SizedBox()),
-                      ],
+          : listPractice == null && Provider.of<PracticeProvider>(context, listen: true).isGrammarEmpty
+              ? Center(child: NotFound(text: "HSK ${hskLevel} түвшний дасгал байхгүй байна."))
+              : Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(1),
+                      child: ProgressBar(
+                        total: Provider.of<PracticeProvider>(context, listen: false).totalQuestions,
+                        done: Provider.of<PracticeProvider>(context).questionIndex + 1,
+                        correct: Provider.of<PracticeProvider>(context).totalCorrectAnswers,
+                        width: MediaQuery.of(context).size.width,
+                        height: 8,
+                      ),
                     ),
-                  ),
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _status(),
+                            SizedBox(height: 15),
+                            MyText(
+                              listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
+                              textColor: Styles.textColor,
+                              size: 25,
+                              fontWeight: FontWeight.w200,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 20),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Styles.baseColor.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 15),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        PracticeChoices(
+                                            listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                                .listChoice[0]),
+                                        PracticeChoices(
+                                            listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                                .listChoice[1]),
+                                        if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                            .listChoice[2]
+                                            .text
+                                            .isNotEmpty)
+                                          PracticeChoices(
+                                              listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                                  .listChoice[2]),
+                                        if (listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                            .listChoice[3]
+                                            .text
+                                            .isNotEmpty)
+                                          PracticeChoices(
+                                              listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
+                                                  .listChoice[3]),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Center(
+                                child: Provider.of<PracticeProvider>(context, listen: true).isAnswered
+                                    ? Button(
+                                        text: (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
+                                                Provider.of<PracticeProvider>(context, listen: false).totalQuestions)
+                                            ? "Дуусгах"
+                                            : "Дараагийнх",
+                                        width: 200,
+                                        onClick: () {
+                                          if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
+                                              Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
+                                            Navigator.pushNamed(context, '/grammar_practice_result_screens');
+                                          } else {
+                                            Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
+                                          }
+                                        },
+                                      )
+                                    : SizedBox()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 

@@ -37,37 +37,13 @@ initFToast(BuildContext context) {
 }
 
 showWarningToasts(String msg) {
-  // fToast.removeCustomToast();
-  Fluttertoast.showToast(msg: msg, backgroundColor: Styles.orangeColor, toastLength: Toast.LENGTH_LONG
-      // positionedToastBuilder: (context, child) {
-      //   return MyToast.warningToast(
-      //     title: msg,
-      //     body: body,
-      //     callback: () => fToast.removeCustomToast(),
-      //   );
-      // },
-      );
+  Fluttertoast.showToast(msg: msg, backgroundColor: Styles.orangeColor, toastLength: Toast.LENGTH_LONG);
 }
 
-showSuccessToasts(String msg, {String body}) {
-  fToast.removeCustomToast();
-  fToast.showToast(positionedToastBuilder: (context, child) {
-    return MyToast.successToast(
-      title: msg,
-      body: body,
-      callback: () => fToast.removeCustomToast(),
-    );
-  });
+showSuccessToasts(String msg) {
+  Fluttertoast.showToast(msg: msg, backgroundColor: Styles.greenColor, toastLength: Toast.LENGTH_LONG);
 }
 
-showErrorToast(String errorText, {String body}) {
-  fToast.removeCustomToast();
-  fToast.showToast(positionedToastBuilder: (context, child) {
-    return MyToast.errorToast(
-      title: errorText,
-      body: body,
-      callback: () => fToast.removeCustomToast(),
-    );
-  });
+showErrorToast(String msg) {
+  Fluttertoast.showToast(msg: msg, backgroundColor: Styles.orangeColor, toastLength: Toast.LENGTH_LONG);
 }
-// }

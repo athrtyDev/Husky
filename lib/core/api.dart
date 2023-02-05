@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diyi/core/classes/AppStaticData.dart';
 import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
@@ -6,6 +7,7 @@ import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
+import 'package:diyi/global/constants.dart';
 import 'package:diyi/providers/grammar_practice_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,9 +107,19 @@ class Api {
     }
   }
 
-  Future<void> addUser(UserData user) async {
+  Future<int> addUser(UserData user) async {
+    int newUserId;
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('UserData').get();
+    if (snapshot.docs.isEmpty) {
+      newUserId = Constants.startingUserId;
+    } else {
+      newUserId = UserData.fromJson(snapshot.docs[0].data()).shortId + 1;
+    }
+
+    user.shortId = newUserId;
     final CollectionReference ref = FirebaseFirestore.instance.collection('UserData');
     ref.doc().set(user.toJson());
+    return newUserId;
   }
 
   Future<UserData> fetchUser(String uid) async {
@@ -147,6 +159,28 @@ class Api {
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
       return itemSnapshot.docs.map((type) => new GrammarPracticeModel.fromJson(type.data())).toList();
+    }
+  }
+
+  Future<AppStaticData> getAppStaticData() async {
+    print("Firestore read: getAppStaticData");
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('AppStaticData').get();
+
+    if (snapshot.docs.isEmpty) {
+      return AppStaticData.empty();
+    } else {
+      return AppStaticData.fromJson(snapshot.docs[0].data());
+    }
+  }
+
+  Future<void> changeStaticData(Map<String, dynamic> data) async {
+    print("Firestore update: changeStaticData");
+    QuerySnapshot customerSnapshot = await FirebaseFirestore.instance.collection('AppStaticData').limit(1).get();
+
+    if (customerSnapshot.docs.isEmpty) {
+      return;
+    } else {
+      FirebaseFirestore.instance.collection('AppStaticData').doc(customerSnapshot.docs[0].id).update(data);
     }
   }
 }

@@ -4,12 +4,12 @@ import 'package:diyi/components/not_found.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
 import 'package:diyi/core/classes/VocabularyLevel.dart';
 import 'package:diyi/global/constants.dart';
+import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
 import 'package:diyi/components/group_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
-import 'package:diyi/global/style.dart';
 import 'package:provider/provider.dart';
 
 class VocabularyHomeScreen extends StatefulWidget {
@@ -26,7 +26,12 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
     Future.delayed(Duration.zero, () async {
       VocabularyProvider provider = Provider.of<VocabularyProvider>(context, listen: false);
       await provider.cacheAllData();
-      await provider.selectLevel("1");
+      if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
+          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+        provider.selectLevel("1");
+      } else {
+        provider.selectLevel(Provider.of<UserProvider>(context, listen: false).loggedUser.hsk);
+      }
     });
   }
 

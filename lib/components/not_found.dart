@@ -2,7 +2,8 @@ import 'package:diyi/components/my_text.dart';
 import 'package:flutter/material.dart';
 
 class NotFound extends StatelessWidget {
-  const NotFound({Key key}) : super(key: key);
+  final String text;
+  const NotFound({Key key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class NotFound extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        MyText.large("Дата байхгүй байна."),
+        MyText.large(text ?? "Дата байхгүй байна."),
         SizedBox(height: 130),
       ],
     );

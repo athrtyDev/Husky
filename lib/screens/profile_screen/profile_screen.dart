@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diyi/components/button.dart';
-import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/constants.dart';
+import 'package:diyi/global/global.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     // Future.delayed(Duration.zero, () async {
-    //   Provider.of<UserProvider>(context, listen: false).logout();
+    //   await Provider.of<UserProvider>(context, listen: false).logout();
     // });
   }
 
@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return context.watch<User>() == null
         ? LoginScreen()
         : Provider.of<UserProvider>(context, listen: true).loggedUser == null
-            ? Loader()
+            ? SizedBox()
             : Padding(
                 padding: const EdgeInsets.only(top: kToolbarHeight + 20, left: 20, right: 20),
                 child: Column(
@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _profileWidget() {
-    User user = Provider.of<UserProvider>(context, listen: false).user;
+    User user = Provider.of<UserProvider>(context, listen: false).firebaseUser;
     return Row(
       children: [
         Container(
@@ -129,22 +129,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: "Төлбөр төлөх",
             icon: Icons.credit_card_rounded,
             onTap: () {
-              Navigator.pushNamed(context, '/payment_screen');
+              Navigator.pushNamed(context, '/payment_choice_screen');
             }),
         _separator(),
         _settingsTile(
             title: "Санал хүсэлт",
             icon: Icons.note_add,
             onTap: () {
-              print('aaa');
+              print('sanal huselt');
             }),
         _separator(),
         _settingsTile(
             title: "Холбоо барих",
             icon: Icons.phone,
             onTap: () {
-              print('aaa');
+              print('holboo barih');
             }),
+        if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
+            Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
+            Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
+          _settingsTile(
+              title: "Админ тохиргоо",
+              icon: Icons.admin_panel_settings_rounded,
+              onTap: () {
+                Navigator.pushNamed(context, '/admin_home_screen');
+              }),
       ],
     );
   }
@@ -187,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return InkWell(
       onTap: () {
         Provider.of<UserProvider>(context, listen: false).setHsk(hsk);
-        Provider.of<PracticeProvider>(context, listen: false).clearListVocabulary();
+        Provider.of<PracticeProvider>(context, listen: false).clearPracticeList();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),

@@ -16,11 +16,12 @@ class PracticeProvider with ChangeNotifier {
   List<Vocabulary> listAllVocabulary;
   List<Vocabulary> listWrongVocabulary;
   List<GrammarPracticeModel> listWrongGrammar;
+  bool isGrammarEmpty = false;
 
-  void initVocabularyTest() async {
+  void initVocabularyTest(String hsk) async {
     listVocabularyPractice = null;
     notifyListeners();
-    await initVocabularyPracticeQuestions(hskLevel: "1");
+    await initVocabularyPracticeQuestions(hskLevel: hsk);
     questionIndex = 0;
     totalQuestions = Constants.practiceVocabularyQuestions;
     totalCorrectAnswers = 0;
@@ -30,9 +31,16 @@ class PracticeProvider with ChangeNotifier {
   }
 
   void initGrammarTest(String hskLevel) async {
-    listGrammarPractice = null;
-    notifyListeners();
-    listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
+    isGrammarEmpty = false;
+    if (listGrammarPractice == null) {
+      listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
+      if (listGrammarPractice == null) {
+        isGrammarEmpty = true;
+        notifyListeners();
+        return;
+      }
+    }
+
     listGrammarPractice.shuffle();
     listGrammarPractice = listGrammarPractice.take(10).toList();
     questionIndex = 0;
@@ -83,17 +91,24 @@ class PracticeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearListVocabulary() {
+  void clearPracticeList() {
     listAllVocabulary = null;
+    listGrammarPractice = null;
   }
 
   void initVocabularyPracticeQuestions({String hskLevel}) async {
     Api _api = Api();
+    listVocabularyPractice = null;
     if (listAllVocabulary == null) {
       listAllVocabulary = await _api.getVocabularyByLevel(hskLevel);
+      if (listAllVocabulary == null) {
+        listVocabularyPractice = [];
+        return;
+      }
     }
-    List<Vocabulary> listAllExceptAsked = List.from(listAllVocabulary);
     listVocabularyPractice = [];
+
+    List<Vocabulary> listAllExceptAsked = List.from(listAllVocabulary);
     for (int i = 0; i < Constants.practiceVocabularyQuestions; i++) {
       Vocabulary correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
       listAllExceptAsked.remove(correctVocabulary);

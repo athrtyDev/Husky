@@ -1,6 +1,5 @@
 import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -18,17 +17,11 @@ class GrammarListScreen extends StatefulWidget {
 
 class _GrammarListScreenState extends State<GrammarListScreen> {
   String headerName;
-  List<Grammar> listGrammar;
 
   @override
   void initState() {
     super.initState();
     headerName = widget.args['headerName'];
-    Future.delayed(Duration.zero, () async {
-      setState(() {
-        listGrammar = Provider.of<GrammarProvider>(context, listen: false).listSelectedGrammar;
-      });
-    });
   }
 
   @override
@@ -36,30 +29,34 @@ class _GrammarListScreenState extends State<GrammarListScreen> {
     return Scaffold(
         appBar: myAppBar(title: headerName),
         backgroundColor: Styles.whiteColor,
-        body: listGrammar == null
+        body: Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar == null
             ? Loader()
             : Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText("Нийт ${listGrammar.length} дүрэм:", fontWeight: Styles.wBold),
+                    MyText("Нийт ${Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar.length} дүрэм:",
+                        fontWeight: Styles.wBold),
                     SizedBox(height: 15),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            for (int i = 0; i < listGrammar.length; i++)
+                            for (int i = 0;
+                                i < Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar.length;
+                                i++)
                               InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(context, "/grammar_detail_screen", arguments: {
-                                    'listGrammar': listGrammar,
+                                    'listGrammar': Provider.of<GrammarProvider>(context, listen: false).listSelectedGrammar,
                                     'index': i,
                                     'title': headerName,
                                   });
                                 },
-                                child: GrammarListItem(grammar: listGrammar[i]),
+                                child: GrammarListItem(
+                                    grammar: Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar[i]),
                               )
                           ],
                         ),

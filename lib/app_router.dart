@@ -1,5 +1,9 @@
+import 'package:diyi/screens/admin_screen/admin_edit_screen.dart';
+import 'package:diyi/screens/admin_screen/admin_home_screen.dart';
+import 'package:diyi/screens/admin_screen/admin_user_screen.dart';
 import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:diyi/screens/main_screen.dart';
+import 'package:diyi/screens/payment__choice_screen.dart';
 import 'package:diyi/screens/payment_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
@@ -22,7 +26,7 @@ class AppRouter {
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/main':
-        return MaterialPageRoute(builder: (_) => MainScreen());
+        return MaterialPageRoute(builder: (_) => MainScreen(args: settings.arguments));
       case '/vocabulary_home_screen':
         return MaterialPageRoute(builder: (_) => VocabularyHomeScreen());
       case '/vocabulary_list_screen':
@@ -47,13 +51,21 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PracticeResultScreen());
       case '/grammar_practice_result_screens':
         return MaterialPageRoute(builder: (_) => GrammarPracticeResultScreen());
+      case '/payment_choice_screen':
+        return MaterialPageRoute(builder: (_) => PaymentChoiceScreen());
       case '/payment_screen':
-        return MaterialPageRoute(builder: (_) => PaymentScreen());
+        return MaterialPageRoute(builder: (_) => PaymentScreen(args: settings.arguments));
+      case '/admin_home_screen':
+        return MaterialPageRoute(builder: (_) => AdminHomeScreen());
+      case '/admin_user_screen':
+        return MaterialPageRoute(builder: (_) => AdminUserScreen());
+      case '/admin_edit_screen':
+        return MaterialPageRoute(builder: (_) => AdminEditScreen(args: settings.arguments));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
                   appBar: myAppBar(title: "Route error"),
-                  body: Center(child: Text('No route defined for ${settings.name}')),
+                  body: Center(child: Text('No route defined')),
                 ));
     }
   }

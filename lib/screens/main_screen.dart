@@ -1,10 +1,12 @@
 import 'package:diyi/components/bottom_navigation_home.dart';
 import 'package:diyi/global/style.dart';
+import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/screens/coming_soon_screen.dart';
 import 'package:diyi/screens/home_screen/home_screen.dart';
 import 'package:diyi/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   final dynamic args;
@@ -24,7 +26,14 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     super.initState();
     int startingIndex = 0;
     int tabLength = 3;
+    if (widget.args != null && widget.args['defaultTab'] != null) {
+      startingIndex = int.tryParse(widget.args['defaultTab'].toString()) ?? 0;
+    }
     _controller = TabController(initialIndex: startingIndex, length: tabLength, vsync: this);
+
+    Future.delayed(Duration.zero, () async {
+      Provider.of<UserProvider>(context, listen: false).checkLoggedUser();
+    });
   }
 
   @override
