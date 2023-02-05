@@ -1,4 +1,3 @@
-import 'package:diyi/global/constants.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class _HomePracticeState extends State<HomePractice> {
 
   Widget exerciseTile(String title, String menuType) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         if (menuType == MenuType.videoLesson)
           return;
         else if (menuType == MenuType.grammar) {
@@ -42,7 +41,7 @@ class _HomePracticeState extends State<HomePractice> {
             showWarningToasts("Уучлаарай, төлбөр төлөгдөөгүй байна.");
           }
         } else {
-          if (Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(100)) {
+          if (await Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(100)) {
             Navigator.pushNamed(context, '/practice_screens', arguments: {
               'menu_type': menuType,
               'menu_name': title,

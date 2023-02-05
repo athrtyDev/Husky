@@ -7,6 +7,7 @@ import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/screens/login_screen/login_screen.dart';
+import 'package:diyi/utils/formatter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +88,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontWeight: Styles.wSemiBold,
               ),
               MyText(
-                user.metadata.creationTime.toString().substring(0, 10),
+                Provider.of<UserProvider>(context, listen: false).paidType == null ||
+                        Provider.of<UserProvider>(context, listen: false).paidType == "" ||
+                        Provider.of<UserProvider>(context, listen: false).paidType == PaidType.unpaid
+                    ? "Энгийн хэрэглэгч"
+                    : Formatter.capitalizeFirstLetter(Provider.of<UserProvider>(context, listen: false).paidType),
                 fontWeight: Styles.wSemiBold,
                 textColor: Styles.textColor50,
               ),
@@ -127,12 +132,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         MyText("Тохиргоо", textColor: Styles.textColor70),
         SizedBox(height: 10),
-        _settingsTile(
-            title: "Төлбөр төлөх",
-            icon: Icons.credit_card_rounded,
-            onTap: () {
-              Navigator.pushNamed(context, '/payment_choice_screen');
-            }),
+        app.isReviewingVersion
+            ? SizedBox()
+            : _settingsTile(
+                title: "Төлбөр төлөх",
+                icon: Icons.credit_card_rounded,
+                onTap: () {
+                  Navigator.pushNamed(context, '/payment_choice_screen');
+                }),
         _separator(),
         // _settingsTile(
         //     title: "Санал хүсэлт",

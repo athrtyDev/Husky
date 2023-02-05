@@ -102,11 +102,11 @@ class UserProvider with ChangeNotifier {
   }
 
   bool canAccessVocabulary(int index) {
-    return paidType == PaidType.advanced || paidType == PaidType.basic || index < 2;
+    return app.isReviewingVersion || paidType == PaidType.advanced || paidType == PaidType.basic || index < 2;
   }
 
   bool canAccessGrammar(int index) {
-    return paidType == PaidType.advanced || index < 1;
+    return app.isReviewingVersion || paidType == PaidType.advanced || index < 1;
   }
 
   void signInWithGoogle() async {
