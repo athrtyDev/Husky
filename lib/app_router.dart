@@ -8,6 +8,7 @@ import 'package:diyi/screens/payment_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
 import 'package:diyi/screens/practice_screens/practice_result_screen.dart';
+import 'package:diyi/screens/studyChina_screens/study_china_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/screens/grammar_screens/grammar_detail_screen.dart';
@@ -43,6 +44,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => MockTestHomeScreen());
       case '/studyChina_home_screen':
         return MaterialPageRoute(builder: (_) => StudyChinaHomeScreen());
+      case '/studyChina_detail_screen':
+        return MaterialPageRoute(builder: (_) => StudyChinaDetailScreen(args: settings.arguments));
       case '/practice_screens':
         return MaterialPageRoute(builder: (_) => PracticeScreen(args: settings.arguments));
       case '/grammar_practice_screens':

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diyi/core/classes/AppStaticData.dart';
 import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
+import 'package:diyi/core/classes/StudyInChina.dart';
 import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
@@ -181,6 +184,17 @@ class Api {
       return;
     } else {
       FirebaseFirestore.instance.collection('AppStaticData').doc(customerSnapshot.docs[0].id).update(data);
+    }
+  }
+
+  Future<List<StudyInChinaModel>> getStudyInChina() async {
+    print("Firestore update: getStudyInChina");
+    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('StudyInChina').get();
+
+    if (itemSnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      return itemSnapshot.docs.map((type) => StudyInChinaModel.fromJson(type.data())).toList();
     }
   }
 }
