@@ -3,6 +3,7 @@ import 'package:diyi/core/classes/AppStaticData.dart';
 import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/core/classes/GrammarGroup.dart';
 import 'package:diyi/core/classes/GrammarLevel.dart';
+import 'package:diyi/core/classes/StudyInChina.dart';
 import 'package:diyi/core/classes/UserData.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/VocabularyGroup.dart';
@@ -226,5 +227,16 @@ class Api {
     FirebaseFirestore.instance.collection('UserData').where("uid", isEqualTo: uid).get().then((snapshot) {
       snapshot.docs.first.reference.delete();
     });
+  }
+
+  Future<List<StudyInChinaModel>> getStudyInChina() async {
+    print("Firestore update: getStudyInChina");
+    QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('StudyInChina').get();
+
+    if (itemSnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      return itemSnapshot.docs.map((type) => StudyInChinaModel.fromJson(type.data())).toList();
+    }
   }
 }

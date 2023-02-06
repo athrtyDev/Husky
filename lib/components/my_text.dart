@@ -67,5 +67,6 @@ class MyText extends StatelessWidget {
             height: height ?? 1.4),
         textAlign: textAlign ?? TextAlign.start,
         maxLines: this.maxLines,
+        overflow: TextOverflow.ellipsis,
       );
 }
