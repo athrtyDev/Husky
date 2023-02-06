@@ -110,7 +110,7 @@ class Api {
 
   Future<int> addUser(UserData user) async {
     int newUserId;
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('UserData').get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('UserData').orderBy('shortId', descending: true).get();
     if (snapshot.docs.isEmpty) {
       newUserId = Constants.startingUserId;
     } else {
