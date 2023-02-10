@@ -61,7 +61,7 @@ class UserProvider with ChangeNotifier {
   void loginUser(bool isNew, String uid) async {
     Api api = Api();
     if (isNew) {
-      addNewUser(uid);
+      await addNewUser(uid);
       calcPaidType();
     } else {
       loggedUser = await api.fetchUser(uid);
@@ -74,7 +74,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  addNewUser(String uid) async {
+  Future<void> addNewUser(String uid) async {
     Api api = Api();
     UserData user = UserData(
       uid: uid,
@@ -110,28 +110,28 @@ class UserProvider with ChangeNotifier {
   }
 
   void signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        return null;
-      }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-        // Create a credential from tokens
-        final OAuthCredential credential =
-            GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-        // Once signed in, return the UserCredential
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
-      } else {
-        showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
-      }
+    // try {
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
       return null;
-    } catch (e) {
-      print("login failed");
+    }
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+      // Create a credential from tokens
+      final OAuthCredential credential =
+          GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      // Once signed in, return the UserCredential
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
+    } else {
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
+    return null;
+    // } catch (e) {
+    //   print("login failed");
+    //   showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
+    // }
   }
 
   void logout() async {
