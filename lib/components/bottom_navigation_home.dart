@@ -32,8 +32,8 @@ class BottomNavigationHome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           bottomItem(context, 0, menuList[0].icon, menuList[0].title),
+          // bottomItem(context, 1, menuList[1].icon, menuList[1].title),
           bottomItem(context, 1, menuList[1].icon, menuList[1].title),
-          bottomItem(context, 2, menuList[2].icon, menuList[2].title),
         ],
       ),
     );
@@ -50,18 +50,14 @@ class BottomNavigationHome extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: currentIndex == index
-                    ? Styles.baseColor
-                    : Styles.baseColor.withOpacity(0.5),
+                color: currentIndex == index ? Styles.baseColor : Styles.baseColor.withOpacity(0.5),
                 size: 23,
               ),
               SizedBox(height: 2),
               MyText.medium(
                 label,
                 fontWeight: Styles.wBold,
-                textColor: currentIndex == index
-                    ? Styles.baseColor
-                    : Styles.baseColor.withOpacity(0.5),
+                textColor: currentIndex == index ? Styles.baseColor : Styles.baseColor.withOpacity(0.5),
               ),
             ],
           ),
@@ -70,7 +66,7 @@ class BottomNavigationHome extends StatelessWidget {
 
   static final List<TitleWithIconModel> menuList = [
     TitleWithIconModel(title: "Нүүр", icon: Icons.home_rounded),
-    TitleWithIconModel(title: "Чат", icon: Icons.chat_rounded),
+    // TitleWithIconModel(title: "Чат", icon: Icons.chat_rounded),
     TitleWithIconModel(title: "Миний", icon: Icons.person),
   ];
 }

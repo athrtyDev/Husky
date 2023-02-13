@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     int startingIndex = 0;
-    int tabLength = 3;
+    int tabLength = 2;
     if (widget.args != null && widget.args['defaultTab'] != null) {
       startingIndex = int.tryParse(widget.args['defaultTab'].toString()) ?? 0;
     }
@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                 controller: _controller,
                 children: <Widget>[
                   HomeScreen(),
-                  ComingSoonScreen(canBack: false),
+                  // ComingSoonScreen(canBack: false),
                   ProfileScreen(),
                 ],
                 physics: NeverScrollableScrollPhysics(),

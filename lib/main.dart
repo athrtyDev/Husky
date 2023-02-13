@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void getAppStaticData() async {
+  Future<void> getAppStaticData() async {
     Api api = Api();
     app.appStaticData = await api.getAppStaticData();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
