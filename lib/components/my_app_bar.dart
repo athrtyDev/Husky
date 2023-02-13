@@ -10,7 +10,7 @@ Widget myAppBar({
 }) {
   return AppBar(
     title: MyText.large(title ?? '', textColor: Styles.textColor),
-    actions: actions ?? [SizedBox(width: 50)],
+    actions: actions ?? [const SizedBox(width: 50)],
     iconTheme: IconThemeData(
       color: Styles.baseColor,
     ),
