@@ -72,6 +72,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     'title': 'Холбоо барих',
                   });
                 }),
+                setting("Greeting", () {
+                  Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
+                    'type': 'greeting',
+                    'title': 'Greeting',
+                  });
+                }),
               ],
             ),
           ),

@@ -10,6 +10,7 @@ import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:diyi/utils/formatter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -141,19 +142,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.pushNamed(context, '/payment_choice_screen');
                 }),
         _separator(),
-        // _settingsTile(
-        //     title: "Санал хүсэлт",
-        //     icon: Icons.note_add,
-        //     onTap: () {
-        //       print('sanal huselt');
-        //     }),
-        // _separator(),
-        // _settingsTile(
-        //     title: "Холбоо барих",
-        //     icon: Icons.phone,
-        //     onTap: () {
-        //       print('holboo barih');
-        //     }),
         if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
@@ -163,6 +151,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 Navigator.pushNamed(context, '/admin_home_screen');
               }),
+        _settingsTile(
+            title: "Холбоо барих",
+            icon: Icons.phone,
+            onTap: () {
+              showContact();
+            }),
         _settingsTile(
             title: "Хэрэглэгч устгах",
             icon: Icons.remove_circle_outline,
@@ -201,6 +195,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  showContact() async {
+    await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        builder: (BuildContext bc) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
+                child: Column(
+                  children: [
+                    MyText.large(
+                      "Та доорх мэдээллийн дагуу \nбидэнтэй холбогдоорой",
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                    MyText.large(app.appStaticData.static['contact'], fontWeight: Styles.wNormal),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   _separator() {
