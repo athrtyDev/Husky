@@ -10,7 +10,6 @@ import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:diyi/utils/formatter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
