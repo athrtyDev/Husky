@@ -59,6 +59,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AppRouter _appRouter = AppRouter();
+  bool shouldUpdate = false;
 
   @override
   void initState() {
@@ -73,7 +74,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(fontFamily: 'Mulish'),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.generatedRoute,
-      home: AuthWrapper(),
+      home: MainScreen(shouldUpdate: shouldUpdate),
     );
   }
 
@@ -82,15 +83,7 @@ class _MyAppState extends State<MyApp> {
     app.appStaticData = await api.getAppStaticData();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     app.isReviewingVersion = int.parse(packageInfo.buildNumber) > app.appStaticData.static['approved_build_number'];
+    shouldUpdate = int.parse(packageInfo.buildNumber) < app.appStaticData.static['approved_build_number'];
     print("installed version: ${packageInfo.buildNumber}. isReviewingVersion: ${app.isReviewingVersion}");
-  }
-}
-
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MainScreen();
   }
 }
