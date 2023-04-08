@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136664747909:android:bb5aa46d788ec2a59c3eec",
+        "mobilesdk_app_id": "1:136664747909:android:25b9389917999e759c3eec",
         "android_client_info": {
           "package_name": "diyi1019.mn"
         }
       },
       "oauth_client": [
         {
-          "client_id": "136664747909-8cb52sjoktig35e78llbg7l00tp8ai1q.apps.googleusercontent.com",
+          "client_id": "136664747909-u47152lf6nu7a5dv725giknav4fkohjk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "diyi1019.mn",
