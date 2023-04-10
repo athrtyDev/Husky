@@ -29,65 +29,57 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
             decoration: BoxDecoration(gradient: Styles.baseGradient),
             child: Center(
-                child: Stack(
+                child: Column(
               children: [
-                // Positioned(top: 0, child: backGround()),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 100,
-                      ),
-                      Image.asset(
-                        "assets/logo/logo_white.png",
-                        fit: BoxFit.fitWidth,
-                        // height: MediaQuery.of(context).size.height * 0.18,
-                        height: MediaQuery.of(context).size.height * 0.19,
-                      ),
-                      SizedBox(height: 70),
-                      LoginContainer(
-                        child: [
-                          Platform.isIOS
-                              ? LoginTile(
-                                  login: () async {
-                                    showLoading(context);
-                                    await Provider.of<UserProvider>(context, listen: false).signInWithApple();
-                                    hideLoading();
-                                  },
-                                  icon: "assets/icons/ic_login_apple.png",
-                                  title: "Apple-р нэвтрэх",
-                                )
-                              : const SizedBox(),
-                          LoginTile(
+                SizedBox(
+                  height: 100,
+                ),
+                Image.asset(
+                  "assets/logo/logo_white.png",
+                  fit: BoxFit.fitWidth,
+                  // height: MediaQuery.of(context).size.height * 0.18,
+                  height: MediaQuery.of(context).size.height * 0.19,
+                ),
+                Expanded(child: SizedBox()),
+                LoginContainer(
+                  child: [
+                    Platform.isIOS
+                        ? LoginTile(
                             login: () async {
                               showLoading(context);
-                              await Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
+                              await Provider.of<UserProvider>(context, listen: false).signInWithApple();
                               hideLoading();
                             },
-                            icon: "assets/icons/ic_login_facebook.png",
-                            title: "Facebook-р нэвтрэх",
-                          ),
-                          LoginTile(
-                            login: () async {
-                              showLoading(context);
-                              await Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
-                              hideLoading();
-                            },
-                            icon: "assets/icons/ic_login_google.png",
-                            title: "Google-р нэвтрэх",
-                          ),
-                          SizedBox(height: 20),
-                          MyText.medium(
-                            "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
-                            // textColor: Styles.whiteColor,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
+                            icon: "assets/icons/ic_login_apple.png",
+                            title: "Apple-р нэвтрэх",
+                          )
+                        : const SizedBox(),
+                    LoginTile(
+                      login: () async {
+                        showLoading(context);
+                        await Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
+                        hideLoading();
+                      },
+                      icon: "assets/icons/ic_login_facebook.png",
+                      title: "Facebook-р нэвтрэх",
+                    ),
+                    LoginTile(
+                      login: () async {
+                        showLoading(context);
+                        await Provider.of<UserProvider>(context, listen: false).signInWithGoogle();
+                        hideLoading();
+                      },
+                      icon: "assets/icons/ic_login_google.png",
+                      title: "Google-р нэвтрэх",
+                    ),
+                    SizedBox(height: 20),
+                    MyText.medium(
+                      "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
+                      // textColor: Styles.whiteColor,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ],
             ))));
   }
