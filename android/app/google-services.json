@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "136664747909-2hkvqtuct0279aroeufnqnmd328cujld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "diyi1019.mn",
+            "certificate_hash": "fa74d6a42ddb26571e20eed1a6909e233f4e9b2e"
+          }
+        },
+        {
           "client_id": "136664747909-u47152lf6nu7a5dv725giknav4fkohjk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "diyi1019.mn",
             "certificate_hash": "5f66fdcc702189101c6a18495b26a9ee4f517d33"
+          }
+        },
+        {
+          "client_id": "136664747909-u6uphbtgui4bfj0bm29pir57nedf1jsn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "diyi1019.mn",
+            "certificate_hash": "ace67a9d8a2fd4f1067c37191b2054378aacb45e"
           }
         },
         {
@@ -42,7 +58,7 @@
               "client_id": "136664747909-e4qf9t4fr49hlh68vghp7js5l88n5lp8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "diyi1019.mn"
+                "bundle_id": "com.example.diyi"
               }
             }
           ]
