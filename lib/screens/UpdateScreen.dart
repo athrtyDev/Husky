@@ -26,7 +26,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("assets/images/update.gif", height: 300),
+              Image.asset("assets/images/update.png", height: 300),
               MyText.large('Di yi'),
               MyText.large('аппликэйшнээ шинэчлээрэй!'),
               SizedBox(height: 20),
