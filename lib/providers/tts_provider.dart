@@ -12,6 +12,8 @@ class TtsProvider with ChangeNotifier {
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
   TtsState ttsState = TtsState.stopped;
   bool isSlow = false;
+  bool hidePronunciation = true;
+  bool hideTranslation = true;
 
   get isPlaying => ttsState == TtsState.playing;
   get isStopped => ttsState == TtsState.stopped;
@@ -78,6 +80,16 @@ class TtsProvider with ChangeNotifier {
 
   void switchSpeed() {
     isSlow = !isSlow;
+    notifyListeners();
+  }
+
+  void switchTranslation() {
+    hideTranslation = !hideTranslation;
+    notifyListeners();
+  }
+
+  void switchPronunciation() {
+    hidePronunciation = !hidePronunciation;
     notifyListeners();
   }
 

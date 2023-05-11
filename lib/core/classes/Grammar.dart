@@ -4,6 +4,7 @@ class Grammar {
   String grammar;
   String translation;
   String pronunciation;
+  String tailbar;
   String type;
   String example1;
   String example1Translation;
@@ -18,6 +19,7 @@ class Grammar {
     this.grammar,
     this.translation,
     this.pronunciation,
+    this.tailbar,
     this.type,
     this.example1,
     this.example1Translation,
@@ -33,6 +35,7 @@ class Grammar {
     grammar = json['grammar'];
     translation = json['translation'];
     pronunciation = json['pronunciation'];
+    tailbar = json['tailbar'];
     type = json['type'];
     example1 = json['example1'];
     example1Translation = json['example1_translation'];
@@ -49,6 +52,7 @@ class Grammar {
     data['grammar'] = this.grammar;
     data['translation'] = this.translation;
     data['pronunciation'] = this.pronunciation;
+    data['tailbar'] = this.tailbar;
     data['type'] = this.type;
     data['example1'] = this.example1;
     data['example1_translation'] = this.example1Translation;

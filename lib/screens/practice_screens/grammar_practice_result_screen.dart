@@ -1,14 +1,11 @@
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/components/voice_icon.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/grammar_practice_model.dart';
+import 'package:diyi/providers/grammar_practice_provider.dart';
 import 'package:diyi/providers/tts_provider.dart';
-import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/screens/practice_screens/components/practice_result_header.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class GrammarPracticeResultScreen extends StatefulWidget {
@@ -33,7 +30,7 @@ class _GrammarPracticeResultScreenState extends State<GrammarPracticeResultScree
   }
 
   _listWrongGrammar() {
-    var provider = context.watch<PracticeProvider>();
+    var provider = context.watch<GrammarPracticeProvider>();
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/constants.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/global/style.dart';
+import 'package:diyi/providers/grammar_practice_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
 import 'package:diyi/screens/login_screen/login_screen.dart';
@@ -265,7 +266,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return InkWell(
       onTap: () {
         Provider.of<UserProvider>(context, listen: false).setHsk(hsk);
-        Provider.of<PracticeProvider>(context, listen: false).clearPracticeList();
+        Provider.of<VocabularyPracticeProvider>(context, listen: false).clearPracticeList();
+        Provider.of<GrammarPracticeProvider>(context, listen: false).clearPracticeList();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),

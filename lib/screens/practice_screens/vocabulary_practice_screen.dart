@@ -11,18 +11,18 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/components/progress_bar.dart';
 import 'package:diyi/components/word_big_container.dart';
 import 'package:diyi/global/global.dart';
-import 'package:diyi/screens/practice_screens/components/practice_choices.dart';
+import 'package:diyi/screens/practice_screens/components/vocabulary_practice_choices.dart';
 import 'package:provider/provider.dart';
 
-class PracticeScreen extends StatefulWidget {
+class VocabularyPracticeScreen extends StatefulWidget {
   final dynamic args;
-  const PracticeScreen({this.args});
+  const VocabularyPracticeScreen({this.args});
 
   @override
-  _PracticeScreenState createState() => _PracticeScreenState();
+  _VocabularyPracticeScreenState createState() => _VocabularyPracticeScreenState();
 }
 
-class _PracticeScreenState extends State<PracticeScreen> {
+class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
   String menuType;
   String menuName;
   String hskLevel;
@@ -36,17 +36,17 @@ class _PracticeScreenState extends State<PracticeScreen> {
       if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
           Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
         hskLevel = "1";
-        await Provider.of<PracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
+        await Provider.of<VocabularyPracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
       } else {
         hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser.hsk;
-        await Provider.of<PracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
+        await Provider.of<VocabularyPracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<PracticeModel> listPractice = Provider.of<PracticeProvider>(context, listen: true).listVocabularyPractice;
+    List<PracticeModel> listPractice = Provider.of<VocabularyPracticeProvider>(context, listen: true).listVocabularyPractice;
     return Scaffold(
       appBar: myAppBar(title: menuName, actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
@@ -59,9 +59,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(1),
                       child: ProgressBar(
-                        total: Provider.of<PracticeProvider>(context, listen: false).totalQuestions,
-                        done: Provider.of<PracticeProvider>(context).questionIndex + 1,
-                        correct: Provider.of<PracticeProvider>(context).totalCorrectAnswers,
+                        total: Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions,
+                        done: Provider.of<VocabularyPracticeProvider>(context).questionIndex + 1,
+                        correct: Provider.of<VocabularyPracticeProvider>(context).totalCorrectAnswers,
                         width: MediaQuery.of(context).size.width,
                         height: 8,
                       ),
@@ -75,8 +75,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                             _status(),
                             SizedBox(height: 15),
                             WordBigContainer(
-                                text: listPractice[Provider.of<PracticeProvider>(context).questionIndex].question,
-                                pronunciation: listPractice[Provider.of<PracticeProvider>(context).questionIndex].questionDesc),
+                                text: listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex].question,
+                                pronunciation:
+                                    listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex].questionDesc),
                             SizedBox(height: 20),
                             MyText(
                               "Сонголтууд",
@@ -90,32 +91,37 @@ class _PracticeScreenState extends State<PracticeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  PracticeChoices(listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                      .listChoice[0]),
-                                  PracticeChoices(listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                      .listChoice[1]),
-                                  PracticeChoices(listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                      .listChoice[2]),
-                                  PracticeChoices(listPractice[Provider.of<PracticeProvider>(context, listen: true).questionIndex]
-                                      .listChoice[3]),
+                                  VocabularyPracticeChoices(
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
+                                          .listChoice[0]),
+                                  VocabularyPracticeChoices(
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
+                                          .listChoice[1]),
+                                  VocabularyPracticeChoices(
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
+                                          .listChoice[2]),
+                                  VocabularyPracticeChoices(
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
+                                          .listChoice[3]),
                                 ],
                               ),
                             ),
                             SizedBox(height: 20),
                             Center(
-                                child: Provider.of<PracticeProvider>(context, listen: true).isAnswered
+                                child: Provider.of<VocabularyPracticeProvider>(context, listen: true).isAnswered
                                     ? Button(
-                                        text: (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                                Provider.of<PracticeProvider>(context, listen: false).totalQuestions)
+                                        text: (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex +
+                                                    1 >=
+                                                Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions)
                                             ? "Дуусгах"
                                             : "Дараагийнх",
                                         width: 200,
                                         onClick: () {
-                                          if (Provider.of<PracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                              Provider.of<PracticeProvider>(context, listen: false).totalQuestions) {
+                                          if (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex + 1 >=
+                                              Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions) {
                                             Navigator.pushNamed(context, '/practice_result_screens');
                                           } else {
-                                            Provider.of<PracticeProvider>(context, listen: false).nextQuestion();
+                                            Provider.of<VocabularyPracticeProvider>(context, listen: false).nextQuestion();
                                           }
                                         },
                                       )
@@ -146,7 +152,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
           ),
           padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
           child: MyText(
-            "${Provider.of<PracticeProvider>(context).totalCorrectAnswers}/${Provider.of<PracticeProvider>(context, listen: false).totalQuestions}",
+            "${Provider.of<VocabularyPracticeProvider>(context).totalCorrectAnswers}/${Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions}",
             textColor: Styles.whiteColor,
             size: 16,
             fontWeight: Styles.wBold,

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/components/voice_icon.dart';
@@ -60,7 +62,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                           Container(
                             color: Styles.textColor10,
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            child: MyText.large(grammar.translation, fontWeight: Styles.wSemiBold),
+                            child: MyText.large(grammar.tailbar, fontWeight: Styles.wSemiBold),
                           ),
                           SizedBox(height: 40),
                           if (grammar.example1 != null && grammar.example1 != "")
@@ -96,83 +98,113 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
   }
 
   Widget _exampleWidget(String example, String pronunciation, String translation) {
-    return InkWell(
-      onTap: () => Provider.of<TtsProvider>(context, listen: false).speak(example),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                exampleStepper("first", example),
-                exampleStepper("", pronunciation),
-                exampleStepper("last", translation),
-              ],
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              exampleStepper(
+                "word",
+                example,
+                false,
+                () {},
+              ),
+              exampleStepper(
+                "pronunciation",
+                pronunciation,
+                Provider.of<TtsProvider>(context, listen: true).hidePronunciation,
+                () {
+                  Provider.of<TtsProvider>(context, listen: false).switchPronunciation();
+                },
+              ),
+              exampleStepper(
+                "translation",
+                translation,
+                Provider.of<TtsProvider>(context, listen: true).hideTranslation,
+                () {
+                  Provider.of<TtsProvider>(context, listen: false).switchTranslation();
+                },
+              ),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+        ),
+        InkWell(
+          onTap: () => Provider.of<TtsProvider>(context, listen: false).speak(example),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
             child: VoiceIcon(isWhite: false),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
-  exampleStepper(String type, String text) {
+  exampleStepper(String type, String text, bool isBlur, Function onClick) {
     return IntrinsicHeight(
-      child: Row(
-        children: [
-          Container(
-            width: 20,
-            child: Column(
-              children: [
-                type == "first"
-                    ? SizedBox(height: 10)
-                    : Expanded(
-                        flex: 1,
-                        child: VerticalDivider(
-                          thickness: 1,
-                          color: Styles.baseColor70,
+      child: InkWell(
+        onTap: () {
+          onClick();
+        },
+        child: Row(
+          children: [
+            Container(
+              width: 20,
+              child: Column(
+                children: [
+                  type == "word"
+                      ? SizedBox(height: 10)
+                      : Expanded(
+                          flex: 1,
+                          child: VerticalDivider(
+                            thickness: 1,
+                            color: Styles.baseColor70,
+                          ),
                         ),
-                      ),
-                Container(
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.baseColor70),
+                  Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.baseColor70),
+                  ),
+                  type == "translation"
+                      ? SizedBox(height: 25)
+                      : Expanded(
+                          flex: 3,
+                          child: VerticalDivider(
+                            thickness: 1,
+                            color: Styles.baseColor70,
+                          ),
+                        )
+                ],
+              ),
+            ),
+            Expanded(
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(
+                  sigmaX: isBlur ? 5 : 0,
+                  sigmaY: isBlur ? 5 : 0,
                 ),
-                type == "last"
-                    ? SizedBox(height: 25)
-                    : Expanded(
-                        flex: 3,
-                        child: VerticalDivider(
-                          thickness: 1,
-                          color: Styles.baseColor70,
-                        ),
-                      )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
-              child: type == "first"
-                  ? Wrap(
-                      children: [
-                        MyText.large(
-                          text.split(grammar.grammar)[0] ?? "",
-                          fontWeight: Styles.wNormal,
-                          letterSpacing: 0.5,
-                        ),
-                        MyText.large(grammar.grammar, textColor: Styles.orangeColor),
-                        MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
-                      ],
-                    )
-                  : MyText.large(text ?? "", fontWeight: Styles.wNormal),
-            ),
-          )
-        ],
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
+                  child: type == "word"
+                      ? Wrap(
+                          children: [
+                            MyText.large(
+                              text.split(grammar.grammar)[0] ?? "",
+                              fontWeight: Styles.wNormal,
+                              letterSpacing: 0.5,
+                            ),
+                            MyText.large(grammar.grammar, textColor: Styles.orangeColor),
+                            MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
+                          ],
+                        )
+                      : MyText.large(text ?? "", fontWeight: Styles.wNormal),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

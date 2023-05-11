@@ -1,6 +1,6 @@
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/style.dart';
-import 'package:diyi/providers/vocabulary_practice_provider.dart';
+import 'package:diyi/providers/grammar_practice_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class PracticeResultHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<PracticeProvider>();
+    var provider = context.watch<GrammarPracticeProvider>();
 
     return Column(
       children: [

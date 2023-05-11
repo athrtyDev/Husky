@@ -3,20 +3,19 @@ import 'package:diyi/core/api.dart';
 import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/global/constants.dart';
-import 'package:diyi/providers/grammar_practice_model.dart';
 import 'package:flutter/foundation.dart';
 
-class PracticeProvider with ChangeNotifier {
+class VocabularyPracticeProvider with ChangeNotifier {
   List<PracticeModel> listVocabularyPractice;
-  List<GrammarPracticeModel> listGrammarPractice;
+  // List<GrammarPracticeModel> listGrammarPractice;
   int questionIndex;
   int totalQuestions;
   int totalCorrectAnswers;
   bool isAnswered;
   List<Vocabulary> listAllVocabulary;
   List<Vocabulary> listWrongVocabulary;
-  List<GrammarPracticeModel> listWrongGrammar;
-  bool isGrammarEmpty = false;
+  // List<GrammarPracticeModel> listWrongGrammar;
+  // bool isGrammarEmpty = false;
 
   void initVocabularyTest(String hsk) async {
     listVocabularyPractice = null;
@@ -27,27 +26,6 @@ class PracticeProvider with ChangeNotifier {
     totalCorrectAnswers = 0;
     isAnswered = false;
     listWrongVocabulary = [];
-    notifyListeners();
-  }
-
-  void initGrammarTest(String hskLevel) async {
-    isGrammarEmpty = false;
-    if (listGrammarPractice == null) {
-      listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
-      if (listGrammarPractice == null) {
-        isGrammarEmpty = true;
-        notifyListeners();
-        return;
-      }
-    }
-
-    listGrammarPractice.shuffle();
-    listGrammarPractice = listGrammarPractice.take(10).toList();
-    questionIndex = 0;
-    totalQuestions = listGrammarPractice.length;
-    totalCorrectAnswers = 0;
-    isAnswered = false;
-    listWrongGrammar = [];
     notifyListeners();
   }
 
@@ -68,23 +46,6 @@ class PracticeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void chooseQuestionGrammar(PracticeChoice choice) {
-    totalCorrectAnswers = totalCorrectAnswers + (choice.isCorrect ? 1 : 0);
-    isAnswered = true;
-    if (choice.isCorrect) {
-      choice.status = ChoiceStatus.correct;
-    } else {
-      for (var item in listGrammarPractice[questionIndex].listChoice) {
-        if (item.isCorrect) {
-          item.status = ChoiceStatus.correct;
-          listWrongGrammar.add(listGrammarPractice[questionIndex]);
-        }
-      }
-      choice.status = ChoiceStatus.wrong;
-    }
-    notifyListeners();
-  }
-
   void nextQuestion() {
     questionIndex++;
     isAnswered = false;
@@ -93,7 +54,7 @@ class PracticeProvider with ChangeNotifier {
 
   void clearPracticeList() {
     listAllVocabulary = null;
-    listGrammarPractice = null;
+    // listGrammarPractice = null;
   }
 
   void initVocabularyPracticeQuestions({String hskLevel}) async {

@@ -7,7 +7,7 @@ import 'package:diyi/screens/payment__choice_screen.dart';
 import 'package:diyi/screens/payment_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
-import 'package:diyi/screens/practice_screens/practice_result_screen.dart';
+import 'package:diyi/screens/practice_screens/vocabulary_practice_result_screen.dart';
 import 'package:diyi/screens/studyChina_screens/study_china_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -15,7 +15,7 @@ import 'package:diyi/screens/grammar_screens/grammar_detail_screen.dart';
 import 'package:diyi/screens/grammar_screens/grammar_home_screen.dart';
 import 'package:diyi/screens/grammar_screens/grammar_list_screen.dart';
 import 'package:diyi/screens/mockTest_screens/mockTest_home_screen.dart';
-import 'package:diyi/screens/practice_screens/practice_screen.dart';
+import 'package:diyi/screens/practice_screens/vocabulary_practice_screen.dart';
 import 'package:diyi/screens/studyChina_screens/study_china_home_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_detail_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_home_screen.dart';
@@ -47,11 +47,11 @@ class AppRouter {
       case '/studyChina_detail_screen':
         return MaterialPageRoute(builder: (_) => StudyChinaDetailScreen(args: settings.arguments));
       case '/practice_screens':
-        return MaterialPageRoute(builder: (_) => PracticeScreen(args: settings.arguments));
+        return MaterialPageRoute(builder: (_) => VocabularyPracticeScreen(args: settings.arguments));
       case '/grammar_practice_screens':
         return MaterialPageRoute(builder: (_) => GrammarPracticeScreen(args: settings.arguments));
       case '/practice_result_screens':
-        return MaterialPageRoute(builder: (_) => PracticeResultScreen());
+        return MaterialPageRoute(builder: (_) => VocabularyPracticeResultScreen());
       case '/grammar_practice_result_screens':
         return MaterialPageRoute(builder: (_) => GrammarPracticeResultScreen());
       case '/payment_choice_screen':

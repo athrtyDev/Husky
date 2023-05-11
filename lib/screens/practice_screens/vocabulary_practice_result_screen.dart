@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class PracticeResultScreen extends StatefulWidget {
-  const PracticeResultScreen();
+class VocabularyPracticeResultScreen extends StatefulWidget {
+  const VocabularyPracticeResultScreen();
 
   @override
-  _PracticeResultScreenState createState() => _PracticeResultScreenState();
+  _VocabularyPracticeResultScreenState createState() => _VocabularyPracticeResultScreenState();
 }
 
-class _PracticeResultScreenState extends State<PracticeResultScreen> {
+class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class _PracticeResultScreenState extends State<PracticeResultScreen> {
   }
 
   _resultHeader() {
-    var provider = context.watch<PracticeProvider>();
+    var provider = context.watch<VocabularyPracticeProvider>();
     return Column(
       children: [
         Container(
@@ -101,7 +101,7 @@ class _PracticeResultScreenState extends State<PracticeResultScreen> {
   }
 
   _listWrongVocabulary() {
-    var provider = context.watch<PracticeProvider>();
+    var provider = context.watch<VocabularyPracticeProvider>();
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

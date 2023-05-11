@@ -1,5 +1,6 @@
 import 'package:diyi/core/api.dart';
 import 'package:diyi/global/global.dart';
+import 'package:diyi/providers/grammar_practice_provider.dart';
 import 'package:diyi/providers/grammar_provider.dart';
 import 'package:diyi/providers/study_china_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
@@ -29,8 +30,11 @@ void main() async {
         ChangeNotifierProvider<TtsProvider>(
           create: (_) => TtsProvider(),
         ),
-        ChangeNotifierProvider<PracticeProvider>(
-          create: (_) => PracticeProvider(),
+        ChangeNotifierProvider<VocabularyPracticeProvider>(
+          create: (_) => VocabularyPracticeProvider(),
+        ),
+        ChangeNotifierProvider<GrammarPracticeProvider>(
+          create: (_) => GrammarPracticeProvider(),
         ),
         ChangeNotifierProvider<VocabularyProvider>(
           create: (_) => VocabularyProvider(),
@@ -38,8 +42,8 @@ void main() async {
         ChangeNotifierProvider<GrammarProvider>(
           create: (_) => GrammarProvider(),
         ),
-        ChangeNotifierProvider<PracticeProvider>(
-          create: (_) => PracticeProvider(),
+        ChangeNotifierProvider<VocabularyPracticeProvider>(
+          create: (_) => VocabularyPracticeProvider(),
         ),
         ChangeNotifierProvider<StudyChinaProvider>(
           create: (_) => StudyChinaProvider(),
