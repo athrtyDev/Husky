@@ -5,6 +5,7 @@ import 'package:diyi/screens/login_screen/login_screen.dart';
 import 'package:diyi/screens/main_screen.dart';
 import 'package:diyi/screens/payment__choice_screen.dart';
 import 'package:diyi/screens/payment_screen.dart';
+import 'package:diyi/screens/policy_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
 import 'package:diyi/screens/practice_screens/vocabulary_practice_result_screen.dart';
@@ -60,6 +61,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PaymentScreen(args: settings.arguments));
       case '/admin_home_screen':
         return MaterialPageRoute(builder: (_) => AdminHomeScreen());
+      case '/policy_screen':
+        return MaterialPageRoute(builder: (_) => PolicyScreen());
       case '/admin_user_screen':
         return MaterialPageRoute(builder: (_) => AdminUserScreen());
       case '/admin_edit_screen':

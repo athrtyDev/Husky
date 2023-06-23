@@ -24,6 +24,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 setting("Хэрэглэгчид", () {
                   Navigator.pushNamed(context, '/admin_user_screen');
                 }),
+                setting("Greeting", () {
+                  Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
+                    'type': 'greeting',
+                    'title': 'Greeting',
+                  });
+                }),
+                setting("Баннер", () {
+                  Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
+                    'type': 'banner',
+                    'title': 'Баннер',
+                  });
+                }),
                 setting("Төлбөр заавар", () {
                   Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
                     'type': 'payment_instruction',
@@ -60,22 +72,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     'title': 'Advanced үнэ',
                   });
                 }),
-                setting("Баннер", () {
-                  Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
-                    'type': 'banner',
-                    'title': 'Баннер',
-                  });
-                }),
                 setting("Холбоо барих", () {
                   Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
                     'type': 'contact',
                     'title': 'Холбоо барих',
                   });
                 }),
-                setting("Greeting", () {
+                setting("Үйлчилгээний нөхцөл", () {
                   Navigator.pushNamed(context, '/admin_edit_screen', arguments: {
-                    'type': 'greeting',
-                    'title': 'Greeting',
+                    'type': 'policy',
+                    'title': 'Үйлчилгээний нөхцөл',
                   });
                 }),
               ],

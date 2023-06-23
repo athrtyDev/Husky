@@ -37,7 +37,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     Future.delayed(Duration.zero, () async {
       Provider.of<UserProvider>(context, listen: false).checkLoggedUser();
     });
-    checkVersion();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkVersion();
+    });
   }
 
   @override

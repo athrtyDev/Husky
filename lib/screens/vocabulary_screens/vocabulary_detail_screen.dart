@@ -142,6 +142,8 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
   }
 
   exampleStepper(String type, String text, bool isBlur, Function onClick) {
+    print(text);
+    print(vocabulary.word);
     return IntrinsicHeight(
       child: InkWell(
         onTap: () {
@@ -195,8 +197,9 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                               fontWeight: Styles.wNormal,
                               letterSpacing: 0.5,
                             ),
-                            MyText.large(vocabulary.word, textColor: Styles.orangeColor),
-                            MyText.large(text.split(vocabulary.word)[1] ?? "", fontWeight: Styles.wNormal),
+                            if (text.contains(vocabulary.word)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
+                            if (text.split(vocabulary.word).length > 1)
+                              MyText.large(text.split(vocabulary.word)[1] ?? "", fontWeight: Styles.wNormal),
                           ],
                         )
                       : MyText.large(text ?? "", fontWeight: Styles.wNormal),

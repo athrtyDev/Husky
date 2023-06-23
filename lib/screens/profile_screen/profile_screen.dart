@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {
                   Navigator.pushNamed(context, '/payment_choice_screen');
                 }),
-        _separator(),
+        // _separator(),
         if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
             Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
@@ -151,6 +151,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 Navigator.pushNamed(context, '/admin_home_screen');
               }),
+        _settingsTile(
+            title: "Үйлчилгээний нөхцөл",
+            icon: Icons.policy_rounded,
+            onTap: () {
+              Navigator.pushNamed(context, '/policy_screen');
+            }),
         _settingsTile(
             title: "Холбоо барих",
             icon: Icons.phone,

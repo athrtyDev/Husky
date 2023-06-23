@@ -44,10 +44,10 @@ class _HomeBannerState extends State<HomeBanner> {
               CarouselSlider.builder(
                 itemCount: listBanner.length,
                 options: CarouselOptions(
-                  height: 180,
+                  height: MediaQuery.of(context).size.width / 2,
                   viewportFraction: 1,
                   initialPage: bannerIndex,
-                  enableInfiniteScroll: true,
+                  enableInfiniteScroll: listBanner.length > 1 ? true : false,
                   autoPlay: true,
                   autoPlayAnimationDuration: Duration(seconds: 2),
                   onPageChanged: (index, reason) {
