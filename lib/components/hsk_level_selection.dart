@@ -17,7 +17,7 @@ class _HskLevelSelectionState extends State<HskLevelSelection> {
         ? SizedBox()
         : InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 2});
+              Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 1});
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),

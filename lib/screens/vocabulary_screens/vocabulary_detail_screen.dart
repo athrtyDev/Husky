@@ -142,8 +142,6 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
   }
 
   exampleStepper(String type, String text, bool isBlur, Function onClick) {
-    print(text);
-    print(vocabulary.word);
     return IntrinsicHeight(
       child: InkWell(
         onTap: () {
@@ -184,25 +182,40 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
             Expanded(
               child: ImageFiltered(
                 imageFilter: ImageFilter.blur(
-                  sigmaX: isBlur ? 5 : 0,
-                  sigmaY: isBlur ? 5 : 0,
+                  sigmaX: isBlur ? 0 : 0,
+                  sigmaY: isBlur ? 0 : 0,
                 ),
                 child: Container(
                   padding: EdgeInsets.only(bottom: 25, top: 5, left: 10, right: 10),
-                  child: type == "word"
-                      ? Wrap(
-                          children: [
-                            MyText.large(
-                              text.split(vocabulary.word)[0] ?? "",
-                              fontWeight: Styles.wNormal,
-                              letterSpacing: 0.5,
-                            ),
-                            if (text.contains(vocabulary.word)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
-                            if (text.split(vocabulary.word).length > 1)
-                              MyText.large(text.split(vocabulary.word)[1] ?? "", fontWeight: Styles.wNormal),
-                          ],
+                  child: isBlur
+                      ? MyText.large(
+                          type == "translation" ? "Орчуулгах харах" : "Дуудлага харах",
+                          textColor: Styles.baseColor,
+                          fontWeight: Styles.wNormal,
                         )
-                      : MyText.large(text ?? "", fontWeight: Styles.wNormal),
+                      : type == "word"
+                          ? Wrap(
+                              children: [
+                                MyText.large(
+                                  text.split(vocabulary.word)[0] ?? "",
+                                  fontWeight: Styles.wNormal,
+                                  textColor: Styles.baseColor,
+                                  letterSpacing: 0.5,
+                                ),
+                                if (text.contains(vocabulary.word)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
+                                if (text.split(vocabulary.word).length > 1)
+                                  MyText.large(
+                                    text.split(vocabulary.word)[1] ?? "",
+                                    fontWeight: Styles.wNormal,
+                                    textColor: Styles.baseColor,
+                                  ),
+                              ],
+                            )
+                          : MyText.large(
+                              text ?? "",
+                              fontWeight: Styles.wSemiBold,
+                              textColor: Styles.baseColor,
+                            ),
                 ),
               ),
             )

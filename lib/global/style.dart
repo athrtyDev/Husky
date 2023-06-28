@@ -6,6 +6,7 @@ class Styles {
   // color
   static const Color baseColor = const Color(0xFF636bdb);
   static Color baseColor70 = baseColor.withOpacity(0.7);
+  static Color baseColor50 = baseColor.withOpacity(0.5);
   static Color baseColor20 = baseColor.withOpacity(0.2);
   static const Color textColor = const Color(0xFF003566);
   static Color textColor5 = const Color(0xFF003566).withOpacity(0.05);
@@ -22,6 +23,7 @@ class Styles {
   static const Color orangeColor = const Color(0xfff0573b);
   static const Color yellowColor = const Color(0xffFBBC04);
   static Color orangeColor5 = const Color(0xfff0573b).withOpacity(0.05);
+  static Color orangeColor70 = const Color(0xfff0573b).withOpacity(0.7);
   static const Color greenColor = const Color(0xff34A853);
 
   // gradient

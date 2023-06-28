@@ -74,6 +74,18 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> checkPaymentWhenAppOpens() async {
+    if (loggedUser != null) {
+      String oldStatus = loggedUser.paidStatus;
+      Api api = Api();
+      loggedUser = await api.fetchUser(loggedUser.uid);
+      calcPaidType();
+      notifyListeners();
+      return oldStatus != loggedUser.paidStatus;
+    }
+    return false;
+  }
+
   Future<void> addNewUser(String uid) async {
     Api api = Api();
     UserData user = UserData(
@@ -99,6 +111,7 @@ class UserProvider with ChangeNotifier {
         paidType = PaidType.unpaid;
       }
     }
+    print("Paid Type: $paidType");
   }
 
   bool canAccessVocabulary(int index) {

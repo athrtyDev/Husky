@@ -94,7 +94,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
                 });
               } else {
                 if (Provider.of<UserProvider>(context, listen: false).loggedUser == null)
-                  Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 2});
+                  Navigator.pushNamed(context, "/main", arguments: {'defaultTab': 1});
                 else
                   Navigator.pushNamed(context, '/payment_choice_screen');
               }

@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
 import 'package:diyi/providers/tts_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,13 +62,30 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final AppRouter _appRouter = AppRouter();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     getAppStaticData();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      bool paymentChanged = await Provider.of<UserProvider>(context, listen: false).checkPaymentWhenAppOpens();
+      if (paymentChanged) {
+        print("Payment has changed.");
+        setState(() {});
+      }
+    }
   }
 
   @override

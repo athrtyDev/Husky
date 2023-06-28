@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/components/voice_icon.dart';
@@ -182,24 +181,32 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
             Expanded(
               child: ImageFiltered(
                 imageFilter: ImageFilter.blur(
-                  sigmaX: isBlur ? 5 : 0,
-                  sigmaY: isBlur ? 5 : 0,
+                  sigmaX: isBlur ? 3 : 0,
+                  sigmaY: isBlur ? 3 : 0,
                 ),
                 child: Container(
                   padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
-                  child: type == "word"
-                      ? Wrap(
-                          children: [
-                            MyText.large(
-                              text.split(grammar.grammar)[0] ?? "",
-                              fontWeight: Styles.wNormal,
-                              letterSpacing: 0.5,
-                            ),
-                            MyText.large(grammar.grammar, textColor: Styles.orangeColor),
-                            MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
-                          ],
+                  child: isBlur
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: MyText(
+                            "QQQQQQQQQQQQQQQQQQ",
+                            textColor: Styles.baseColor,
+                          ),
                         )
-                      : MyText.large(text ?? "", fontWeight: Styles.wNormal),
+                      : type == "word"
+                          ? Wrap(
+                              children: [
+                                MyText.large(
+                                  text.split(grammar.grammar)[0] ?? "",
+                                  fontWeight: Styles.wNormal,
+                                  letterSpacing: 0.5,
+                                ),
+                                MyText.large(grammar.grammar, textColor: Styles.orangeColor),
+                                MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
+                              ],
+                            )
+                          : MyText.large(text ?? "", fontWeight: Styles.wNormal),
                 ),
               ),
             )
