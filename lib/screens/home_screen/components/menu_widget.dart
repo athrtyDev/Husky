@@ -5,7 +5,7 @@ import '../../../core/classes/Menu.dart';
 
 class MenuWidget extends StatelessWidget {
   final Menu menu;
-  MenuWidget({this.menu});
+  MenuWidget({required this.menu});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MenuWidget extends StatelessWidget {
             ),
             SizedBox(height: 15),
             MyText.small(
-              menu.name ?? "",
+              menu.name,
               textColor: Styles.baseColor,
               fontWeight: Styles.wSemiBold,
               textAlign: TextAlign.center,

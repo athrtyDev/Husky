@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 
 class AdminEditScreen extends StatefulWidget {
   final dynamic args;
-  const AdminEditScreen({Key key, this.args}) : super(key: key);
+  const AdminEditScreen({Key? key, this.args}) : super(key: key);
 
   @override
   _AdminEditScreenState createState() => _AdminEditScreenState();
 }
 
 class _AdminEditScreenState extends State<AdminEditScreen> {
-  String type;
-  String title;
+  late String type;
+  late String title;
   TextEditingController controller = TextEditingController();
   FocusNode focus = FocusNode();
 
@@ -25,7 +25,7 @@ class _AdminEditScreenState extends State<AdminEditScreen> {
     super.initState();
     type = widget.args['type'];
     title = widget.args['title'];
-    controller.text = app.appStaticData.static[type] ?? "";
+    controller.text = app.appStaticData!.static![type] ?? "";
   }
 
   @override
@@ -68,9 +68,9 @@ class _AdminEditScreenState extends State<AdminEditScreen> {
                     if (controller.text == "") {
                       showWarningToasts("Хоосон байна");
                     } else {
-                      app.appStaticData.static[type] = controller.text;
+                      app.appStaticData!.static![type] = controller.text;
                       Api api = Api();
-                      api.changeStaticData(app.appStaticData.static);
+                      api.changeStaticData(app.appStaticData!.static!);
                       Navigator.of(context).pop();
                     }
                   },

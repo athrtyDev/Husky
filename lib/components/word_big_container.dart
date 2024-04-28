@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 
 class WordBigContainer extends StatelessWidget {
   final String text;
-  final String translation;
-  final String pronunciation;
-  final double height;
+  final String? translation;
+  final String? pronunciation;
+  final double? height;
 
-  const WordBigContainer({this.text, this.translation, this.pronunciation, this.height});
+  const WordBigContainer({required this.text, this.translation, this.pronunciation, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class WordBigContainer extends StatelessWidget {
                         color: Styles.textColor10,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      child: MyText.large("${Formatter.capitalizeFirstLetter(translation)}", textColor: Styles.baseColor),
+                      child: MyText.large("${Formatter.capitalizeFirstLetter(translation ?? "")}", textColor: Styles.baseColor),
                     ),
                   ],
                 ),

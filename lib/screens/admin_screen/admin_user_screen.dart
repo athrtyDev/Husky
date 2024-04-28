@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AdminUserScreen extends StatefulWidget {
-  const AdminUserScreen({Key key}) : super(key: key);
+  const AdminUserScreen({Key? key}) : super(key: key);
 
   @override
   _AdminUserScreenState createState() => _AdminUserScreenState();
@@ -68,8 +68,8 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
                     children: [
                       SizedBox(height: 20),
                       if (Provider.of<UserProvider>(context, listen: true).listSearchedUser != null &&
-                          Provider.of<UserProvider>(context, listen: true).listSearchedUser.isNotEmpty)
-                        for (var user in Provider.of<UserProvider>(context, listen: true).listSearchedUser)
+                          Provider.of<UserProvider>(context, listen: true).listSearchedUser!.isNotEmpty)
+                        for (var user in Provider.of<UserProvider>(context, listen: true).listSearchedUser!)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: userTile(user),
@@ -129,7 +129,7 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               payButton(
-                user.paidStatus == "" ? "New" : user.paidStatus,
+                user.paidStatus! == "" ? "New" : user.paidStatus!,
                 user.paidStatus == ""
                     ? Styles.baseColor20
                     : user.paidStatus == PaidType.advanced
@@ -158,7 +158,7 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
                   height: 40,
                   alignment: Alignment(0, 0),
                   child:
-                      MyText(user.paymentEndDate == "" ? "" : user.paymentEndDate.substring(0, 10), textColor: Styles.textColor),
+                      MyText(user.paymentEndDate == "" ? "" : user.paymentEndDate!.substring(0, 10), textColor: Styles.textColor),
                 ),
               ),
             ],
@@ -169,7 +169,8 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
   }
 
   showDateSelection(UserData user) async {
-    DateTime selectedDate = user.paymentEndDate == "" ? DateTime.now() : DateTime.tryParse(user.paymentEndDate) ?? DateTime.now();
+    DateTime selectedDate =
+        user.paymentEndDate == "" ? DateTime.now() : DateTime.tryParse(user.paymentEndDate!) ?? DateTime.now();
     await showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -205,7 +206,7 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
 
   Widget payButton(String text, Color color, Function onClick) {
     return InkWell(
-      onTap: onClick,
+      onTap: onClick(),
       child: Container(
         height: 40,
         width: 100,

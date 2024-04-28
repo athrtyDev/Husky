@@ -6,7 +6,7 @@ import 'package:diyi/global/global.dart';
 
 class VocabularyListItem extends StatelessWidget {
   final Vocabulary vocabulary;
-  const VocabularyListItem({this.vocabulary});
+  const VocabularyListItem({required this.vocabulary});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class VocabularyListItem extends StatelessWidget {
           SizedBox(width: 30),
           Expanded(
             child: MyText.medium(
-              Formatter.capitalizeFirstLetter(vocabulary.translation),
+              Formatter.capitalizeFirstLetter(vocabulary.translation ?? ""),
               fontWeight: Styles.wSemiBold,
               textColor: Styles.textColor,
             ),

@@ -20,14 +20,14 @@ class _HomeBannerState extends State<HomeBanner> {
         Api api = Api();
         app.appStaticData = await api.getAppStaticData();
       }
-      String banner = app.appStaticData.static['banner'];
+      String banner = app.appStaticData!.static!['banner'];
       setState(() {
         listBanner = banner.split(";");
       });
     });
   }
 
-  List<String> listBanner;
+  List<String>? listBanner;
   int bannerIndex = 0;
 
   @override
@@ -42,12 +42,12 @@ class _HomeBannerState extends State<HomeBanner> {
                 child: MyText.large("Мэдээлэл"),
               ),
               CarouselSlider.builder(
-                itemCount: listBanner.length,
+                itemCount: listBanner!.length,
                 options: CarouselOptions(
                   height: MediaQuery.of(context).size.width / 2,
                   viewportFraction: 1,
                   initialPage: bannerIndex,
-                  enableInfiniteScroll: listBanner.length > 1 ? true : false,
+                  enableInfiniteScroll: listBanner!.length > 1 ? true : false,
                   autoPlay: true,
                   autoPlayAnimationDuration: Duration(seconds: 2),
                   onPageChanged: (index, reason) {
@@ -64,7 +64,7 @@ class _HomeBannerState extends State<HomeBanner> {
                         // TODO
                       },
                       child: CachedNetworkImage(
-                        imageUrl: listBanner[bannerIndex],
+                        imageUrl: listBanner![bannerIndex],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -85,7 +85,7 @@ class _HomeBannerState extends State<HomeBanner> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              for (int i = 0; i < listBanner.length; i++)
+              for (int i = 0; i < listBanner!.length; i++)
                 AnimatedContainer(
                   duration: Duration(milliseconds: 300),
                   width: bannerIndex == i ? 13 : 9,

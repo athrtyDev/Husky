@@ -1,15 +1,15 @@
 import 'package:diyi/core/classes/PracticeModel.dart';
 
 class GrammarPracticeModel {
-  String hsk;
-  String group;
-  String question;
-  String answer;
-  String optiona;
-  String optionb;
-  String optionc;
-  String optiond;
-  List<PracticeChoice> listChoice;
+  String? hsk;
+  String? group;
+  String? question;
+  String? answer;
+  String? optiona;
+  String? optionb;
+  String? optionc;
+  String? optiond;
+  List<PracticeChoice>? listChoice;
   GrammarPracticeModel(
       {this.question,
       this.answer,
@@ -31,9 +31,9 @@ class GrammarPracticeModel {
     optionc = json['optionc'];
     optiond = json['optiond'];
     listChoice = [];
-    listChoice.add(PracticeChoice(text: optiona, isCorrect: optiona == answer));
-    listChoice.add(PracticeChoice(text: optionb, isCorrect: optionb == answer));
-    listChoice.add(PracticeChoice(text: optionc, isCorrect: optionc == answer));
-    listChoice.add(PracticeChoice(text: optiond, isCorrect: optiond == answer));
+    listChoice!.add(PracticeChoice(text: optiona, isCorrect: optiona == answer));
+    listChoice!.add(PracticeChoice(text: optionb, isCorrect: optionb == answer));
+    listChoice!.add(PracticeChoice(text: optionc, isCorrect: optionc == answer));
+    listChoice!.add(PracticeChoice(text: optiond, isCorrect: optiond == answer));
   }
 }

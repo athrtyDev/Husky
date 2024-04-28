@@ -7,7 +7,7 @@ import 'package:launch_review/launch_review.dart';
 import '../components/button.dart';
 
 class UpdateScreen extends StatefulWidget {
-  UpdateScreen({Key key}) : super(key: key);
+  UpdateScreen({Key? key}) : super(key: key);
 
   @override
   _UpdateScreenState createState() => _UpdateScreenState();

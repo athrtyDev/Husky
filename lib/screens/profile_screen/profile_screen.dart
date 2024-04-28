@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _profileWidget() {
-    User user = Provider.of<UserProvider>(context, listen: false).firebaseUser;
+    User user = Provider.of<UserProvider>(context, listen: false).firebaseUser!;
     return Row(
       children: [
         Container(
@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: user.photoURL,
+                    imageUrl: user.photoURL ?? "",
                     height: 70,
                     width: 70,
                   ),
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         MyText("Тохиргоо", textColor: Styles.textColor70),
         SizedBox(height: 10),
-        app.isReviewingVersion
+        app.isReviewingVersion!
             ? SizedBox()
             : _settingsTile(
                 title: "Төлбөр төлөх",
@@ -143,8 +143,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }),
         // _separator(),
         if (Provider.of<UserProvider>(context, listen: false).loggedUser != null &&
-            Provider.of<UserProvider>(context, listen: false).loggedUser.role != null &&
-            Provider.of<UserProvider>(context, listen: false).loggedUser.role == "admin")
+            Provider.of<UserProvider>(context, listen: false).loggedUser!.role != null &&
+            Provider.of<UserProvider>(context, listen: false).loggedUser!.role == "admin")
           _settingsTile(
               title: "Админ тохиргоо",
               icon: Icons.admin_panel_settings_rounded,
@@ -173,9 +173,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _settingsTile({String title, IconData icon, Function onTap}) {
+  _settingsTile({required String title, required IconData icon, required Function onTap}) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap(),
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),
@@ -221,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
-                    MyText.large(app.appStaticData.static['contact'], fontWeight: Styles.wNormal),
+                    MyText.large(app.appStaticData!.static!['contact'], fontWeight: Styles.wNormal),
                   ],
                 ),
               ),
@@ -279,13 +279,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         margin: EdgeInsets.only(right: 7),
         decoration: BoxDecoration(
-          color: Provider.of<UserProvider>(context, listen: true).loggedUser.hsk == hsk ? Styles.baseColor70 : Styles.baseColor20,
+          color:
+              Provider.of<UserProvider>(context, listen: true).loggedUser!.hsk == hsk ? Styles.baseColor70 : Styles.baseColor20,
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: MyText(
           "HSK $hsk",
           textColor:
-              Provider.of<UserProvider>(context, listen: true).loggedUser.hsk == hsk ? Styles.whiteColor : Styles.textColor,
+              Provider.of<UserProvider>(context, listen: true).loggedUser!.hsk == hsk ? Styles.whiteColor : Styles.textColor,
         ),
       ),
     );

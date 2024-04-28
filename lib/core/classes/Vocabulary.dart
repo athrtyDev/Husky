@@ -1,15 +1,15 @@
 class Vocabulary {
-  String hsk;
-  String group;
-  String word;
-  String translation;
-  String pronunciation;
-  String example1;
-  String example1Translation;
-  String example1Pronunciation;
-  String example2;
-  String example2Translation;
-  String example2Pronunciation;
+  String? hsk;
+  String? group;
+  String? word;
+  String? translation;
+  String? pronunciation;
+  String? example1;
+  String? example1Translation;
+  String? example1Pronunciation;
+  String? example2;
+  String? example2Translation;
+  String? example2Pronunciation;
 
   Vocabulary({
     this.hsk,

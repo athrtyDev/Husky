@@ -13,7 +13,7 @@ class _HskLevelSelectionState extends State<HskLevelSelection> {
   @override
   Widget build(BuildContext context) {
     return Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
-            Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null
+            Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk == null
         ? SizedBox()
         : InkWell(
             onTap: () {
@@ -26,7 +26,7 @@ class _HskLevelSelectionState extends State<HskLevelSelection> {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
               child: MyText(
-                "HSK ${Provider.of<UserProvider>(context, listen: false).loggedUser.hsk}",
+                "HSK ${Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk}",
                 textColor: Styles.whiteColor,
                 fontWeight: Styles.wBold,
               ),

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:diyi/global/style.dart';
 
 class MyText extends StatelessWidget {
-  final String text;
-  final double size;
-  final FontWeight fontWeight;
-  final Color textColor;
-  final TextDecoration decoration;
-  final TextAlign textAlign;
-  final int maxLines;
-  final double letterSpacing;
-  final double height;
+  final String? text;
+  final double? size;
+  final FontWeight? fontWeight;
+  final Color? textColor;
+  final TextDecoration? decoration;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final double? letterSpacing;
+  final double? height;
 
   MyText(this.text,
       {this.size = Styles.medium,
@@ -56,7 +56,7 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        this.text,
+        this.text ?? "",
         style: TextStyle(
             fontFamily: 'Mulish',
             fontWeight: this.fontWeight ?? Styles.wSemiBold,

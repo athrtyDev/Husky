@@ -6,7 +6,7 @@ import 'package:diyi/core/classes/StudyInChina.dart';
 import 'package:flutter/foundation.dart';
 
 class StudyChinaProvider with ChangeNotifier {
-  List<StudyInChinaModel> studyChina;
+  List<StudyInChinaModel>? studyChina;
 
   Future<void> cacheAllData() async {
     Api _api = Api();

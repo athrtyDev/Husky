@@ -5,13 +5,13 @@ import 'package:diyi/core/classes/GrammarLevel.dart';
 import 'package:flutter/foundation.dart';
 
 class GrammarProvider with ChangeNotifier {
-  List<GrammarLevel> listLevel;
-  List<GrammarGroup> listAllGroup;
+  List<GrammarLevel>? listLevel;
+  List<GrammarGroup>? listAllGroup;
   // List<Grammar> listAllGrammar;
 
-  String selectedLevel;
-  List<GrammarGroup> listSelectedGroup;
-  List<Grammar> listSelectedGrammar;
+  String? selectedLevel;
+  List<GrammarGroup>? listSelectedGroup;
+  List<Grammar>? listSelectedGrammar;
 
   Future<void> cacheAllData() async {
     Api _api = Api();
@@ -24,9 +24,9 @@ class GrammarProvider with ChangeNotifier {
   void selectLevel(String hsk) {
     selectedLevel = hsk;
     listSelectedGroup = [];
-    for (var item in listAllGroup) {
+    for (var item in listAllGroup!) {
       if (item.hsk == hsk) {
-        listSelectedGroup.add(item);
+        listSelectedGroup!.add(item);
       }
     }
     notifyListeners();
@@ -34,7 +34,7 @@ class GrammarProvider with ChangeNotifier {
 
   void selectGroup(String groupName) async {
     Api _api = Api();
-    listSelectedGrammar = await _api.getGrammarByLevelAndGroup(selectedLevel, groupName);
+    listSelectedGrammar = await _api.getGrammarByLevelAndGroup(selectedLevel!, groupName);
     notifyListeners();
   }
 }

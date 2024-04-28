@@ -2,9 +2,9 @@ import 'package:diyi/global/global.dart';
 import 'package:flutter/material.dart';
 
 class LoginContainer extends StatelessWidget {
-  final List<Widget> child;
+  final List<Widget>? child;
 
-  LoginContainer({Key key, this.child});
+  LoginContainer({Key? key, this.child});
 
   Widget build(BuildContext context) {
     // bottom padding

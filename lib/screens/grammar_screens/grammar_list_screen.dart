@@ -16,7 +16,7 @@ class GrammarListScreen extends StatefulWidget {
 }
 
 class _GrammarListScreenState extends State<GrammarListScreen> {
-  String headerName;
+  late String headerName;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _GrammarListScreenState extends State<GrammarListScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText("Нийт ${Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar.length} дүрэм:",
+                    MyText("Нийт ${Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar!.length} дүрэм:",
                         fontWeight: Styles.wBold),
                     SizedBox(height: 15),
                     Expanded(
@@ -45,7 +45,7 @@ class _GrammarListScreenState extends State<GrammarListScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             for (int i = 0;
-                                i < Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar.length;
+                                i < Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar!.length;
                                 i++)
                               InkWell(
                                 onTap: () {
@@ -56,7 +56,7 @@ class _GrammarListScreenState extends State<GrammarListScreen> {
                                   });
                                 },
                                 child: GrammarListItem(
-                                    grammar: Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar[i]),
+                                    grammar: Provider.of<GrammarProvider>(context, listen: true).listSelectedGrammar![i]),
                               )
                           ],
                         ),

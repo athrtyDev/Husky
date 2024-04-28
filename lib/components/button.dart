@@ -3,21 +3,21 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/style.dart';
 
 class Button extends StatelessWidget {
-  final double width;
-  final String text;
-  final Function onClick;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Color buttonColor;
-  final Color textColor;
-  final IconData icon;
-  final Border border;
-  final Widget iconSvg;
-  final bool hasShadow;
-  final double height;
+  final double? width;
+  final String? text;
+  final Function? onClick;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Color? buttonColor;
+  late Color textColor;
+  final IconData? icon;
+  final Border? border;
+  final Widget? iconSvg;
+  final bool? hasShadow;
+  final double? height;
 
   Button({
-    Key key,
+    Key? key,
     this.width,
     this.text = '',
     this.onClick,
@@ -26,14 +26,14 @@ class Button extends StatelessWidget {
     this.height,
     this.icon,
     this.iconSvg,
-    Null Function() handleClear,
+    Null Function()? handleClear,
   })  : buttonColor = Styles.baseColor,
         textColor = Styles.whiteColor,
         border = Border.all(width: 0, color: Colors.transparent),
         hasShadow = true;
 
   Button.disabled({
-    Key key,
+    Key? key,
     this.width,
     this.text = '',
     this.onClick,
@@ -42,14 +42,14 @@ class Button extends StatelessWidget {
     this.height,
     this.icon,
     this.iconSvg,
-    Null Function() handleClear,
+    Null Function()? handleClear,
   })  : buttonColor = Styles.baseColor.withOpacity(0.3),
         textColor = Styles.whiteColor,
         border = Border.all(width: 0, color: Colors.transparent),
         hasShadow = false;
 
   Button.secondary({
-    Key key,
+    Key? key,
     this.width,
     this.text = '',
     this.onClick,
@@ -58,14 +58,14 @@ class Button extends StatelessWidget {
     this.height,
     this.icon,
     this.iconSvg,
-    Null Function() handleClear,
+    Null Function()? handleClear,
   })  : buttonColor = Styles.textColor30,
         textColor = Styles.whiteColor,
         border = Border.all(width: 0, color: Colors.transparent),
         hasShadow = false;
 
   Button.accent({
-    Key key,
+    Key? key,
     this.width,
     this.text = '',
     this.onClick,
@@ -74,7 +74,7 @@ class Button extends StatelessWidget {
     this.height,
     this.icon,
     this.iconSvg,
-    Null Function() handleClear,
+    Null Function()? handleClear,
   })  : buttonColor = Styles.orangeColor,
         textColor = Styles.whiteColor,
         border = Border.all(width: 0, color: Colors.transparent),
@@ -83,7 +83,7 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick,
+      onTap: onClick == null ? () {} : onClick!(),
       child: Container(
         height: height ?? 55,
         margin: margin ?? EdgeInsets.zero,
@@ -92,10 +92,10 @@ class Button extends StatelessWidget {
             color: buttonColor,
             border: border,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: hasShadow
+            boxShadow: hasShadow!
                 ? [
                     BoxShadow(
-                      color: buttonColor.withOpacity(0.2),
+                      color: buttonColor!.withOpacity(0.2),
                       spreadRadius: 0,
                       blurRadius: 12,
                       offset: Offset(0, 4),
@@ -120,7 +120,7 @@ class Button extends StatelessWidget {
                     padding: EdgeInsets.only(right: 3),
                   ),
                 MyText.medium(
-                  text,
+                  text ?? "",
                   textAlign: TextAlign.center,
                   fontWeight: Styles.wBold,
                   textColor: textColor,

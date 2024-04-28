@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 class Api {
   var client = new http.Client();
 
-  Future<List<VocabularyLevel>> getVocabularyLevel() async {
+  Future<List<VocabularyLevel>?> getVocabularyLevel() async {
     print("Firestore read: getVocabularyLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('VocabularyLevel').orderBy('hsk', descending: false).get();
@@ -23,11 +23,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new VocabularyLevel.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new VocabularyLevel.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<VocabularyGroup>> getVocabularyGroup() async {
+  Future<List<VocabularyGroup>?> getVocabularyGroup() async {
     print("Firestore read: getVocabularyGroup");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('VocabularyGroup').orderBy('groupName', descending: false).get();
@@ -35,11 +35,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new VocabularyGroup.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new VocabularyGroup.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<Vocabulary>> getVocabularyByLevel(String hskLevel) async {
+  Future<List<Vocabulary>?> getVocabularyByLevel(String hskLevel) async {
     print("Firestore read: getVocabularyByLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('Vocabulary').where('hsk', isEqualTo: hskLevel).get();
@@ -48,11 +48,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<Vocabulary>> getVocabularyByLevelAndGroup(String hskLevel, String group) async {
+  Future<List<Vocabulary>?> getVocabularyByLevelAndGroup(String hskLevel, String group) async {
     print("Firestore read: getVocabularyByLevelAndGroup");
     QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
         .collection('Vocabulary')
@@ -64,11 +64,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new Vocabulary.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<GrammarLevel>> getGrammarLevel() async {
+  Future<List<GrammarLevel>?> getGrammarLevel() async {
     print("Firestore read: getGrammarLevel");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('GrammarLevel').orderBy('hsk', descending: false).get();
@@ -76,11 +76,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new GrammarLevel.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new GrammarLevel.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<GrammarGroup>> getGrammarGroup() async {
+  Future<List<GrammarGroup>?> getGrammarGroup() async {
     print("Firestore read: getGrammarGroup");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('GrammarGroup').orderBy('groupName', descending: false).get();
@@ -88,11 +88,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new GrammarGroup.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new GrammarGroup.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<List<Grammar>> getGrammarByLevelAndGroup(String hskLevel, String group) async {
+  Future<List<Grammar>?> getGrammarByLevelAndGroup(String hskLevel, String group) async {
     print("Firestore read: getGrammarByLevelAndGroup");
     QuerySnapshot itemSnapshot = await FirebaseFirestore.instance
         .collection('Grammar')
@@ -104,7 +104,7 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new Grammar.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
@@ -114,7 +114,7 @@ class Api {
     if (snapshot.docs.isEmpty) {
       newUserId = Constants.startingUserId;
     } else {
-      newUserId = UserData.fromJson(snapshot.docs[0].data()).shortId + 1;
+      newUserId = UserData.fromJson(snapshot.docs[0].data() as Map<String, dynamic>).shortId! + 1;
     }
 
     user.shortId = newUserId;
@@ -123,18 +123,18 @@ class Api {
     return newUserId;
   }
 
-  Future<UserData> fetchUser(String uid) async {
+  Future<UserData?> fetchUser(String uid) async {
     print("Firestore read: fetchUser");
     QuerySnapshot customerSnapshot = await FirebaseFirestore.instance.collection('UserData').where('uid', isEqualTo: uid).get();
 
     if (customerSnapshot.docs.isEmpty) {
       return null;
     } else {
-      return UserData.fromJson(customerSnapshot.docs[0].data());
+      return UserData.fromJson(customerSnapshot.docs[0].data() as Map<String, dynamic>);
     }
   }
 
-  Future<List<UserData>> fetchAllUser() async {
+  Future<List<UserData>?> fetchAllUser() async {
     print("Firestore read: fetchAllUser");
     QuerySnapshot itemSnapshot =
         await FirebaseFirestore.instance.collection('UserData').orderBy('shortId', descending: true).get();
@@ -142,11 +142,11 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new UserData.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new UserData.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
-  Future<UserData> fetchUserByShortId(int shortId) async {
+  Future<UserData?> fetchUserByShortId(int shortId) async {
     print("Firestore read: fetchUserByShortId");
     QuerySnapshot customerSnapshot =
         await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: shortId).get();
@@ -155,7 +155,7 @@ class Api {
       return null;
     } else {
       print("Fetched: ${customerSnapshot.docs.length}");
-      return UserData.fromJson(customerSnapshot.docs[0].data());
+      return UserData.fromJson(customerSnapshot.docs[0].data() as Map<String, dynamic>);
     }
   }
 
@@ -168,14 +168,14 @@ class Api {
     if (customerSnapshot.docs.isEmpty) {
       return;
     } else {
-      fetchedUser = UserData.fromJson(customerSnapshot.docs[0].data());
+      fetchedUser = UserData.fromJson(customerSnapshot.docs[0].data() as Map<String, dynamic>);
     }
 
     fetchedUser.hsk = hsk;
     FirebaseFirestore.instance.collection('UserData').doc(customerSnapshot.docs[0].id).update(fetchedUser.toJson());
   }
 
-  Future<List<GrammarPracticeModel>> getGrammarPracticeByLevel(String hskLevel) async {
+  Future<List<GrammarPracticeModel>?> getGrammarPracticeByLevel(String hskLevel) async {
     print("Firestore read: getGrammarPracticeByLevel");
 
     QuerySnapshot itemSnapshot =
@@ -184,7 +184,7 @@ class Api {
       return null;
     else {
       print("Fetched: ${itemSnapshot.docs.length}");
-      return itemSnapshot.docs.map((type) => new GrammarPracticeModel.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => new GrammarPracticeModel.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 
@@ -195,7 +195,7 @@ class Api {
     if (snapshot.docs.isEmpty) {
       return AppStaticData.empty();
     } else {
-      return AppStaticData.fromJson(snapshot.docs[0].data());
+      return AppStaticData.fromJson(snapshot.docs[0].data() as Map<String, dynamic>);
     }
   }
 
@@ -229,14 +229,14 @@ class Api {
     });
   }
 
-  Future<List<StudyInChinaModel>> getStudyInChina() async {
+  Future<List<StudyInChinaModel>?> getStudyInChina() async {
     print("Firestore update: getStudyInChina");
     QuerySnapshot itemSnapshot = await FirebaseFirestore.instance.collection('StudyInChina').get();
 
     if (itemSnapshot.docs.isEmpty) {
       return null;
     } else {
-      return itemSnapshot.docs.map((type) => StudyInChinaModel.fromJson(type.data())).toList();
+      return itemSnapshot.docs.map((type) => StudyInChinaModel.fromJson(type.data() as Map<String, dynamic>)).toList();
     }
   }
 }

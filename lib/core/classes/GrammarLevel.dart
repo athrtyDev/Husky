@@ -1,7 +1,7 @@
 class GrammarLevel {
-  String hsk;
-  int totalGroup;
-  int totalGrammar;
+  String? hsk;
+  int? totalGroup;
+  int? totalGrammar;
 
   GrammarLevel({this.hsk, this.totalGroup, this.totalGrammar});
 

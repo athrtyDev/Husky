@@ -12,14 +12,14 @@ import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 class UserProvider with ChangeNotifier {
   FirebaseAuth _auth;
   UserProvider(this._auth);
-  User get firebaseUser => _auth.currentUser;
-  UserData loggedUser;
-  List<UserData> listSearchedUser;
+  User? get firebaseUser => _auth.currentUser;
+  UserData? loggedUser;
+  List<UserData>? listSearchedUser;
   String paidType = PaidType.unpaid;
 
-  Stream<User> get authState => _auth.authStateChanges();
+  Stream<User?> get authState => _auth.authStateChanges();
 
-  void signInWithApple() async {
+  Future<void> signInWithApple() async {
     final AuthorizationResult result = await TheAppleSignIn.performRequests([
       AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
@@ -29,24 +29,24 @@ class UserProvider with ChangeNotifier {
       final appleIdCredential = result.credential;
       final oAuthProvider = OAuthProvider('apple.com');
       final credential = oAuthProvider.credential(
-        idToken: String.fromCharCodes(appleIdCredential.identityToken),
-        accessToken: String.fromCharCodes(appleIdCredential.authorizationCode),
+        idToken: String.fromCharCodes(appleIdCredential!.identityToken ?? []),
+        accessToken: String.fromCharCodes(appleIdCredential.authorizationCode ?? []),
       );
       final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
+      await loginUser(userCredential.additionalUserInfo!.isNewUser, userCredential.user!.uid);
     } else
       print(result.status.toString());
   }
 
-  void signInWithFacebook() async {
+  Future<void> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
       if (result.status == LoginStatus.success) {
         // Create a credential from the access token
-        final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
+        final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.token);
         // Once signed in, return the UserCredential
         UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
+        await loginUser(userCredential.additionalUserInfo!.isNewUser, userCredential.user!.uid);
       } else if (result.status == LoginStatus.failed) {
         print("login failed");
         showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
@@ -58,7 +58,7 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  void loginUser(bool isNew, String uid) async {
+  Future<void> loginUser(bool isNew, String uid) async {
     Api api = Api();
     if (isNew) {
       await addNewUser(uid);
@@ -70,18 +70,18 @@ class UserProvider with ChangeNotifier {
       }
       calcPaidType();
     }
-    app.writeStorage("user_uid", loggedUser.uid);
+    app.writeStorage("user_uid", loggedUser!.uid);
     notifyListeners();
   }
 
   Future<bool> checkPaymentWhenAppOpens() async {
     if (loggedUser != null) {
-      String oldStatus = loggedUser.paidStatus;
+      String? oldStatus = loggedUser!.paidStatus;
       Api api = Api();
-      loggedUser = await api.fetchUser(loggedUser.uid);
+      loggedUser = await api.fetchUser(loggedUser!.uid!);
       calcPaidType();
       notifyListeners();
-      return oldStatus != loggedUser.paidStatus;
+      return oldStatus != loggedUser!.paidStatus;
     }
     return false;
   }
@@ -93,7 +93,7 @@ class UserProvider with ChangeNotifier {
       paidStatus: "",
       role: "",
       hsk: "1",
-      name: firebaseUser.displayName,
+      name: firebaseUser!.displayName,
       paymentEndDate: "",
       createdDate: DateTime.now().toString(),
     );
@@ -102,11 +102,11 @@ class UserProvider with ChangeNotifier {
   }
 
   calcPaidType() {
-    paidType = (loggedUser == null || loggedUser.paidStatus == null || loggedUser.paidStatus == "")
+    paidType = (loggedUser == null || loggedUser!.paidStatus == null || loggedUser!.paidStatus! == "")
         ? PaidType.unpaid
-        : loggedUser.paidStatus;
-    if (loggedUser != null && loggedUser.paymentEndDate != null && loggedUser.paymentEndDate != "") {
-      DateTime expire = DateTime.parse(loggedUser.paymentEndDate);
+        : loggedUser!.paidStatus!;
+    if (loggedUser != null && loggedUser!.paymentEndDate != null && loggedUser!.paymentEndDate != "") {
+      DateTime expire = DateTime.parse(loggedUser!.paymentEndDate!);
       if (DateTime.now().isAfter(expire)) {
         paidType = PaidType.unpaid;
       }
@@ -115,36 +115,36 @@ class UserProvider with ChangeNotifier {
   }
 
   bool canAccessVocabulary(int index) {
-    return app.isReviewingVersion || paidType == PaidType.advanced || paidType == PaidType.basic || index < 2;
+    return app.isReviewingVersion! || paidType == PaidType.advanced || paidType == PaidType.basic || index < 2;
   }
 
   bool canAccessGrammar(int index) {
-    return app.isReviewingVersion || paidType == PaidType.advanced || index < 1;
+    return app.isReviewingVersion! || paidType == PaidType.advanced || index < 1;
   }
 
-  void signInWithGoogle() async {
-    // try {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
-      return null;
-    }
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return null;
+      }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-    if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-      // Create a credential from tokens
-      final OAuthCredential credential =
-          GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      // Once signed in, return the UserCredential
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      await loginUser(userCredential.additionalUserInfo.isNewUser, userCredential.user.uid);
-    } else {
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        // Create a credential from tokens
+        final OAuthCredential credential =
+            GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+        // Once signed in, return the UserCredential
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        await loginUser(userCredential.additionalUserInfo!.isNewUser, userCredential.user!.uid);
+      } else {
+        showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
+      }
+      return null;
+    } catch (e) {
+      print("login failed");
       showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
     }
-    return null;
-    // } catch (e) {
-    //   print("login failed");
-    //   showWarningToasts("Нэвтрэхэд алдаа гарлаа өөр аргаар нэвтрэнэ үү");
-    // }
   }
 
   void logout() async {
@@ -166,7 +166,7 @@ class UserProvider with ChangeNotifier {
       app.removeStorage("user_uid");
       return;
     }
-    String uid = await app.getStorage("user_uid");
+    String? uid = await app.getStorage("user_uid");
     if (uid != null) {
       Api api = Api();
       loggedUser = await api.fetchUser(uid);
@@ -177,14 +177,14 @@ class UserProvider with ChangeNotifier {
 
   void setHsk(String hsk) {
     Api api = Api();
-    api.changeUserHsk(loggedUser.uid, hsk);
-    loggedUser.hsk = hsk;
+    api.changeUserHsk(loggedUser!.uid!, hsk);
+    loggedUser!.hsk = hsk;
     notifyListeners();
   }
 
   void fetchUsersByShortId(String joinedIds) async {
     Api api = Api();
-    List<UserData> listFetchedUser = [];
+    List<UserData>? listFetchedUser = [];
     if (joinedIds == "all") {
       listFetchedUser = await api.fetchAllUser();
     } else {
@@ -192,7 +192,7 @@ class UserProvider with ChangeNotifier {
       for (var idStr in listId) {
         int id = int.tryParse(idStr) ?? 0;
         if (id != 0) {
-          UserData user = await api.fetchUserByShortId(id);
+          UserData? user = await api.fetchUserByShortId(id);
           if (user != null) listFetchedUser.add(user);
         }
       }
@@ -213,7 +213,7 @@ class UserProvider with ChangeNotifier {
 
   void deleteUser() async {
     final Api api = Api();
-    api.removeUser(loggedUser.uid);
+    api.removeUser(loggedUser!.uid!);
     logout();
   }
 }

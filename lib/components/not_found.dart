@@ -2,8 +2,8 @@ import 'package:diyi/components/my_text.dart';
 import 'package:flutter/material.dart';
 
 class NotFound extends StatelessWidget {
-  final String text;
-  const NotFound({Key key, this.text}) : super(key: key);
+  final String? text;
+  const NotFound({Key? key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

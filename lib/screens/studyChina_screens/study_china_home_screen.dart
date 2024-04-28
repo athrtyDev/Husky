@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/core/classes/StudyInChina.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/study_china_provider.dart';
-import 'package:diyi/screens/coming_soon_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +16,7 @@ class StudyChinaHomeScreen extends StatefulWidget {
 
 class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
   int selectedIndex = 0;
-  List<StudyInChinaModel> listData;
+  List<StudyInChinaModel>? listData;
 
   @override
   void initState() {
@@ -39,7 +36,7 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
     return Scaffold(
       appBar: myAppBar(title: "БНХАУ-д сурах", color: Styles.greyColor),
       backgroundColor: Styles.greyColor,
-      body: listData != null && listData.isNotEmpty
+      body: listData != null && listData!.isNotEmpty
           ? Column(
               children: [
                 // studyInChinaV1(),
@@ -48,12 +45,12 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 6),
                     child: Row(
-                      children: [for (int index = 0; index < listData.length; index++) _tab(listData[index].groupName, index)],
+                      children: [for (int index = 0; index < listData!.length; index++) _tab(listData![index].groupName!, index)],
                     ),
                   ),
                 ),
-                if (listData[selectedIndex].groupData != null && listData[selectedIndex].groupData.isNotEmpty)
-                  Expanded(child: studyInChinaGrid(listData[selectedIndex].groupData))
+                if (listData![selectedIndex].groupData != null && listData![selectedIndex].groupData!.isNotEmpty)
+                  Expanded(child: studyInChinaGrid(listData![selectedIndex].groupData!))
               ],
             )
           : SizedBox(),
@@ -160,7 +157,7 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
-                      imageUrl: groupData[index].bannerImage,
+                      imageUrl: groupData[index].bannerImage!,
                       fit: BoxFit.cover,
                       height: 130,
                       width: 200,

@@ -64,9 +64,9 @@ class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResul
                   radius: 45,
                   lineWidth: 10.0,
                   animation: true,
-                  percent: provider.totalCorrectAnswers / provider.totalQuestions,
+                  percent: provider.totalCorrectAnswers! / provider.totalQuestions!,
                   center: MyText.xlarge(
-                    "${(provider.totalCorrectAnswers / provider.totalQuestions * 100).ceil()}%",
+                    "${(provider.totalCorrectAnswers! / provider.totalQuestions! * 100).ceil()}%",
                     fontWeight: Styles.wSemiBold,
                     textColor: Styles.textColor,
                   ),
@@ -106,7 +106,7 @@ class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResul
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (provider.listWrongVocabulary != null && provider.listWrongVocabulary.isNotEmpty)
+          if (provider.listWrongVocabulary != null && provider.listWrongVocabulary!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: MyText.large("Сайжруулах хэрэгтэй үгс"),
@@ -116,11 +116,11 @@ class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResul
               child: SingleChildScrollView(
                   child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: (provider.listWrongVocabulary == null || provider.listWrongVocabulary.isEmpty)
+            child: (provider.listWrongVocabulary == null || provider.listWrongVocabulary!.isEmpty)
                 ? _allCorrectWidget()
                 : Column(
                     children: [
-                      for (var item in provider.listWrongVocabulary) _vocabularyTile(item),
+                      for (var item in provider.listWrongVocabulary!) _vocabularyTile(item),
                     ],
                   ),
           ))),

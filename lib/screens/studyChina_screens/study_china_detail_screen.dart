@@ -1,14 +1,6 @@
-import 'dart:convert';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diyi/components/my_app_bar.dart';
-import 'package:diyi/components/my_text.dart';
-import 'package:diyi/core/classes/StudyInChina.dart';
 import 'package:diyi/global/global.dart';
-import 'package:diyi/providers/study_china_provider.dart';
-import 'package:diyi/screens/coming_soon_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class StudyChinaDetailScreen extends StatefulWidget {
   final dynamic args;
@@ -19,8 +11,8 @@ class StudyChinaDetailScreen extends StatefulWidget {
 }
 
 class _StudyChinaDetailScreenState extends State<StudyChinaDetailScreen> {
-  String title;
-  String image;
+  String? title;
+  String? image;
 
   @override
   void initState() {
@@ -36,7 +28,7 @@ class _StudyChinaDetailScreenState extends State<StudyChinaDetailScreen> {
       backgroundColor: Styles.greyColor,
       body: image != null
           ? SingleChildScrollView(
-              child: Image.network(image),
+              child: Image.network(image!),
             )
           : SizedBox(),
     );

@@ -1,6 +1,6 @@
 class StudyInChinaModel {
-  List<GroupData> groupData;
-  String groupName;
+  List<GroupData>? groupData;
+  String? groupName;
 
   StudyInChinaModel({this.groupData, this.groupName});
 
@@ -8,7 +8,7 @@ class StudyInChinaModel {
     if (json['groupData'] != null) {
       groupData = <GroupData>[];
       json['groupData'].forEach((v) {
-        groupData.add(new GroupData.fromJson(v));
+        groupData!.add(new GroupData.fromJson(v));
       });
     }
     groupName = json['groupName'];
@@ -17,7 +17,7 @@ class StudyInChinaModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.groupData != null) {
-      data['groupData'] = this.groupData.map((v) => v.toJson()).toList();
+      data['groupData'] = this.groupData!.map((v) => v.toJson()).toList();
     }
     data['groupName'] = this.groupName;
     return data;
@@ -25,9 +25,9 @@ class StudyInChinaModel {
 }
 
 class GroupData {
-  String detailImage;
-  String bannerImage;
-  String bannerTitle;
+  String? detailImage;
+  String? bannerImage;
+  String? bannerTitle;
 
   GroupData({this.detailImage, this.bannerImage, this.bannerTitle});
 

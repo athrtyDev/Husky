@@ -1,7 +1,7 @@
 class VocabularyGroup {
-  String hsk;
-  String groupName;
-  int totalVocabulary;
+  String? hsk;
+  String? groupName;
+  int? totalVocabulary;
 
   VocabularyGroup({this.hsk, this.groupName, this.totalVocabulary});
 

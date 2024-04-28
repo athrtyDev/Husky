@@ -5,9 +5,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 enum TtsState { playing, stopped, paused, continued }
 
 class TtsProvider with ChangeNotifier {
-  FlutterTts flutterTts;
-  String language;
-  String engine;
+  late FlutterTts flutterTts;
+  String? language;
+  String? engine;
   bool get isIOS => !kIsWeb && Platform.isIOS;
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
   TtsState ttsState = TtsState.stopped;
@@ -20,7 +20,7 @@ class TtsProvider with ChangeNotifier {
   get isPaused => ttsState == TtsState.paused;
   get isContinued => ttsState == TtsState.continued;
 
-  void init() async {
+  Future<void> init() async {
     flutterTts = FlutterTts();
     _setAwaitOptions();
     if (isAndroid) {
@@ -64,10 +64,8 @@ class TtsProvider with ChangeNotifier {
     await flutterTts.setPitch(1.0);
   }
 
-  Future speak(String text) async {
-    if (flutterTts == null) {
-      await init();
-    }
+  Future speak(String? text) async {
+    await init();
     if (text != null && text != "") {
       print("speaking: $text");
       if (isSlow)

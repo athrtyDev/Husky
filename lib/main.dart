@@ -11,7 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/app_router.dart';
 import 'package:diyi/providers/tts_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -56,7 +55,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -68,13 +67,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     getAppStaticData();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -103,7 +102,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     Api api = Api();
     app.appStaticData = await api.getAppStaticData();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    app.isReviewingVersion = int.parse(packageInfo.buildNumber) > app.appStaticData.static['approved_build_number'];
+    app.isReviewingVersion = int.parse(packageInfo.buildNumber) > app.appStaticData!.static!['approved_build_number'];
     print("installed version: ${packageInfo.buildNumber}. isReviewingVersion: ${app.isReviewingVersion}");
   }
 }

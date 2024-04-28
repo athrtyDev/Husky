@@ -19,8 +19,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
-  TabController _controller;
-  DateTime currentBackPressTime;
+  late TabController _controller;
+  DateTime? currentBackPressTime;
   GlobalKey<ScaffoldState> leftMenuKey = GlobalKey();
   bool shouldUpdate = false;
 
@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   checkVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
-      shouldUpdate = int.parse(packageInfo.buildNumber) < app.appStaticData.static['approved_build_number'];
+      shouldUpdate = int.parse(packageInfo.buildNumber) < app.appStaticData!.static!['approved_build_number'];
     });
   }
 
@@ -99,7 +99,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
       setState(() => _controller.index = 0);
     } else {
       DateTime now = DateTime.now();
-      if (currentBackPressTime != null && now.difference(currentBackPressTime) < Duration(seconds: 1)) {
+      if (currentBackPressTime != null && now.difference(currentBackPressTime!) < Duration(seconds: 1)) {
         currentBackPressTime = now;
         SystemNavigator.pop();
       }

@@ -3,12 +3,12 @@ import 'package:diyi/global/style.dart';
 import 'package:flutter/material.dart';
 
 class MyToast extends StatelessWidget {
-  final String title;
-  final String body;
-  final Color color;
-  final Function callback;
+  final String? title;
+  final String? body;
+  final Color? color;
+  final Function? callback;
 
-  MyToast({Key key, this.title, this.body, this.color, this.callback}) : super(key: key);
+  MyToast({Key? key, this.title, this.body, this.color, this.callback}) : super(key: key);
   MyToast.errorToast({this.body, this.title, this.callback}) : color = Styles.orangeColor;
   MyToast.warningToast({this.body, this.title, this.callback}) : color = Styles.yellowColor;
   MyToast.successToast({this.body, this.title, this.callback}) : color = Styles.greenColor;
@@ -20,7 +20,9 @@ class MyToast extends StatelessWidget {
       left: MediaQuery.of(context).size.width * 10,
       child: InkWell(
         onTap: () {
-          callback();
+          if (callback != null) {
+            callback!();
+          }
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 80,

@@ -1,7 +1,7 @@
 class VocabularyLevel {
-  String hsk;
-  int totalGroup;
-  int totalVocabulary;
+  String? hsk;
+  int? totalGroup;
+  int? totalVocabulary;
 
   VocabularyLevel({this.hsk, this.totalGroup, this.totalVocabulary});
 

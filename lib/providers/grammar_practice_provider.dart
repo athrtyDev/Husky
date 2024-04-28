@@ -5,14 +5,14 @@ import 'package:flutter/foundation.dart';
 
 class GrammarPracticeProvider with ChangeNotifier {
   // List<PracticeModel> listVocabularyPractice;
-  List<GrammarPracticeModel> listGrammarPractice;
-  int questionIndex;
-  int totalQuestions;
-  int totalCorrectAnswers;
-  bool isAnswered;
+  List<GrammarPracticeModel>? listGrammarPractice;
+  int? questionIndex;
+  int? totalQuestions;
+  int? totalCorrectAnswers;
+  bool? isAnswered;
   // List<Vocabulary> listAllVocabulary;
   // List<Vocabulary> listWrongVocabulary;
-  List<GrammarPracticeModel> listWrongGrammar;
+  List<GrammarPracticeModel>? listWrongGrammar;
   bool isGrammarEmpty = false;
 
   // void initVocabularyTest(String hsk) async {
@@ -27,7 +27,7 @@ class GrammarPracticeProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void initGrammarTest(String hskLevel) async {
+  Future<void> initGrammarTest(String hskLevel) async {
     isGrammarEmpty = false;
     if (listGrammarPractice == null) {
       listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
@@ -38,15 +38,15 @@ class GrammarPracticeProvider with ChangeNotifier {
       }
     }
 
-    listGrammarPractice.shuffle();
-    listGrammarPractice = listGrammarPractice.take(10).toList();
-    for (var item in listGrammarPractice) {
-      for (var choice in item.listChoice) {
+    listGrammarPractice!.shuffle();
+    listGrammarPractice = listGrammarPractice!.take(10).toList();
+    for (var item in listGrammarPractice!) {
+      for (var choice in item.listChoice!) {
         choice.status = ChoiceStatus.undefined;
       }
     }
     questionIndex = 0;
-    totalQuestions = listGrammarPractice.length;
+    totalQuestions = listGrammarPractice!.length;
     totalCorrectAnswers = 0;
     isAnswered = false;
     listWrongGrammar = [];
@@ -71,15 +71,15 @@ class GrammarPracticeProvider with ChangeNotifier {
   // }
 
   void chooseQuestionGrammar(PracticeChoice choice) {
-    totalCorrectAnswers = totalCorrectAnswers + (choice.isCorrect ? 1 : 0);
+    totalCorrectAnswers = totalCorrectAnswers! + (choice.isCorrect! ? 1 : 0);
     isAnswered = true;
-    if (choice.isCorrect) {
+    if (choice.isCorrect!) {
       choice.status = ChoiceStatus.correct;
     } else {
-      for (var item in listGrammarPractice[questionIndex].listChoice) {
-        if (item.isCorrect) {
+      for (var item in listGrammarPractice![questionIndex!].listChoice!) {
+        if (item.isCorrect!) {
           item.status = ChoiceStatus.correct;
-          listWrongGrammar.add(listGrammarPractice[questionIndex]);
+          listWrongGrammar!.add(listGrammarPractice![questionIndex!]);
         }
       }
       choice.status = ChoiceStatus.wrong;
@@ -88,7 +88,7 @@ class GrammarPracticeProvider with ChangeNotifier {
   }
 
   void nextQuestion() {
-    questionIndex++;
+    questionIndex = questionIndex! + 1;
     isAnswered = false;
     notifyListeners();
   }

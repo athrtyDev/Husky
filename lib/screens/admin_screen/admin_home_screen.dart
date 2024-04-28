@@ -4,7 +4,7 @@ import 'package:diyi/global/global.dart';
 import 'package:flutter/material.dart';
 
 class AdminHomeScreen extends StatefulWidget {
-  const AdminHomeScreen({Key key}) : super(key: key);
+  const AdminHomeScreen({Key? key}) : super(key: key);
 
   @override
   _AdminHomeScreenState createState() => _AdminHomeScreenState();

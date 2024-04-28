@@ -1,7 +1,7 @@
 class GrammarGroup {
-  String hsk;
-  String groupName;
-  int totalGrammar;
+  String? hsk;
+  String? groupName;
+  int? totalGrammar;
 
   GrammarGroup({this.hsk, this.groupName, this.totalGrammar});
 

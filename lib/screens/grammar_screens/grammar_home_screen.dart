@@ -26,10 +26,10 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
       GrammarProvider provider = Provider.of<GrammarProvider>(context, listen: false);
       await provider.cacheAllData();
       if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
-          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+          Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk == null) {
         provider.selectLevel("1");
       } else {
-        provider.selectLevel(Provider.of<UserProvider>(context, listen: false).loggedUser.hsk);
+        provider.selectLevel(Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk!);
       }
     });
   }
@@ -47,7 +47,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
               Expanded(
                   child: Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup == null
                       ? Loader()
-                      : Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup.isEmpty
+                      : Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup!.isEmpty
                           ? NotFound()
                           : SingleChildScrollView(child: _groups())),
             ],
@@ -56,18 +56,18 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
   }
 
   _levels() {
-    List<GrammarLevel> listLevel = Provider.of<GrammarProvider>(context, listen: true).listLevel;
+    List<GrammarLevel>? listLevel = Provider.of<GrammarProvider>(context, listen: true).listLevel;
     if (listLevel == null) return SizedBox();
     return Row(
       children: [
         for (var level in listLevel)
           InkWell(
             onTap: () {
-              Provider.of<GrammarProvider>(context, listen: false).selectLevel(level.hsk);
+              Provider.of<GrammarProvider>(context, listen: false).selectLevel(level.hsk!);
             },
             child: LevelWidget(
               name: "HSK ${level.hsk}",
-              total: level.totalGrammar,
+              total: level.totalGrammar!,
               isSelected: level.hsk == Provider.of<GrammarProvider>(context, listen: true).selectedLevel,
               type: "дүрэм",
             ),
@@ -77,15 +77,15 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
   }
 
   _groups() {
-    List<GrammarGroup> listSelectedGroup = Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup;
+    List<GrammarGroup>? listSelectedGroup = Provider.of<GrammarProvider>(context, listen: true).listSelectedGroup;
     return Column(
       children: [
         SizedBox(height: 15),
-        for (int groupIndex = 0; groupIndex < listSelectedGroup.length; groupIndex++)
+        for (int groupIndex = 0; groupIndex < listSelectedGroup!.length; groupIndex++)
           InkWell(
             onTap: () {
               if (Provider.of<UserProvider>(context, listen: false).canAccessGrammar(groupIndex)) {
-                Provider.of<GrammarProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
+                Provider.of<GrammarProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName!);
                 Navigator.pushNamed(context, "/grammar_list_screen", arguments: {
                   'headerName':
                       "HSK ${Provider.of<GrammarProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
@@ -99,7 +99,7 @@ class _GrammarHomeScreenState extends State<GrammarHomeScreen> {
             },
             child: GroupWidget(
               name: "Бүлэг ${listSelectedGroup[groupIndex].groupName}",
-              total: listSelectedGroup[groupIndex].totalGrammar,
+              total: listSelectedGroup[groupIndex].totalGrammar!,
               studied: 0,
               // Provider.of<UserProvider>(context, listen: false).is
               isPaid: Provider.of<UserProvider>(context, listen: false).canAccessGrammar(groupIndex),

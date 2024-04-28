@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class VoiceIcon extends StatelessWidget {
   final bool isWhite;
-  const VoiceIcon({Key key, this.isWhite = true}) : super(key: key);
+  const VoiceIcon({Key? key, this.isWhite = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

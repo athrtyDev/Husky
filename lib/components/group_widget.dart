@@ -8,7 +8,7 @@ class GroupWidget extends StatelessWidget {
   final int studied;
   final bool isPaid;
 
-  const GroupWidget({this.name, this.total, this.studied, this.isPaid = false});
+  const GroupWidget({required this.name, required this.total, required this.studied, this.isPaid = false});
 
   @override
   Widget build(BuildContext context) {

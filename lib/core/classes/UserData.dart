@@ -1,12 +1,12 @@
 class UserData {
-  String uid;
-  String name;
-  String paidStatus;
-  String paymentEndDate;
-  String role;
-  String hsk;
-  int shortId;
-  String createdDate;
+  String? uid;
+  String? name;
+  String? paidStatus;
+  String? paymentEndDate;
+  String? role;
+  String? hsk;
+  int? shortId;
+  String? createdDate;
 
   UserData({
     this.uid,

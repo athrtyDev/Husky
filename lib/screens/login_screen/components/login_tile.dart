@@ -6,7 +6,7 @@ class LoginTile extends StatelessWidget {
   final Function login;
   final String icon;
   final String title;
-  const LoginTile({Key key, @required this.login, @required this.icon, @required this.title}) : super(key: key);
+  const LoginTile({Key? key, required this.login, required this.icon, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

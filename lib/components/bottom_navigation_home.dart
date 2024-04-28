@@ -6,7 +6,7 @@ class BottomNavigationHome extends StatelessWidget {
   final int currentIndex;
   final Function setIndex;
 
-  BottomNavigationHome({Key key, this.currentIndex, this.setIndex});
+  BottomNavigationHome({Key? key, required this.currentIndex, required this.setIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -75,5 +75,5 @@ class TitleWithIconModel {
   String title;
   IconData icon;
 
-  TitleWithIconModel({this.title, this.icon});
+  TitleWithIconModel({required this.title, required this.icon});
 }

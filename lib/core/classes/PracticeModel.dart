@@ -1,7 +1,7 @@
 class PracticeModel {
-  String question;
-  String questionDesc;
-  List<PracticeChoice> listChoice;
+  String? question;
+  String? questionDesc;
+  List<PracticeChoice>? listChoice;
 
   PracticeModel({
     this.question,
@@ -13,9 +13,9 @@ class PracticeModel {
 enum ChoiceStatus { correct, wrong, undefined }
 
 class PracticeChoice {
-  String text;
-  bool isCorrect;
-  ChoiceStatus status;
+  String? text;
+  bool? isCorrect;
+  ChoiceStatus? status;
   dynamic data;
 
   PracticeChoice({

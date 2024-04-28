@@ -26,10 +26,10 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
       VocabularyProvider provider = Provider.of<VocabularyProvider>(context, listen: false);
       await provider.cacheAllData();
       if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
-          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+          Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk == null) {
         provider.selectLevel("1");
       } else {
-        provider.selectLevel(Provider.of<UserProvider>(context, listen: false).loggedUser.hsk);
+        provider.selectLevel(Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk!);
       }
     });
   }
@@ -47,7 +47,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
               Expanded(
                 child: Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup == null
                     ? Loader()
-                    : Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup.isEmpty
+                    : Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup!.isEmpty
                         ? NotFound()
                         : SingleChildScrollView(child: _groups()),
               ),
@@ -57,18 +57,18 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
   }
 
   _levels() {
-    List<VocabularyLevel> listLevel = Provider.of<VocabularyProvider>(context, listen: true).listLevel;
+    List<VocabularyLevel>? listLevel = Provider.of<VocabularyProvider>(context, listen: true).listLevel;
     if (listLevel == null) return SizedBox();
     return Row(
       children: [
         for (var level in listLevel)
           InkWell(
             onTap: () {
-              Provider.of<VocabularyProvider>(context, listen: false).selectLevel(level.hsk);
+              Provider.of<VocabularyProvider>(context, listen: false).selectLevel(level.hsk!);
             },
             child: LevelWidget(
               name: "HSK ${level.hsk}",
-              total: level.totalVocabulary,
+              total: level.totalVocabulary!,
               isSelected: level.hsk == Provider.of<VocabularyProvider>(context, listen: true).selectedLevel,
               type: "үг",
             ),
@@ -78,7 +78,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
   }
 
   _groups() {
-    List<VocabularyGroup> listSelectedGroup = Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup;
+    List<VocabularyGroup>? listSelectedGroup = Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup;
     if (listSelectedGroup == null) return SizedBox();
     return Column(
       children: [
@@ -87,7 +87,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
           InkWell(
             onTap: () {
               if (Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(groupIndex)) {
-                Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName);
+                Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName!);
                 Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
                   'headerName':
                       "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
@@ -101,7 +101,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
             },
             child: GroupWidget(
               name: "Бүлэг ${listSelectedGroup[groupIndex].groupName}",
-              total: listSelectedGroup[groupIndex].totalVocabulary,
+              total: listSelectedGroup[groupIndex].totalVocabulary!,
               studied: 0,
               // Бүлэг болгоны эхний 2 үнэгүй
               isPaid: Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(groupIndex),

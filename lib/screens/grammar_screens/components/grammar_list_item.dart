@@ -6,7 +6,7 @@ import 'package:diyi/global/global.dart';
 
 class GrammarListItem extends StatelessWidget {
   final Grammar grammar;
-  const GrammarListItem({this.grammar});
+  const GrammarListItem({required this.grammar});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class GrammarListItem extends StatelessWidget {
           ),
           SizedBox(width: 30),
           MyText.medium(
-            Formatter.capitalizeFirstLetter(grammar.translation),
+            Formatter.capitalizeFirstLetter(grammar.translation ?? ""),
             fontWeight: Styles.wSemiBold,
             textColor: Styles.textColor,
           ),

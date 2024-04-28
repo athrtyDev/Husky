@@ -23,9 +23,9 @@ class VocabularyPracticeScreen extends StatefulWidget {
 }
 
 class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
-  String menuType;
-  String menuName;
-  String hskLevel;
+  late String menuType;
+  late String menuName;
+  String hskLevel = "";
 
   @override
   void initState() {
@@ -34,11 +34,11 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
     menuName = widget.args['menu_name'];
     Future.delayed(Duration.zero, () async {
       if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
-          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+          Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk == null) {
         hskLevel = "1";
         await Provider.of<VocabularyPracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
       } else {
-        hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser.hsk;
+        hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk!;
         await Provider.of<VocabularyPracticeProvider>(context, listen: false).initVocabularyTest(hskLevel);
       }
     });
@@ -46,7 +46,7 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<PracticeModel> listPractice = Provider.of<VocabularyPracticeProvider>(context, listen: true).listVocabularyPractice;
+    List<PracticeModel>? listPractice = Provider.of<VocabularyPracticeProvider>(context, listen: true).listVocabularyPractice;
     return Scaffold(
       appBar: myAppBar(title: menuName, actions: TtsSpeedIcon(context)),
       backgroundColor: Styles.whiteColor,
@@ -59,8 +59,8 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(1),
                       child: ProgressBar(
-                        total: Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions,
-                        done: Provider.of<VocabularyPracticeProvider>(context).questionIndex + 1,
+                        total: Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!,
+                        done: Provider.of<VocabularyPracticeProvider>(context).questionIndex! + 1,
                         correct: Provider.of<VocabularyPracticeProvider>(context).totalCorrectAnswers,
                         width: MediaQuery.of(context).size.width,
                         height: 8,
@@ -75,9 +75,9 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
                             _status(),
                             SizedBox(height: 15),
                             WordBigContainer(
-                                text: listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex].question,
+                                text: listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex!].question!,
                                 pronunciation:
-                                    listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex].questionDesc),
+                                    listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex!].questionDesc),
                             SizedBox(height: 20),
                             MyText(
                               "Сонголтууд",
@@ -92,33 +92,34 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
-                                          .listChoice[0]),
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                          .listChoice![0]),
                                   VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
-                                          .listChoice[1]),
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                          .listChoice![1]),
                                   VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
-                                          .listChoice[2]),
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                          .listChoice![2]),
                                   VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex]
-                                          .listChoice[3]),
+                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                          .listChoice![3]),
                                 ],
                               ),
                             ),
                             SizedBox(height: 20),
                             Center(
-                                child: Provider.of<VocabularyPracticeProvider>(context, listen: true).isAnswered
+                                child: Provider.of<VocabularyPracticeProvider>(context, listen: true).isAnswered!
                                     ? Button(
-                                        text: (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex +
+                                        text: (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
                                                     1 >=
-                                                Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions)
+                                                Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!)
                                             ? "Дуусгах"
                                             : "Дараагийнх",
                                         width: 200,
                                         onClick: () {
-                                          if (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                              Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions) {
+                                          if (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
+                                                  1 >=
+                                              Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!) {
                                             Navigator.pushNamed(context, '/practice_result_screens');
                                           } else {
                                             Provider.of<VocabularyPracticeProvider>(context, listen: false).nextQuestion();

@@ -10,21 +10,21 @@ import 'package:provider/provider.dart';
 
 class PaymentScreen extends StatefulWidget {
   final dynamic args;
-  const PaymentScreen({Key key, this.args}) : super(key: key);
+  const PaymentScreen({Key? key, this.args}) : super(key: key);
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String amount;
+  late String amount;
 
   @override
   void initState() {
     super.initState();
     amount = widget.args['type'] == "basic"
-        ? Formatter.moneyFormatter(app.appStaticData.static["payment_basic_amount"])
-        : Formatter.moneyFormatter(app.appStaticData.static["payment_advanced_amount"]);
+        ? Formatter.moneyFormatter(app.appStaticData!.static!["payment_basic_amount"])
+        : Formatter.moneyFormatter(app.appStaticData!.static!["payment_advanced_amount"]);
   }
 
   @override
@@ -40,7 +40,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             MyText.large("Заавар"),
             SizedBox(height: 10),
             MyText.medium(
-              app.appStaticData.static["payment_instruction"] ??
+              app.appStaticData!.static!["payment_instruction"] ??
                   "Төлбөр төлөхдөө доорх данс руу шилжүүлэх ба гүйлгээний утгыг зөв оруулахыг анхаарна уу.",
               textColor: Styles.textColor70,
             ),
@@ -57,15 +57,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   MyText.medium('Банк'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData.static["bank_name"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData!.static!["bank_name"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Дансны дугаар'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData.static["bank_account"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData!.static!["bank_account"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Дансны нэр'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData.static["bank_account_name"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData!.static!["bank_account_name"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Төлөх дүн'),
                   SizedBox(height: 10),
@@ -73,7 +73,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   SizedBox(height: 25),
                   MyText.medium('Гүйлгээний утга'),
                   SizedBox(height: 10),
-                  paymentTile(Provider.of<UserProvider>(context, listen: false).loggedUser.shortId.toString(), Icons.copy),
+                  paymentTile(Provider.of<UserProvider>(context, listen: false).loggedUser!.shortId.toString(), Icons.copy),
                   SizedBox(height: 10),
                 ],
               ),

@@ -7,7 +7,7 @@ class LevelWidget extends StatelessWidget {
   final int total;
   final bool isSelected;
   final String type;
-  const LevelWidget({this.name, this.total, this.isSelected, this.type});
+  const LevelWidget({required this.name, required this.total, required this.isSelected, required this.type});
 
   @override
   Widget build(BuildContext context) {

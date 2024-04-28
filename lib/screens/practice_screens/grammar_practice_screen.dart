@@ -22,18 +22,18 @@ class GrammarPracticeScreen extends StatefulWidget {
 }
 
 class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
-  String hskLevel;
+  String hskLevel = "";
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
       if (Provider.of<UserProvider>(context, listen: false).loggedUser == null ||
-          Provider.of<UserProvider>(context, listen: false).loggedUser.hsk == null) {
+          Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk == null) {
         hskLevel = "1";
         await Provider.of<GrammarPracticeProvider>(context, listen: false).initGrammarTest(hskLevel);
       } else {
-        hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser.hsk;
+        hskLevel = Provider.of<UserProvider>(context, listen: false).loggedUser!.hsk!;
         await Provider.of<GrammarPracticeProvider>(context, listen: false).initGrammarTest(hskLevel);
       }
     });
@@ -41,7 +41,7 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<GrammarPracticeModel> listPractice = Provider.of<GrammarPracticeProvider>(context, listen: true).listGrammarPractice;
+    List<GrammarPracticeModel>? listPractice = Provider.of<GrammarPracticeProvider>(context, listen: true).listGrammarPractice;
 
     return Scaffold(
       appBar: myAppBar(title: "Дүрэм", actions: TtsSpeedIcon(context)),
@@ -55,8 +55,8 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(1),
                       child: ProgressBar(
-                        total: Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions,
-                        done: Provider.of<GrammarPracticeProvider>(context).questionIndex + 1,
+                        total: Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions!,
+                        done: Provider.of<GrammarPracticeProvider>(context).questionIndex! + 1,
                         correct: Provider.of<GrammarPracticeProvider>(context).totalCorrectAnswers,
                         width: MediaQuery.of(context).size.width,
                         height: 8,
@@ -71,7 +71,7 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
                             _status(),
                             SizedBox(height: 15),
                             MyText(
-                              listPractice[Provider.of<GrammarPracticeProvider>(context).questionIndex].question,
+                              listPractice![Provider.of<GrammarPracticeProvider>(context).questionIndex!].question!,
                               textColor: Styles.textColor,
                               size: 25,
                               fontWeight: FontWeight.w200,
@@ -92,27 +92,27 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         GrammarPracticeChoices(listPractice[
-                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[0]),
+                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                            .listChoice![0]),
                                         GrammarPracticeChoices(listPractice[
-                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[1]),
+                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                            .listChoice![1]),
                                         if (listPractice[
-                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[2]
-                                            .text
+                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                            .listChoice![2]
+                                            .text!
                                             .isNotEmpty)
                                           GrammarPracticeChoices(listPractice[
-                                                  Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                              .listChoice[2]),
+                                                  Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                              .listChoice![2]),
                                         if (listPractice[
-                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                            .listChoice[3]
-                                            .text
+                                                Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                            .listChoice![3]
+                                            .text!
                                             .isNotEmpty)
                                           GrammarPracticeChoices(listPractice[
-                                                  Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex]
-                                              .listChoice[3]),
+                                                  Provider.of<GrammarPracticeProvider>(context, listen: true).questionIndex!]
+                                              .listChoice![3]),
                                       ],
                                     ),
                                   ),
@@ -121,16 +121,16 @@ class _GrammarPracticeScreenState extends State<GrammarPracticeScreen> {
                             ),
                             SizedBox(height: 20),
                             Center(
-                                child: Provider.of<GrammarPracticeProvider>(context, listen: true).isAnswered
+                                child: Provider.of<GrammarPracticeProvider>(context, listen: true).isAnswered!
                                     ? Button(
-                                        text: (Provider.of<GrammarPracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                                Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions)
+                                        text: (Provider.of<GrammarPracticeProvider>(context, listen: false).questionIndex! + 1 >=
+                                                Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions!)
                                             ? "Дуусгах"
                                             : "Дараагийнх",
                                         width: 200,
                                         onClick: () {
-                                          if (Provider.of<GrammarPracticeProvider>(context, listen: false).questionIndex + 1 >=
-                                              Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions) {
+                                          if (Provider.of<GrammarPracticeProvider>(context, listen: false).questionIndex! + 1 >=
+                                              Provider.of<GrammarPracticeProvider>(context, listen: false).totalQuestions!) {
                                             Navigator.pushNamed(context, '/grammar_practice_result_screens');
                                           } else {
                                             Provider.of<GrammarPracticeProvider>(context, listen: false).nextQuestion();

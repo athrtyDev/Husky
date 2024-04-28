@@ -19,7 +19,7 @@ class _VocabularyPracticeChoicesState extends State<VocabularyPracticeChoices> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (!Provider.of<VocabularyPracticeProvider>(context, listen: false).isAnswered)
+        if (!Provider.of<VocabularyPracticeProvider>(context, listen: false).isAnswered!)
           Provider.of<VocabularyPracticeProvider>(context, listen: false).chooseQuestionVocabulary(widget.choice);
       },
       child: Container(
@@ -52,10 +52,10 @@ class _VocabularyPracticeChoicesState extends State<VocabularyPracticeChoices> {
         child: Row(
           children: [
             Icon(
-              Provider.of<VocabularyPracticeProvider>(context).isAnswered && widget.choice.status == ChoiceStatus.correct
+              Provider.of<VocabularyPracticeProvider>(context).isAnswered! && widget.choice.status == ChoiceStatus.correct
                   ? Icons.check_circle_rounded
                   : Icons.circle_outlined,
-              color: Provider.of<VocabularyPracticeProvider>(context).isAnswered
+              color: Provider.of<VocabularyPracticeProvider>(context).isAnswered!
                   ? (widget.choice.status == ChoiceStatus.correct
                       ? Styles.greenColor
                       : widget.choice.status == ChoiceStatus.wrong
@@ -69,7 +69,7 @@ class _VocabularyPracticeChoicesState extends State<VocabularyPracticeChoices> {
               child: MyText.large(
                 widget.choice.text,
                 fontWeight: Styles.wNormal,
-                textColor: Provider.of<VocabularyPracticeProvider>(context).isAnswered
+                textColor: Provider.of<VocabularyPracticeProvider>(context).isAnswered!
                     ? (widget.choice.status == ChoiceStatus.correct
                         ? Styles.greenColor
                         : widget.choice.status == ChoiceStatus.wrong

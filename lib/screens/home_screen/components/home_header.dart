@@ -11,8 +11,8 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context, listen: false).firebaseUser;
-    String name;
+    User? user = Provider.of<UserProvider>(context, listen: false).firebaseUser;
+    String? name;
     if (user != null) {
       name = user.displayName;
     }
@@ -50,7 +50,7 @@ class HomeHeader extends StatelessWidget {
             child: Wrap(
               children: [
                 MyText.large(
-                  app.appStaticData == null ? "" : app.appStaticData.static["greeting"] ?? "Энэ өдрийн мэнд",
+                  app.appStaticData == null ? "" : app.appStaticData!.static!["greeting"] ?? "Энэ өдрийн мэнд",
                   fontWeight: Styles.wNormal,
                   textColor: Styles.whiteColor,
                 ),

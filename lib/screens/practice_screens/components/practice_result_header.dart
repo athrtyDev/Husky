@@ -6,7 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class PracticeResultHeader extends StatelessWidget {
-  const PracticeResultHeader({Key key}) : super(key: key);
+  const PracticeResultHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,9 @@ class PracticeResultHeader extends StatelessWidget {
                   radius: 45,
                   lineWidth: 10.0,
                   animation: true,
-                  percent: provider.totalCorrectAnswers / provider.totalQuestions,
+                  percent: provider.totalCorrectAnswers! / provider.totalQuestions!,
                   center: MyText.xlarge(
-                    "${(provider.totalCorrectAnswers / provider.totalQuestions * 100).ceil()}%",
+                    "${(provider.totalCorrectAnswers! / provider.totalQuestions! * 100).ceil()}%",
                     fontWeight: Styles.wSemiBold,
                     textColor: Styles.textColor,
                   ),

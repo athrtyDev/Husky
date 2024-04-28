@@ -1,5 +1,5 @@
 class AppStaticData {
-  Map<String, dynamic> static;
+  Map<String, dynamic>? static;
 
   AppStaticData({this.static});
 
@@ -11,7 +11,7 @@ class AppStaticData {
     static = json;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>? toJson() {
     return static;
   }
 }

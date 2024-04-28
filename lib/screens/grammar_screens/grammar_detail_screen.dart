@@ -20,10 +20,10 @@ class GrammarDetailScreen extends StatefulWidget {
 }
 
 class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
-  Grammar grammar;
-  List<Grammar> listGrammar;
-  int grammarIndex;
-  String title;
+  late Grammar grammar;
+  late List<Grammar> listGrammar;
+  late int grammarIndex;
+  late String title;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                 child: Column(
                   children: [
                     WordBigContainer(
-                      text: grammar.grammar,
+                      text: grammar.grammar ?? "",
                       pronunciation: grammar.pronunciation,
                     ),
                     Padding(
@@ -68,10 +68,12 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                             MyText.large("Жишээ өгүүлбэр:", fontWeight: Styles.wSemiBold),
                           SizedBox(height: 20),
                           if (grammar.example1 != null && grammar.example1 != "")
-                            _exampleWidget(grammar.example1, grammar.example1Pronunciation, grammar.example1Translation),
+                            _exampleWidget(
+                                grammar.example1 ?? "", grammar.example1Pronunciation ?? "", grammar.example1Translation ?? ""),
                           SizedBox(height: 20),
                           if (grammar.example2 != null && grammar.example2 != "")
-                            _exampleWidget(grammar.example2, grammar.example2Pronunciation, grammar.example2Translation),
+                            _exampleWidget(
+                                grammar.example2 ?? "", grammar.example2Pronunciation ?? "", grammar.example2Translation ?? ""),
                         ],
                       ),
                     ),
@@ -198,15 +200,15 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                           ? Wrap(
                               children: [
                                 MyText.large(
-                                  text.split(grammar.grammar)[0] ?? "",
+                                  text.split(grammar.grammar ?? "")[0],
                                   fontWeight: Styles.wNormal,
                                   letterSpacing: 0.5,
                                 ),
                                 MyText.large(grammar.grammar, textColor: Styles.orangeColor),
-                                MyText.large(text.split(grammar.grammar)[1] ?? "", fontWeight: Styles.wNormal),
+                                MyText.large(text.split(grammar.grammar ?? "")[1], fontWeight: Styles.wNormal),
                               ],
                             )
-                          : MyText.large(text ?? "", fontWeight: Styles.wNormal),
+                          : MyText.large(text, fontWeight: Styles.wNormal),
                 ),
               ),
             )

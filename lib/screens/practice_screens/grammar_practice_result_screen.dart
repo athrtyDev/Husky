@@ -35,7 +35,7 @@ class _GrammarPracticeResultScreenState extends State<GrammarPracticeResultScree
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (provider.listWrongGrammar != null && provider.listWrongGrammar.isNotEmpty)
+          if (provider.listWrongGrammar != null && provider.listWrongGrammar!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: MyText.large("Сайжруулах хэрэгтэй дүрмүүд"),
@@ -45,11 +45,11 @@ class _GrammarPracticeResultScreenState extends State<GrammarPracticeResultScree
               child: SingleChildScrollView(
                   child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: (provider.listWrongGrammar == null || provider.listWrongGrammar.isEmpty)
+            child: (provider.listWrongGrammar == null || provider.listWrongGrammar!.isEmpty)
                 ? _allCorrectWidget()
                 : Column(
                     children: [
-                      for (var item in provider.listWrongGrammar) _grammarTile(item),
+                      for (var item in provider.listWrongGrammar!) _grammarTile(item),
                     ],
                   ),
           ))),

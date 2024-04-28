@@ -17,7 +17,7 @@ class VocabularyListScreen extends StatefulWidget {
 }
 
 class _VocabularyListScreenState extends State<VocabularyListScreen> {
-  String headerName;
+  late String headerName;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText("Нийт ${Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary.length} үг:",
+                    MyText("Нийт ${Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary!.length} үг:",
                         fontWeight: Styles.wBold),
                     SizedBox(height: 15),
                     Expanded(
@@ -46,7 +46,7 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             for (int i = 0;
-                                i < Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary.length;
+                                i < Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary!.length;
                                 i++)
                               InkWell(
                                 onTap: () {
@@ -58,7 +58,8 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                                   });
                                 },
                                 child: VocabularyListItem(
-                                    vocabulary: Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary[i]),
+                                    vocabulary:
+                                        Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary![i]),
                               )
                           ],
                         ),

@@ -1,5 +1,4 @@
 import 'package:diyi/components/loader_dialog.dart';
-import 'package:diyi/components/toast.dart';
 import 'package:diyi/global/global.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 // BaseFunctions baseFunctions = BaseFunctions();
 
 // class BaseFunctions {
-OverlayEntry overlayEntry;
+OverlayEntry? overlayEntry;
 
 showLoading(BuildContext context) async {
   Future.delayed(Duration.zero, () async {
@@ -19,7 +18,7 @@ showLoading(BuildContext context) async {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: LoaderDialog()));
-      if (overlayState.mounted) WidgetsBinding.instance.addPostFrameCallback((_) => overlayState.insert(overlayEntry));
+      if (overlayState.mounted) WidgetsBinding.instance.addPostFrameCallback((_) => overlayState.insert(overlayEntry!));
     }
   });
 }

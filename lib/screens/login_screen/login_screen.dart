@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ))));
   }
 
-  birCircle(double radius, double insideRadius) {
+  birCircle(double radius, double? insideRadius) {
     return Container(
       height: radius,
       width: radius,

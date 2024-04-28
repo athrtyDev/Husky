@@ -6,9 +6,9 @@ Globals app = Globals();
 
 class Globals {
   static Globals _instance = Globals();
-  AppStaticData appStaticData;
-  bool isReviewingVersion;
-  SharedPreferences cacheStorage;
+  AppStaticData? appStaticData;
+  bool? isReviewingVersion;
+  late SharedPreferences cacheStorage;
 
   factory Globals() {
     _instance = Globals._internal();
@@ -27,8 +27,8 @@ class Globals {
     cacheStorage.setString(key, value);
   }
 
-  Future<String> getStorage(String key) async {
-    if (cacheStorage != null && cacheStorage.containsKey(key)) {
+  Future<String?> getStorage(String key) async {
+    if (cacheStorage.containsKey(key)) {
       return cacheStorage.getString(key);
     } else {
       return null;
@@ -36,7 +36,7 @@ class Globals {
   }
 
   Future<void> removeStorage(String key) async {
-    if (cacheStorage != null && cacheStorage.containsKey(key)) {
+    if (cacheStorage.containsKey(key)) {
       await cacheStorage.remove(key);
     }
   }

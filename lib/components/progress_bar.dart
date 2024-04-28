@@ -6,9 +6,9 @@ class ProgressBar extends StatelessWidget {
   final int done;
   final double width;
   final double height;
-  final int correct;
+  final int? correct;
 
-  const ProgressBar({@required this.total, @required this.done, @required this.width, this.height = 15, this.correct});
+  const ProgressBar({required this.total, required this.done, required this.width, this.height = 15, this.correct});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class ProgressBar extends StatelessWidget {
         if (correct != null)
           Container(
             height: height,
-            width: width * correct / total,
+            width: width * correct! / total,
             decoration: BoxDecoration(
               color: Colors.green,
               borderRadius: BorderRadius.all(Radius.circular(5)),

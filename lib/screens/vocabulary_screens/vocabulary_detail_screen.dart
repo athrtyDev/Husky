@@ -20,10 +20,10 @@ class VocabularyDetailScreen extends StatefulWidget {
 }
 
 class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
-  Vocabulary vocabulary;
-  List<Vocabulary> listVocabulary;
-  int vocabularyIndex;
-  String title;
+  late Vocabulary vocabulary;
+  late List<Vocabulary> listVocabulary;
+  late int vocabularyIndex;
+  late String title;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                 child: Column(
                   children: [
                     WordBigContainer(
-                      text: vocabulary.word,
+                      text: vocabulary.word!,
                       pronunciation: vocabulary.pronunciation,
                       translation: vocabulary.translation,
                     ),
@@ -63,16 +63,16 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                           SizedBox(height: 20),
                           if (vocabulary.example1 != null && vocabulary.example1 != "")
                             _exampleWidget(
-                              vocabulary.example1,
-                              vocabulary.example1Pronunciation,
-                              vocabulary.example1Translation,
+                              vocabulary.example1!,
+                              vocabulary.example1Pronunciation!,
+                              vocabulary.example1Translation!,
                             ),
                           SizedBox(height: 20),
                           if (vocabulary.example2 != null && vocabulary.example2 != "")
                             _exampleWidget(
-                              vocabulary.example2,
-                              vocabulary.example2Pronunciation,
-                              vocabulary.example2Translation,
+                              vocabulary.example2!,
+                              vocabulary.example2Pronunciation!,
+                              vocabulary.example2Translation!,
                             ),
                         ],
                       ),
@@ -197,15 +197,15 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                           ? Wrap(
                               children: [
                                 MyText.large(
-                                  text.split(vocabulary.word)[0] ?? "",
+                                  text.split(vocabulary.word!)[0] ?? "",
                                   fontWeight: Styles.wNormal,
                                   textColor: Styles.baseColor,
                                   letterSpacing: 0.5,
                                 ),
-                                if (text.contains(vocabulary.word)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
-                                if (text.split(vocabulary.word).length > 1)
+                                if (text.contains(vocabulary.word!)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
+                                if (text.split(vocabulary.word!).length > 1)
                                   MyText.large(
-                                    text.split(vocabulary.word)[1] ?? "",
+                                    text.split(vocabulary.word!)[1] ?? "",
                                     fontWeight: Styles.wNormal,
                                     textColor: Styles.baseColor,
                                   ),

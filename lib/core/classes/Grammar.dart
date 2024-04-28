@@ -1,17 +1,17 @@
 class Grammar {
-  String hsk;
-  String group;
-  String grammar;
-  String translation;
-  String pronunciation;
-  String tailbar;
-  String type;
-  String example1;
-  String example1Translation;
-  String example1Pronunciation;
-  String example2;
-  String example2Translation;
-  String example2Pronunciation;
+  String? hsk;
+  String? group;
+  String? grammar;
+  String? translation;
+  String? pronunciation;
+  String? tailbar;
+  String? type;
+  String? example1;
+  String? example1Translation;
+  String? example1Pronunciation;
+  String? example2;
+  String? example2Translation;
+  String? example2Pronunciation;
 
   Grammar({
     this.hsk,
