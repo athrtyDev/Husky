@@ -83,7 +83,9 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick == null ? () {} : onClick!(),
+      onTap: () {
+        onClick == null ? () {} : onClick!();
+      },
       child: Container(
         height: height ?? 55,
         margin: margin ?? EdgeInsets.zero,

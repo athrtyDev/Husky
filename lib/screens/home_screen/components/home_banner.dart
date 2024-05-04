@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:diyi/core/api.dart';
 import 'package:diyi/global/global.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
-import 'package:diyi/global/style.dart';
 
 class HomeBanner extends StatefulWidget {
   @override
@@ -16,11 +14,7 @@ class _HomeBannerState extends State<HomeBanner> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      if (app.appStaticData == null) {
-        Api api = Api();
-        app.appStaticData = await api.getAppStaticData();
-      }
-      String banner = app.appStaticData!.static!['banner'];
+      String banner = app.appStaticData.static!['banner'];
       setState(() {
         listBanner = banner.split(";");
       });

@@ -206,7 +206,9 @@ class _AdminUserScreenState extends State<AdminUserScreen> {
 
   Widget payButton(String text, Color color, Function onClick) {
     return InkWell(
-      onTap: onClick(),
+      onTap: () {
+        onClick();
+      },
       child: Container(
         height: 40,
         width: 100,

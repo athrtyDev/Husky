@@ -31,7 +31,7 @@ class GrammarPracticeProvider with ChangeNotifier {
     isGrammarEmpty = false;
     if (listGrammarPractice == null) {
       listGrammarPractice = await Api().getGrammarPracticeByLevel(hskLevel);
-      if (listGrammarPractice == null) {
+      if (listGrammarPractice == null || listGrammarPractice!.isEmpty) {
         isGrammarEmpty = true;
         notifyListeners();
         return;

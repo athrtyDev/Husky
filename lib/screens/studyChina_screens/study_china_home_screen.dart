@@ -74,62 +74,62 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
     );
   }
 
-  studyInChinaTile(String title) {
-    final List<String> listBanner = [
-      "https://i.pinimg.com/736x/db/ac/32/dbac32146104c67946de2a6d857a57c0.jpg",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU7adimEWjO8NMlVfBl4_Cez1BlKr2Z51gTTqK_Spicbw4eqnQl0ltiMOiwWfVi4o7I3k&usqp=CAU",
-      "https://i.pinimg.com/736x/bf/06/3a/bf063a19d01d5fbdf38a8fd72c723815.jpg",
-    ];
-    final List<String> listTitle = [
-      "Яагаад заавал БНХАУ гэж?",
-      "БНХАУ -н боловсрол",
-      "Гадаад оюутны амьдрал",
-    ];
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              margin: EdgeInsets.only(
-                top: 5,
-                bottom: 10,
-                left: 10,
-              ),
-              child: MyText.large(title)),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (var index = 0; index < 3; index++)
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    decoration: BoxDecoration(color: Styles.whiteColor, borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: listBanner[index],
-                            fit: BoxFit.cover,
-                            height: 120,
-                            width: 200,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: MyText.medium(listTitle[index]),
-                        )
-                      ],
-                    ),
-                  )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // studyInChinaTile(String title) {
+  //   final List<String> listBanner = [
+  //     // "https://i.pinimg.com/736x/db/ac/32/dbac32146104c67946de2a6d857a57c0.jpg",
+  //     // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU7adimEWjO8NMlVfBl4_Cez1BlKr2Z51gTTqK_Spicbw4eqnQl0ltiMOiwWfVi4o7I3k&usqp=CAU",
+  //     // "https://i.pinimg.com/736x/bf/06/3a/bf063a19d01d5fbdf38a8fd72c723815.jpg",
+  //   ];
+  //   final List<String> listTitle = [
+  //     "Яагаад заавал БНХАУ гэж?",
+  //     "БНХАУ -н боловсрол",
+  //     "Гадаад оюутны амьдрал",
+  //   ];
+  //   return Container(
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //             margin: EdgeInsets.only(
+  //               top: 5,
+  //               bottom: 10,
+  //               left: 10,
+  //             ),
+  //             child: MyText.large(title)),
+  //         SingleChildScrollView(
+  //           scrollDirection: Axis.horizontal,
+  //           child: Row(
+  //             children: [
+  //               for (var index = 0; index < 3; index++)
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+  //                   decoration: BoxDecoration(color: Styles.whiteColor, borderRadius: BorderRadius.circular(10)),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       ClipRRect(
+  //                         borderRadius: BorderRadius.circular(10),
+  //                         child: CachedNetworkImage(
+  //                           imageUrl: listBanner[index],
+  //                           fit: BoxFit.cover,
+  //                           height: 120,
+  //                           width: 200,
+  //                         ),
+  //                       ),
+  //                       Container(
+  //                         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+  //                         child: MyText.medium(listTitle[index]),
+  //                       )
+  //                     ],
+  //                   ),
+  //                 )
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   studyInChinaGrid(List<GroupData> groupData) {
     return Container(

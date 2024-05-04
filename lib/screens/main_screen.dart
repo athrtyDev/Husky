@@ -1,13 +1,11 @@
 import 'package:diyi/components/bottom_navigation_home.dart';
 import 'package:diyi/global/global.dart';
-import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/screens/UpdateScreen.dart';
 import 'package:diyi/screens/home_screen/home_screen.dart';
 import 'package:diyi/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,7 +20,6 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   late TabController _controller;
   DateTime? currentBackPressTime;
   GlobalKey<ScaffoldState> leftMenuKey = GlobalKey();
-  bool shouldUpdate = false;
 
   @override
   void initState() {
@@ -37,9 +34,6 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     Future.delayed(Duration.zero, () async {
       Provider.of<UserProvider>(context, listen: false).checkLoggedUser();
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkVersion();
-    });
   }
 
   @override
@@ -48,16 +42,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  checkVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      shouldUpdate = int.parse(packageInfo.buildNumber) < app.appStaticData!.static!['approved_build_number'];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (shouldUpdate) {
+    if (app.shouldUpdate) {
       return UpdateScreen();
     } else {
       return WillPopScope(

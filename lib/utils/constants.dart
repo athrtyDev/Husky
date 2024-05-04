@@ -3,7 +3,7 @@ import 'package:diyi/core/classes/Menu.dart';
 class MenuType {
   static const vocabulary = "vocabulary";
   static const grammar = "grammar";
-  static const test = "mockTest";
+  static const speaking = "speaking";
   static const studyChina = "studyChina";
   static const videoLesson = "videoLesson";
 }
@@ -21,8 +21,8 @@ class ListMenu {
       icon: "assets/images/ic_home_grammar.png",
     ),
     Menu(
-      type: MenuType.test,
-      name: "Тест",
+      type: MenuType.speaking,
+      name: "Ярианы хэл",
       icon: "assets/images/ic_home_test.png",
     ),
     Menu(

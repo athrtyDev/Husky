@@ -211,7 +211,7 @@ class Api {
   }
 
   Future<void> changeUserPaidStatus(UserData userData) async {
-    print("Firestore update: changeUserPaidStatus");
+    print("Firestore update: changeUserPaidStatus ${userData.paidStatus}");
     QuerySnapshot customerSnapshot =
         await FirebaseFirestore.instance.collection('UserData').where('shortId', isEqualTo: userData.shortId).limit(1).get();
 

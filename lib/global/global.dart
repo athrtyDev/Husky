@@ -6,8 +6,9 @@ Globals app = Globals();
 
 class Globals {
   static Globals _instance = Globals();
-  AppStaticData? appStaticData;
-  bool? isReviewingVersion;
+  late AppStaticData appStaticData;
+  late bool isReviewingVersion;
+  late bool shouldUpdate;
   late SharedPreferences cacheStorage;
 
   factory Globals() {

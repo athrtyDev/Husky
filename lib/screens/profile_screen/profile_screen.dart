@@ -28,7 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<User>() == null || Provider.of<UserProvider>(context, listen: true).loggedUser == null
+    // return context.watch<User>() == null || Provider.of<UserProvider>(context, listen: true).loggedUser == null
+    return Provider.of<UserProvider>(context, listen: true).loggedUser == null
         ? LoginScreen()
         : SingleChildScrollView(
             child: Padding(
@@ -175,7 +176,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _settingsTile({required String title, required IconData icon, required Function onTap}) {
     return InkWell(
-      onTap: onTap(),
+      onTap: () {
+        onTap();
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),

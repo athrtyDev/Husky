@@ -82,15 +82,18 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
               ),
             ),
             Container(
-                padding: EdgeInsets.only(top: 15, bottom: 25),
-                child: vocabularyIndex < (listVocabulary.length - 1)
-                    ? Button(
-                        text: "Дараагийнх",
-                        onClick: _next,
-                      )
-                    : Button.disabled(
-                        text: "Дараагийнх",
-                      )),
+              padding: EdgeInsets.only(top: 15, bottom: 25),
+              child: vocabularyIndex < (listVocabulary.length - 1)
+                  ? Button(
+                      text: "Дараагийнх",
+                      onClick: () {
+                        next();
+                      },
+                    )
+                  : Button.disabled(
+                      text: "Дараагийнх",
+                    ),
+            ),
           ],
         ),
       ),
@@ -225,7 +228,7 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
     );
   }
 
-  _next() {
+  void next() {
     setState(() {
       vocabularyIndex++;
       vocabulary = listVocabulary[vocabularyIndex];

@@ -9,13 +9,13 @@ import 'package:diyi/screens/policy_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
 import 'package:diyi/screens/practice_screens/vocabulary_practice_result_screen.dart';
+import 'package:diyi/screens/speaking_screens/speaking_home_screen.dart';
 import 'package:diyi/screens/studyChina_screens/study_china_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/screens/grammar_screens/grammar_detail_screen.dart';
 import 'package:diyi/screens/grammar_screens/grammar_home_screen.dart';
 import 'package:diyi/screens/grammar_screens/grammar_list_screen.dart';
-import 'package:diyi/screens/mockTest_screens/mockTest_home_screen.dart';
 import 'package:diyi/screens/practice_screens/vocabulary_practice_screen.dart';
 import 'package:diyi/screens/studyChina_screens/study_china_home_screen.dart';
 import 'package:diyi/screens/vocabulary_screens/vocabulary_detail_screen.dart';
@@ -41,8 +41,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => GrammarListScreen(args: settings.arguments));
       case '/grammar_detail_screen':
         return MaterialPageRoute(builder: (_) => GrammarDetailScreen(args: settings.arguments));
-      case '/mockTest_home_screen':
-        return MaterialPageRoute(builder: (_) => MockTestHomeScreen());
+      case '/speaking_home_screen':
+        return MaterialPageRoute(builder: (_) => SpeakingHomeScreen());
       case '/studyChina_home_screen':
         return MaterialPageRoute(builder: (_) => StudyChinaHomeScreen());
       case '/studyChina_detail_screen':

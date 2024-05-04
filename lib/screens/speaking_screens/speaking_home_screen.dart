@@ -5,14 +5,14 @@ import 'package:diyi/global/style.dart';
 import 'package:diyi/utils/base_functions.dart';
 import 'package:flutter/material.dart';
 
-class MockTestHomeScreen extends StatefulWidget {
-  const MockTestHomeScreen();
+class SpeakingHomeScreen extends StatefulWidget {
+  const SpeakingHomeScreen();
 
   @override
-  _MockTestHomeScreenState createState() => _MockTestHomeScreenState();
+  _SpeakingHomeScreenState createState() => _SpeakingHomeScreenState();
 }
 
-class _MockTestHomeScreenState extends State<MockTestHomeScreen> {
+class _SpeakingHomeScreenState extends State<SpeakingHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _MockTestHomeScreenState extends State<MockTestHomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: MyText.xlarge(
-                "HSK түвшний жишээ тест тун удахгүй орох болно.\n",
+                "Ярианы Хятад хэл тун удахгүй орох болно.\n",
                 maxLines: 5,
                 textAlign: TextAlign.center,
               ),
