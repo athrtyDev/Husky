@@ -23,8 +23,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
     amount = widget.args['type'] == "basic"
-        ? Formatter.moneyFormatter(app.appStaticData!.static!["payment_basic_amount"])
-        : Formatter.moneyFormatter(app.appStaticData!.static!["payment_advanced_amount"]);
+        ? Formatter.moneyFormatter(app.appStaticData.static!["payment_basic_amount"])
+        : Formatter.moneyFormatter(app.appStaticData.static!["payment_advanced_amount"]);
   }
 
   @override
@@ -40,7 +40,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             MyText.large("Заавар"),
             SizedBox(height: 10),
             MyText.medium(
-              app.appStaticData!.static!["payment_instruction"] ??
+              app.appStaticData.static!["payment_instruction"] ??
                   "Төлбөр төлөхдөө доорх данс руу шилжүүлэх ба гүйлгээний утгыг зөв оруулахыг анхаарна уу.",
               textColor: Styles.textColor70,
             ),
@@ -57,23 +57,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   MyText.medium('Банк'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData!.static!["bank_name"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData.static!["bank_name"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Дансны дугаар'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData!.static!["bank_account"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData.static!["bank_account"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Дансны нэр'),
                   SizedBox(height: 10),
-                  paymentTile(app.appStaticData!.static!["bank_account_name"] ?? "", Icons.copy),
+                  paymentTile(app.appStaticData.static!["bank_account_name"] ?? "", Icons.copy),
                   SizedBox(height: 25),
                   MyText.medium('Төлөх дүн'),
                   SizedBox(height: 10),
                   paymentTile(amount, Icons.copy),
                   SizedBox(height: 25),
-                  MyText.medium('Гүйлгээний утга'),
+                  MyText.medium('Гүйлгээний утга: доорх код заавал бичнэ!'),
                   SizedBox(height: 10),
-                  paymentTile(Provider.of<UserProvider>(context, listen: false).loggedUser!.shortId.toString(), Icons.copy),
+                  paymentTile(
+                    Provider.of<UserProvider>(context, listen: false).loggedUser!.shortId.toString(),
+                    Icons.copy,
+                    subText: "(Утасны дугаар нэмэлтээр бичнэ)",
+                  ),
                   SizedBox(height: 10),
                 ],
               ),
@@ -84,7 +88,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget paymentTile(String name, IconData icon) {
+  Widget paymentTile(String name, IconData icon, {String? subText}) {
     return InkWell(
       onTap: () async {
         await Clipboard.setData(ClipboardData(text: name));
@@ -99,9 +103,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MyText.medium(name, textColor: Styles.textColor70),
+            if (subText != null)
+              MyText.small(
+                " ${subText}",
+                fontStyle: FontStyle.italic,
+                textColor: Styles.textColor50,
+              ),
+            const Expanded(child: SizedBox()),
             Icon(
               icon,
               color: Styles.textColor30,

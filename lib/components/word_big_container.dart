@@ -1,5 +1,6 @@
 import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/utils/formatter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/style.dart';
@@ -29,7 +30,7 @@ class WordBigContainer extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: height ?? MediaQuery.of(context).size.height * 0.22,
+              padding: EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                 color: Styles.baseColor,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -70,13 +71,15 @@ class WordBigContainer extends StatelessWidget {
                   children: [
                     MyText.large("Орчуулга: ", fontWeight: Styles.wNormal),
                     SizedBox(width: 5),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Styles.textColor10,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Styles.textColor10,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: MyText.large("${Formatter.capitalizeFirstLetter(translation ?? "")}", textColor: Styles.baseColor),
                       ),
-                      child: MyText.large("${Formatter.capitalizeFirstLetter(translation ?? "")}", textColor: Styles.baseColor),
                     ),
                   ],
                 ),

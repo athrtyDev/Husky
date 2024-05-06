@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 20),
                     MyText.medium(
-                      "Аппликейшн-д бүртгүүлсэнээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
+                      "Аппликейшн-д бүртгүүлснээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.",
                       // textColor: Styles.whiteColor,
                       textAlign: TextAlign.center,
                     ),

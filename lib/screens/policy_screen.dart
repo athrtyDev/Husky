@@ -13,7 +13,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
 
   @override
   void initState() {
-    policy = app.appStaticData!.static!["policy"].replaceAll("\\n", "\n");
+    policy = app.appStaticData.static!["policy"].replaceAll("\\n", "\n");
     super.initState();
   }
 

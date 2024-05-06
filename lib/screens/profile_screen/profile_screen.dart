@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText("Түвшин солих", textColor: Styles.textColor70),
+        MyText.large("Түвшин солих"),
         SizedBox(height: 10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -132,9 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText("Тохиргоо", textColor: Styles.textColor70),
+        MyText.large("Тохиргоо"),
         SizedBox(height: 10),
-        app.isReviewingVersion!
+        app.isReviewingVersion
             ? SizedBox()
             : _settingsTile(
                 title: "Төлбөр төлөх",
@@ -224,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
-                    MyText.large(app.appStaticData!.static!['contact'], fontWeight: Styles.wNormal),
+                    MyText.large(app.appStaticData.static!['contact'], fontWeight: Styles.wNormal),
                   ],
                 ),
               ),

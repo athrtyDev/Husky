@@ -25,7 +25,7 @@ class _AdminEditScreenState extends State<AdminEditScreen> {
     super.initState();
     type = widget.args['type'];
     title = widget.args['title'];
-    controller.text = app.appStaticData!.static![type] ?? "";
+    controller.text = app.appStaticData.static![type] ?? "";
   }
 
   @override
@@ -68,9 +68,9 @@ class _AdminEditScreenState extends State<AdminEditScreen> {
                     if (controller.text == "") {
                       showWarningToasts("Хоосон байна");
                     } else {
-                      app.appStaticData!.static![type] = controller.text;
+                      app.appStaticData.static![type] = controller.text;
                       Api api = Api();
-                      api.changeStaticData(app.appStaticData!.static!);
+                      api.changeStaticData(app.appStaticData.static!);
                       Navigator.of(context).pop();
                     }
                   },

@@ -69,11 +69,21 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                           SizedBox(height: 20),
                           if (grammar.example1 != null && grammar.example1 != "")
                             _exampleWidget(
-                                grammar.example1 ?? "", grammar.example1Pronunciation ?? "", grammar.example1Translation ?? ""),
+                                grammar.example1 ?? "",
+                                grammar.example1Pronunciation ?? "",
+                                grammar.example1Translation ?? "",
+                                Provider.of<TtsProvider>(context, listen: true).hidePronunciation1,
+                                Provider.of<TtsProvider>(context, listen: true).hideTranslation1,
+                                1),
                           SizedBox(height: 20),
                           if (grammar.example2 != null && grammar.example2 != "")
                             _exampleWidget(
-                                grammar.example2 ?? "", grammar.example2Pronunciation ?? "", grammar.example2Translation ?? ""),
+                                grammar.example2 ?? "",
+                                grammar.example2Pronunciation ?? "",
+                                grammar.example2Translation ?? "",
+                                Provider.of<TtsProvider>(context, listen: true).hidePronunciation2,
+                                Provider.of<TtsProvider>(context, listen: true).hideTranslation2,
+                                2),
                         ],
                       ),
                     ),
@@ -98,7 +108,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
     );
   }
 
-  Widget _exampleWidget(String example, String pronunciation, String translation) {
+  Widget _exampleWidget(String example, String pronunciation, String translation, bool isBlur, bool isBlurTrans, int order) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -110,22 +120,24 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                 "word",
                 example,
                 false,
-                () {},
+                () {
+                  Provider.of<TtsProvider>(context, listen: false).speak(example);
+                },
               ),
               exampleStepper(
                 "pronunciation",
                 pronunciation,
-                Provider.of<TtsProvider>(context, listen: true).hidePronunciation,
+                isBlur,
                 () {
-                  Provider.of<TtsProvider>(context, listen: false).switchPronunciation();
+                  Provider.of<TtsProvider>(context, listen: false).switchPronunciation(order);
                 },
               ),
               exampleStepper(
                 "translation",
                 translation,
-                Provider.of<TtsProvider>(context, listen: true).hideTranslation,
+                isBlurTrans,
                 () {
-                  Provider.of<TtsProvider>(context, listen: false).switchTranslation();
+                  Provider.of<TtsProvider>(context, listen: false).switchTranslation(order);
                 },
               ),
             ],
@@ -205,7 +217,8 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                                   letterSpacing: 0.5,
                                 ),
                                 MyText.large(grammar.grammar, textColor: Styles.orangeColor),
-                                MyText.large(text.split(grammar.grammar ?? "")[1], fontWeight: Styles.wNormal),
+                                if (grammar.grammar != null && text.split(grammar.grammar!).length > 1)
+                                  MyText.large(text.split(grammar.grammar ?? "")[1], fontWeight: Styles.wNormal),
                               ],
                             )
                           : MyText.large(text, fontWeight: Styles.wNormal),

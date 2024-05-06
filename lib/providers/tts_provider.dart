@@ -12,8 +12,10 @@ class TtsProvider with ChangeNotifier {
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
   TtsState ttsState = TtsState.stopped;
   bool isSlow = false;
-  bool hidePronunciation = true;
-  bool hideTranslation = true;
+  bool hidePronunciation1 = true;
+  bool hidePronunciation2 = true;
+  bool hideTranslation1 = true;
+  bool hideTranslation2 = true;
 
   get isPlaying => ttsState == TtsState.playing;
   get isStopped => ttsState == TtsState.stopped;
@@ -27,28 +29,23 @@ class TtsProvider with ChangeNotifier {
       _getDefaultEngine();
     }
     flutterTts.setStartHandler(() {
-      print("Tts Playing");
       ttsState = TtsState.playing;
     });
 
     flutterTts.setCompletionHandler(() {
-      print("Tts Complete");
       ttsState = TtsState.stopped;
     });
 
     flutterTts.setCancelHandler(() {
-      print("Tts Cancel");
       ttsState = TtsState.stopped;
     });
 
     if (isIOS) {
       flutterTts.setPauseHandler(() {
-        print("Tts Paused");
         ttsState = TtsState.paused;
       });
 
       flutterTts.setContinueHandler(() {
-        print("Tts Continued");
         ttsState = TtsState.continued;
       });
     }
@@ -67,7 +64,6 @@ class TtsProvider with ChangeNotifier {
   Future speak(String? text) async {
     await init();
     if (text != null && text != "") {
-      print("speaking: $text");
       if (isSlow)
         flutterTts.setSpeechRate(0.2);
       else
@@ -81,13 +77,21 @@ class TtsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void switchTranslation() {
-    hideTranslation = !hideTranslation;
+  void switchTranslation(int order) {
+    if (order == 1) {
+      hideTranslation1 = !hideTranslation1;
+    } else {
+      hideTranslation2 = !hideTranslation2;
+    }
     notifyListeners();
   }
 
-  void switchPronunciation() {
-    hidePronunciation = !hidePronunciation;
+  void switchPronunciation(int order) {
+    if (order == 1) {
+      hidePronunciation1 = !hidePronunciation1;
+    } else {
+      hidePronunciation2 = !hidePronunciation2;
+    }
     notifyListeners();
   }
 

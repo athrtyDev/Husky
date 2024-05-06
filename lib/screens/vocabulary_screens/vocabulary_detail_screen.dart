@@ -112,22 +112,24 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                 "word",
                 example,
                 false,
-                () {},
+                () {
+                  Provider.of<TtsProvider>(context, listen: false).speak(example);
+                },
               ),
               exampleStepper(
                 "pronunciation",
                 pronunciation,
-                Provider.of<TtsProvider>(context, listen: true).hidePronunciation,
+                Provider.of<TtsProvider>(context, listen: true).hidePronunciation1,
                 () {
-                  Provider.of<TtsProvider>(context, listen: false).switchPronunciation();
+                  Provider.of<TtsProvider>(context, listen: false).switchPronunciation(1);
                 },
               ),
               exampleStepper(
                 "translation",
                 translation,
-                Provider.of<TtsProvider>(context, listen: true).hideTranslation,
+                Provider.of<TtsProvider>(context, listen: true).hideTranslation1,
                 () {
-                  Provider.of<TtsProvider>(context, listen: false).switchTranslation();
+                  Provider.of<TtsProvider>(context, listen: false).switchTranslation(1);
                 },
               ),
             ],
@@ -193,8 +195,9 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                   child: isBlur
                       ? MyText.large(
                           type == "translation" ? "Орчуулгах харах" : "Дуудлага харах",
-                          textColor: Styles.baseColor,
+                          textColor: Styles.baseColor70,
                           fontWeight: Styles.wNormal,
+                          fontStyle: FontStyle.italic,
                         )
                       : type == "word"
                           ? Wrap(

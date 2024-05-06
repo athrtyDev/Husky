@@ -58,7 +58,7 @@ class _PaymentChoiceScreenState extends State<PaymentChoiceScreen> {
                       children: [
                         MyText.large('1 сарын эрх', fontWeight: Styles.wNormal),
                         SizedBox(height: 5),
-                        MyText.xlarge(Formatter.moneyFormatter(app.appStaticData!.static!["payment_basic_amount"]),
+                        MyText.xlarge(Formatter.moneyFormatter(app.appStaticData.static!["payment_basic_amount"]),
                             textColor: Styles.baseColor, fontWeight: Styles.wBold),
                       ],
                     ),
@@ -104,7 +104,7 @@ class _PaymentChoiceScreenState extends State<PaymentChoiceScreen> {
                       children: [
                         MyText.large('1 сарын эрх', fontWeight: Styles.wNormal),
                         SizedBox(height: 5),
-                        MyText.xlarge(Formatter.moneyFormatter(app.appStaticData!.static!["payment_advanced_amount"]),
+                        MyText.xlarge(Formatter.moneyFormatter(app.appStaticData.static!["payment_advanced_amount"]),
                             textColor: Styles.baseColor, fontWeight: Styles.wBold),
                       ],
                     ),

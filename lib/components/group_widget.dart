@@ -27,8 +27,7 @@ class GroupWidget extends StatelessWidget {
                     Container(
                       child: MyText.medium(
                         name,
-                        textColor:
-                            isPaid ? Styles.textColor : Styles.textColor50,
+                        textColor: isPaid ? Styles.textColor : Styles.textColor50,
                         fontWeight: Styles.wBold,
                       ),
                     ),
@@ -44,8 +43,7 @@ class GroupWidget extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: isPaid ? Styles.baseColor : Styles.baseColor70,
-                      borderRadius: BorderRadius.circular(10)),
+                      color: isPaid ? Styles.baseColor : Styles.baseColor70, borderRadius: BorderRadius.circular(10)),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: MyText.medium(
                     "$studied/$total",

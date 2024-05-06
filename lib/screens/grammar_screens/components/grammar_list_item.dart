@@ -1,5 +1,6 @@
 import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/utils/formatter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
@@ -30,10 +31,12 @@ class GrammarListItem extends StatelessWidget {
             ],
           ),
           SizedBox(width: 30),
-          MyText.medium(
-            Formatter.capitalizeFirstLetter(grammar.translation ?? ""),
-            fontWeight: Styles.wSemiBold,
-            textColor: Styles.textColor,
+          Expanded(
+            child: MyText.medium(
+              Formatter.capitalizeFirstLetter(grammar.translation ?? ""),
+              fontWeight: Styles.wSemiBold,
+              textColor: Styles.textColor,
+            ),
           ),
           Expanded(child: SizedBox()),
           Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Styles.baseColor),

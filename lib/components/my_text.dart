@@ -11,6 +11,7 @@ class MyText extends StatelessWidget {
   final int? maxLines;
   final double? letterSpacing;
   final double? height;
+  final FontStyle? fontStyle;
 
   MyText(this.text,
       {this.size = Styles.medium,
@@ -19,6 +20,7 @@ class MyText extends StatelessWidget {
       this.decoration,
       this.textAlign,
       this.maxLines,
+      this.fontStyle,
       this.letterSpacing,
       this.height});
 
@@ -29,6 +31,7 @@ class MyText extends StatelessWidget {
       this.decoration,
       this.textAlign,
       this.maxLines,
+      this.fontStyle,
       this.letterSpacing,
       this.height})
       : this.size = Styles.xlarge;
@@ -39,20 +42,37 @@ class MyText extends StatelessWidget {
       this.textColor,
       this.decoration,
       this.textAlign,
+      this.fontStyle,
       this.maxLines,
       this.letterSpacing,
       this.height})
       : this.size = Styles.large;
 
 // size 11
-  const MyText.medium(this.text,
-      {this.fontWeight, this.textColor, this.decoration, this.textAlign, this.maxLines, this.letterSpacing, this.height})
-      : this.size = Styles.medium;
+  const MyText.medium(
+    this.text, {
+    this.fontWeight,
+    this.textColor,
+    this.decoration,
+    this.textAlign,
+    this.maxLines,
+    this.fontStyle,
+    this.letterSpacing,
+    this.height,
+  }) : this.size = Styles.medium;
 
 // size 9
-  MyText.small(this.text,
-      {this.fontWeight, this.textColor, this.decoration, this.textAlign, this.maxLines, this.letterSpacing, this.height})
-      : this.size = Styles.small;
+  MyText.small(
+    this.text, {
+    this.fontWeight,
+    this.textColor,
+    this.decoration,
+    this.textAlign,
+    this.fontStyle,
+    this.maxLines,
+    this.letterSpacing,
+    this.height,
+  }) : this.size = Styles.small;
 
   @override
   Widget build(BuildContext context) => Text(
@@ -64,6 +84,7 @@ class MyText extends StatelessWidget {
             decoration: this.decoration ?? TextDecoration.none,
             color: textColor ?? Styles.textColor,
             letterSpacing: letterSpacing,
+            fontStyle: fontStyle,
             height: height ?? 1.4),
         textAlign: textAlign ?? TextAlign.start,
         maxLines: this.maxLines ?? 50,
