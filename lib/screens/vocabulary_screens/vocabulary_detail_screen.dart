@@ -32,6 +32,8 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
     vocabularyIndex = widget.args['index'];
     vocabulary = listVocabulary[vocabularyIndex];
     title = widget.args['title'];
+    Provider.of<TtsProvider>(context, listen: false).hidePronunciation1 = true;
+    Provider.of<TtsProvider>(context, listen: false).hideTranslation1 = true;
   }
 
   @override
@@ -187,17 +189,18 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
             Expanded(
               child: ImageFiltered(
                 imageFilter: ImageFilter.blur(
-                  sigmaX: isBlur ? 0 : 0,
-                  sigmaY: isBlur ? 0 : 0,
+                  sigmaX: isBlur ? 3 : 0,
+                  sigmaY: isBlur ? 3 : 0,
                 ),
                 child: Container(
                   padding: EdgeInsets.only(bottom: 25, top: 5, left: 10, right: 10),
                   child: isBlur
-                      ? MyText.large(
-                          type == "translation" ? "Орчуулгах харах" : "Дуудлага харах",
-                          textColor: Styles.baseColor70,
-                          fontWeight: Styles.wNormal,
-                          fontStyle: FontStyle.italic,
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: MyText(
+                            "1234567890 1234567890",
+                            textColor: Styles.baseColor,
+                          ),
                         )
                       : type == "word"
                           ? Wrap(

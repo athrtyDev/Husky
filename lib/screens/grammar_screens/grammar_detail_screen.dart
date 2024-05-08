@@ -32,6 +32,10 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
     grammarIndex = widget.args['index'];
     grammar = listGrammar[grammarIndex];
     title = widget.args['title'];
+    Provider.of<TtsProvider>(context, listen: false).hidePronunciation2 = true;
+    Provider.of<TtsProvider>(context, listen: false).hidePronunciation1 = true;
+    Provider.of<TtsProvider>(context, listen: false).hideTranslation1 = true;
+    Provider.of<TtsProvider>(context, listen: false).hideTranslation2 = true;
   }
 
   @override
@@ -204,7 +208,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: MyText(
-                            "QQQQQQQQQQQQQQQQQQ",
+                            "1234567890 1234567890",
                             textColor: Styles.baseColor,
                           ),
                         )
@@ -216,7 +220,8 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                                   fontWeight: Styles.wNormal,
                                   letterSpacing: 0.5,
                                 ),
-                                MyText.large(grammar.grammar, textColor: Styles.orangeColor),
+                                if (grammar.grammar != null && text.contains(grammar.grammar!))
+                                  MyText.large(grammar.grammar, textColor: Styles.orangeColor),
                                 if (grammar.grammar != null && text.split(grammar.grammar!).length > 1)
                                   MyText.large(text.split(grammar.grammar ?? "")[1], fontWeight: Styles.wNormal),
                               ],

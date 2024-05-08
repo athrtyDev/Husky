@@ -27,29 +27,34 @@ class TtsProvider with ChangeNotifier {
     _setAwaitOptions();
     if (isAndroid) {
       _getDefaultEngine();
+      _getDefaultVoice();
     }
     flutterTts.setStartHandler(() {
+      print("Playing");
       ttsState = TtsState.playing;
     });
 
     flutterTts.setCompletionHandler(() {
+      print("Complete");
       ttsState = TtsState.stopped;
     });
 
     flutterTts.setCancelHandler(() {
+      print("Cancel");
       ttsState = TtsState.stopped;
     });
 
-    if (isIOS) {
-      flutterTts.setPauseHandler(() {
-        ttsState = TtsState.paused;
-      });
+    flutterTts.setPauseHandler(() {
+      print("Paused");
+      ttsState = TtsState.paused;
+    });
 
-      flutterTts.setContinueHandler(() {
-        ttsState = TtsState.continued;
-      });
-    }
-    flutterTts.setLanguage('zh');
+    flutterTts.setContinueHandler(() {
+      print("Continued");
+      ttsState = TtsState.continued;
+    });
+
+    flutterTts.setLanguage('zh-CN');
 
     flutterTts.setErrorHandler((msg) {
       print("Tts error: $msg");
@@ -59,15 +64,21 @@ class TtsProvider with ChangeNotifier {
     await flutterTts.setSpeechRate(0.5);
     await flutterTts.setVolume(1.0);
     await flutterTts.setPitch(1.0);
+    // var langs = await _getLanguages();
+    // print("langsss: ${langs.length} $langs");
   }
+
+  Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
+
+  Future<dynamic> _getEngines() async => await flutterTts.getEngines;
 
   Future speak(String? text) async {
     await init();
     if (text != null && text != "") {
       if (isSlow)
-        flutterTts.setSpeechRate(0.2);
+        await flutterTts.setSpeechRate(0.2);
       else
-        flutterTts.setSpeechRate(0.5);
+        await flutterTts.setSpeechRate(0.5);
       await flutterTts.speak(text);
     }
   }
@@ -102,7 +113,14 @@ class TtsProvider with ChangeNotifier {
   Future _getDefaultEngine() async {
     engine = await flutterTts.getDefaultEngine;
     if (engine != null) {
-      print(engine);
+      print("engine: $engine");
+    }
+  }
+
+  Future<void> _getDefaultVoice() async {
+    var voice = await flutterTts.getDefaultVoice;
+    if (voice != null) {
+      print(voice);
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -66,68 +67,72 @@ class _VocabularyPracticeScreenState extends State<VocabularyPracticeScreen> {
                         height: 8,
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _status(),
-                            SizedBox(height: 15),
-                            WordBigContainer(
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _status(),
+                              SizedBox(height: 15),
+                              WordBigContainer(
                                 text: listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex!].question!,
                                 pronunciation:
-                                    listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex!].questionDesc),
-                            SizedBox(height: 20),
-                            MyText(
-                              "Сонголтууд",
-                              textColor: Styles.textColor,
-                              size: 16,
-                              fontWeight: Styles.wBold,
-                            ),
-                            SizedBox(height: 15),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
-                                          .listChoice![0]),
-                                  VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
-                                          .listChoice![1]),
-                                  VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
-                                          .listChoice![2]),
-                                  VocabularyPracticeChoices(
-                                      listPractice[Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
-                                          .listChoice![3]),
-                                ],
+                                    listPractice[Provider.of<VocabularyPracticeProvider>(context).questionIndex!].questionDesc,
+                                textSize: 30,
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Center(
-                                child: Provider.of<VocabularyPracticeProvider>(context, listen: true).isAnswered!
-                                    ? Button(
-                                        text: (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
+                              SizedBox(height: 20),
+                              MyText(
+                                "Сонголтууд",
+                                textColor: Styles.textColor,
+                                size: 16,
+                                fontWeight: Styles.wBold,
+                              ),
+                              SizedBox(height: 15),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    VocabularyPracticeChoices(listPractice[
+                                            Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                        .listChoice![0]),
+                                    VocabularyPracticeChoices(listPractice[
+                                            Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                        .listChoice![1]),
+                                    VocabularyPracticeChoices(listPractice[
+                                            Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                        .listChoice![2]),
+                                    VocabularyPracticeChoices(listPractice[
+                                            Provider.of<VocabularyPracticeProvider>(context, listen: true).questionIndex!]
+                                        .listChoice![3]),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Center(
+                                  child: Provider.of<VocabularyPracticeProvider>(context, listen: true).isAnswered!
+                                      ? Button(
+                                          text: (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
+                                                      1 >=
+                                                  Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!)
+                                              ? "Дуусгах"
+                                              : "Дараагийнх",
+                                          width: 200,
+                                          onClick: () {
+                                            if (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
                                                     1 >=
-                                                Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!)
-                                            ? "Дуусгах"
-                                            : "Дараагийнх",
-                                        width: 200,
-                                        onClick: () {
-                                          if (Provider.of<VocabularyPracticeProvider>(context, listen: false).questionIndex! +
-                                                  1 >=
-                                              Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!) {
-                                            Navigator.pushNamed(context, '/practice_result_screens');
-                                          } else {
-                                            Provider.of<VocabularyPracticeProvider>(context, listen: false).nextQuestion();
-                                          }
-                                        },
-                                      )
-                                    : SizedBox()),
-                          ],
+                                                Provider.of<VocabularyPracticeProvider>(context, listen: false).totalQuestions!) {
+                                              Navigator.pushNamed(context, '/practice_result_screens');
+                                            } else {
+                                              Provider.of<VocabularyPracticeProvider>(context, listen: false).nextQuestion();
+                                            }
+                                          },
+                                        )
+                                      : SizedBox()),
+                            ],
+                          ),
                         ),
                       ),
                     ),

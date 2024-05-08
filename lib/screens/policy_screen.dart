@@ -24,8 +24,8 @@ class _PolicyScreenState extends State<PolicyScreen> {
       backgroundColor: Styles.whiteColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: MyText(policy),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 60),
+          child: MyText(policy, maxLines: 300),
         ),
       ),
     );

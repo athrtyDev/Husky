@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
+import 'package:flutter/widgets.dart';
 
 class GrammarListItem extends StatelessWidget {
   final Grammar grammar;
@@ -18,27 +19,32 @@ class GrammarListItem extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.9,
       child: Row(
         children: [
-          Column(
-            children: [
-              MyText.medium(
-                grammar.pronunciation,
-                textColor: Styles.textColor,
-              ),
-              MyText.xlarge(
-                grammar.grammar,
-                textColor: Styles.textColor,
-              ),
-            ],
-          ),
-          SizedBox(width: 30),
           Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText.medium(
+                  grammar.pronunciation,
+                  textColor: Styles.textColor,
+                ),
+                MyText.xlarge(
+                  grammar.grammar,
+                  textColor: Styles.textColor,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 20),
+          Expanded(
+            flex: 2,
             child: MyText.medium(
               Formatter.capitalizeFirstLetter(grammar.translation ?? ""),
               fontWeight: Styles.wSemiBold,
               textColor: Styles.textColor,
             ),
           ),
-          Expanded(child: SizedBox()),
+          SizedBox(width: 10),
           Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Styles.baseColor),
         ],
       ),

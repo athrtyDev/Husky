@@ -12,8 +12,9 @@ class WordBigContainer extends StatelessWidget {
   final String? translation;
   final String? pronunciation;
   final double? height;
+  final double? textSize;
 
-  const WordBigContainer({required this.text, this.translation, this.pronunciation, this.height});
+  const WordBigContainer({required this.text, this.translation, this.pronunciation, this.height, this.textSize});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class WordBigContainer extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Styles.baseColor,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -41,18 +42,18 @@ class WordBigContainer extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (pronunciation != null) MyText(pronunciation, textColor: Styles.whiteColor, size: 20),
+                        if (pronunciation != null) MyText(pronunciation, textColor: Styles.whiteColor, size: 15),
                         MyText(
                           text,
                           textColor: Styles.whiteColor,
-                          size: pronunciation != null ? 60 : 40,
+                          size: textSize == null ? (pronunciation != null ? 40 : 30) : textSize,
                           fontWeight: FontWeight.w200,
                           textAlign: TextAlign.center,
                         ),
                       ],
                     ),
                   ),
-                  Positioned(top: 30, right: 30, child: VoiceIcon())
+                  Positioned(top: 10, right: 30, child: VoiceIcon())
                 ],
               ),
             ),
