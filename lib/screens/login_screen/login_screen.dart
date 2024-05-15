@@ -54,15 +54,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             title: "Apple-р нэвтрэх",
                           )
                         : const SizedBox(),
-                    LoginTile(
-                      login: () async {
-                        showLoading(context);
-                        await Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
-                        hideLoading();
-                      },
-                      icon: "assets/icons/ic_login_facebook.png",
-                      title: "Facebook-р нэвтрэх",
-                    ),
+                    // LoginTile(
+                    //   login: () async {
+                    //     showLoading(context);
+                    //     await Provider.of<UserProvider>(context, listen: false).signInWithFacebook();
+                    //     hideLoading();
+                    //   },
+                    //   icon: "assets/icons/ic_login_facebook.png",
+                    //   title: "Facebook-р нэвтрэх",
+                    // ),
                     LoginTile(
                       login: () async {
                         showLoading(context);

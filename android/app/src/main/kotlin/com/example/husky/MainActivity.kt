@@ -1,4 +1,4 @@
-package diyi1019.mn
+package diyihskapp.mn
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -199,8 +199,8 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
             Expanded(
               child: ImageFiltered(
                 imageFilter: ImageFilter.blur(
-                  sigmaX: isBlur ? 3 : 0,
-                  sigmaY: isBlur ? 3 : 0,
+                  sigmaX: isBlur ? 0 : 0,
+                  sigmaY: isBlur ? 0 : 0,
                 ),
                 child: Container(
                   padding: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
@@ -208,7 +208,7 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: MyText(
-                            "1234567890 1234567890",
+                            type == "translation" ? "Орчуулга харах" : "Дуудлага харах",
                             textColor: Styles.baseColor,
                           ),
                         )

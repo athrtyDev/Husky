@@ -50,7 +50,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 text: 'Шинэчлэх',
                 onClick: () {
                   LaunchReview.launch(
-                    androidAppId: "diyi1019.mn",
+                    androidAppId: "diyihskapp.mn",
                     iOSAppId: "6444391799",
                     writeReview: false,
                   );
