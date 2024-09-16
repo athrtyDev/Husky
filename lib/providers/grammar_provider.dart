@@ -16,8 +16,10 @@ class GrammarProvider with ChangeNotifier {
   Future<void> cacheAllData() async {
     Api _api = Api();
     if (listLevel == null) listLevel = await _api.getGrammarLevel();
-    if (listAllGroup == null) listAllGroup = await _api.getGrammarGroup();
-    // if (listAllGrammar == null) listAllGrammar = await _api.getAllGrammar();
+    if (listAllGroup == null) {
+      listAllGroup = await _api.getGrammarGroup();
+      listAllGroup!.sort((a, b) => int.parse(a.groupName!).compareTo(int.parse(b.groupName!)));
+    }
     notifyListeners();
   }
 

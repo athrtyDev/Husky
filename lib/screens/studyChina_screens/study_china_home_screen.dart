@@ -138,9 +138,9 @@ class _StudyChinaHomeScreenState extends State<StudyChinaHomeScreen> {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: groupData.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index > 2) {
-            index = 1;
-          }
+          // if (index > 2) {
+          //   index = 1;
+          // }
           return InkWell(
             onTap: () {
               Navigator.pushNamed(context, '/studyChina_detail_screen', arguments: {
