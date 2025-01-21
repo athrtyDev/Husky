@@ -4,7 +4,6 @@ import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_app_bar.dart';

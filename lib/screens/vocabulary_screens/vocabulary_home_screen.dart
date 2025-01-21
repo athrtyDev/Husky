@@ -1,8 +1,6 @@
 import 'package:diyi/components/level_widget.dart';
 import 'package:diyi/components/loader.dart';
 import 'package:diyi/components/not_found.dart';
-import 'package:diyi/core/classes/VocabularyGroup.dart';
-import 'package:diyi/core/classes/VocabularyLevel.dart';
 import 'package:diyi/global/global.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_provider.dart';
@@ -57,19 +55,19 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
   }
 
   _levels() {
-    List<VocabularyLevel>? listLevel = Provider.of<VocabularyProvider>(context, listen: true).listLevel;
+    List<dynamic>? listLevel = Provider.of<VocabularyProvider>(context, listen: true).listLevel;
     if (listLevel == null) return SizedBox();
     return Row(
       children: [
         for (var level in listLevel)
-          InkWell(
+          GestureDetector(
             onTap: () {
-              Provider.of<VocabularyProvider>(context, listen: false).selectLevel(level.hsk!);
+              Provider.of<VocabularyProvider>(context, listen: false).selectLevel(level['hsk']);
             },
             child: LevelWidget(
-              name: "HSK ${level.hsk}",
-              total: level.totalVocabulary!,
-              isSelected: level.hsk == Provider.of<VocabularyProvider>(context, listen: true).selectedLevel,
+              name: "HSK ${level['hsk']}",
+              total: level['totalVocabulary'],
+              isSelected: level['hsk'] == Provider.of<VocabularyProvider>(context, listen: true).selectedLevel,
               type: "үг",
             ),
           )
@@ -78,7 +76,7 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
   }
 
   _groups() {
-    List<VocabularyGroup>? listSelectedGroup = Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup;
+    List<Map<String, dynamic>>? listSelectedGroup = Provider.of<VocabularyProvider>(context, listen: true).listSelectedGroup;
     if (listSelectedGroup == null) return SizedBox();
     return Column(
       children: [
@@ -87,10 +85,10 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
           InkWell(
             onTap: () {
               if (Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(groupIndex)) {
-                Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex].groupName!);
+                Provider.of<VocabularyProvider>(context, listen: false).selectGroup(listSelectedGroup[groupIndex]["groupName"]);
                 Navigator.pushNamed(context, "/vocabulary_list_screen", arguments: {
                   'headerName':
-                      "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex].groupName}",
+                      "HSK ${Provider.of<VocabularyProvider>(context, listen: false).selectedLevel} - Бүлэг ${listSelectedGroup[groupIndex]["groupName"]}",
                 });
               } else {
                 if (Provider.of<UserProvider>(context, listen: false).loggedUser == null)
@@ -100,8 +98,8 @@ class _VocabularyHomeScreenState extends State<VocabularyHomeScreen> {
               }
             },
             child: GroupWidget(
-              name: "Бүлэг ${listSelectedGroup[groupIndex].groupName}",
-              total: listSelectedGroup[groupIndex].totalVocabulary!,
+              name: "Бүлэг ${listSelectedGroup[groupIndex]["groupName"]}",
+              total: listSelectedGroup[groupIndex]["totalVocabulary"],
               studied: 0,
               // Бүлэг болгоны эхний 2 үнэгүй
               isPaid: Provider.of<UserProvider>(context, listen: false).canAccessVocabulary(groupIndex),

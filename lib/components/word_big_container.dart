@@ -1,6 +1,5 @@
 import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/utils/formatter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/style.dart';

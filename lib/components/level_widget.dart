@@ -3,10 +3,10 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
 
 class LevelWidget extends StatelessWidget {
-  final String name;
-  final int total;
+  final dynamic name;
+  final dynamic total;
   final bool isSelected;
-  final String type;
+  final dynamic type;
   const LevelWidget({required this.name, required this.total, required this.isSelected, required this.type});
 
   @override

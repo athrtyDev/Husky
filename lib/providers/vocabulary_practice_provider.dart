@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:diyi/core/api.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/core/classes/PracticeModel.dart';
 import 'package:diyi/global/constants.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +11,8 @@ class VocabularyPracticeProvider with ChangeNotifier {
   int? totalQuestions;
   int? totalCorrectAnswers;
   bool? isAnswered;
-  List<Vocabulary>? listAllVocabulary;
-  List<Vocabulary>? listWrongVocabulary;
+  List<Map<String, dynamic>>? listAllVocabulary;
+  List<Map<String, dynamic>>? listWrongVocabulary;
   // List<GrammarPracticeModel> listWrongGrammar;
   // bool isGrammarEmpty = false;
 
@@ -69,9 +68,9 @@ class VocabularyPracticeProvider with ChangeNotifier {
     }
     listVocabularyPractice = [];
 
-    List<Vocabulary> listAllExceptAsked = List.from(listAllVocabulary!);
+    List<Map<String, dynamic>> listAllExceptAsked = List.from(listAllVocabulary!);
     for (int i = 0; i < Constants.practiceVocabularyQuestions; i++) {
-      Vocabulary correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
+      Map<String, dynamic> correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
       listAllExceptAsked.remove(correctVocabulary);
       bool askChinese = Random().nextBool();
 
@@ -79,20 +78,22 @@ class VocabularyPracticeProvider with ChangeNotifier {
       List<PracticeChoice> listChoice = [];
       // add correct choice
       listChoice.add(PracticeChoice(
-        text: askChinese ? correctVocabulary.translation : "${correctVocabulary.word} (${correctVocabulary.pronunciation})",
+        text: askChinese
+            ? correctVocabulary["translation"]
+            : "${correctVocabulary["word"]} (${correctVocabulary["pronunciation"]})",
         isCorrect: true,
         data: correctVocabulary,
       ));
 
       // add wrong choices
-      List<Vocabulary> listAllExceptCorrect = List.from(listAllVocabulary!);
+      List<Map<String, dynamic>> listAllExceptCorrect = List.from(listAllVocabulary!);
       listAllExceptCorrect.remove(correctVocabulary);
       listAllExceptCorrect.shuffle();
       for (int c = 0; c < 3; c++) {
         listChoice.add(PracticeChoice(
           text: askChinese
-              ? listAllExceptCorrect[c].translation
-              : "${listAllExceptCorrect[c].word} (${listAllExceptCorrect[c].pronunciation})",
+              ? listAllExceptCorrect[c]["translation"]
+              : "${listAllExceptCorrect[c]["word"]} (${listAllExceptCorrect[c]["pronunciation"]})",
           isCorrect: false,
           data: listAllExceptCorrect[c],
         ));
@@ -101,8 +102,64 @@ class VocabularyPracticeProvider with ChangeNotifier {
 
       // practice model
       PracticeModel practice = PracticeModel(
-        question: askChinese ? correctVocabulary.word : correctVocabulary.translation,
-        questionDesc: askChinese ? correctVocabulary.pronunciation : null,
+        question: askChinese ? correctVocabulary["word"] : correctVocabulary["translation"],
+        questionDesc: askChinese ? correctVocabulary["pronunciation"] : null,
+        listChoice: listChoice,
+      );
+      listVocabularyPractice!.add(practice);
+    }
+  }
+
+  void initGroupPractice(List<dynamic> listVocabulary) {
+    listVocabularyPractice = null;
+    initGroupPracticeQuestions(listVocabulary);
+    questionIndex = 0;
+    totalQuestions = listVocabulary.length;
+    totalCorrectAnswers = 0;
+    isAnswered = false;
+    listWrongVocabulary = [];
+    notifyListeners();
+  }
+
+  void initGroupPracticeQuestions(List<dynamic> listVocabulary) {
+    listVocabularyPractice = [];
+
+    List<Map<String, dynamic>> listAllExceptAsked = List.from(listVocabulary);
+    for (int i = 0; i < listVocabulary.length; i++) {
+      Map<String, dynamic> correctVocabulary = listAllExceptAsked[Random().nextInt(listAllExceptAsked.length)];
+      listAllExceptAsked.remove(correctVocabulary);
+      bool askChinese = Random().nextBool();
+
+      // populate choices
+      List<PracticeChoice> listChoice = [];
+      // add correct choice
+      listChoice.add(PracticeChoice(
+        text: askChinese
+            ? correctVocabulary["translation"]
+            : "${correctVocabulary["word"]} (${correctVocabulary["pronunciation"]})",
+        isCorrect: true,
+        data: correctVocabulary,
+      ));
+
+      // add wrong choices
+      List<Map<String, dynamic>> listAllExceptCorrect = List.from(listVocabulary);
+      listAllExceptCorrect.remove(correctVocabulary);
+      listAllExceptCorrect.shuffle();
+      for (int c = 0; c < 3; c++) {
+        listChoice.add(PracticeChoice(
+          text: askChinese
+              ? listAllExceptCorrect[c]["translation"]
+              : "${listAllExceptCorrect[c]["word"]} (${listAllExceptCorrect[c]["pronunciation"]})",
+          isCorrect: false,
+          data: listAllExceptCorrect[c],
+        ));
+      }
+      listChoice.shuffle();
+
+      // practice model
+      PracticeModel practice = PracticeModel(
+        question: askChinese ? correctVocabulary["word"] : correctVocabulary["translation"],
+        questionDesc: askChinese ? correctVocabulary["pronunciation"] : null,
         listChoice: listChoice,
       );
       listVocabularyPractice!.add(practice);

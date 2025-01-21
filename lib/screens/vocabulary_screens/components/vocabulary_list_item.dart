@@ -1,11 +1,10 @@
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/utils/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
 
 class VocabularyListItem extends StatelessWidget {
-  final Vocabulary vocabulary;
+  final Map<String, dynamic> vocabulary;
   const VocabularyListItem({required this.vocabulary});
 
   @override
@@ -20,11 +19,11 @@ class VocabularyListItem extends StatelessWidget {
           Column(
             children: [
               MyText.medium(
-                vocabulary.pronunciation,
+                vocabulary["pronunciation"],
                 textColor: Styles.textColor,
               ),
               MyText.xlarge(
-                vocabulary.word,
+                vocabulary["word"],
                 textColor: Styles.textColor,
               ),
             ],
@@ -32,7 +31,7 @@ class VocabularyListItem extends StatelessWidget {
           SizedBox(width: 30),
           Expanded(
             child: MyText.medium(
-              Formatter.capitalizeFirstLetter(vocabulary.translation ?? ""),
+              Formatter.capitalizeFirstLetter(vocabulary["translation"] ?? ""),
               fontWeight: Styles.wSemiBold,
               textColor: Styles.textColor,
             ),

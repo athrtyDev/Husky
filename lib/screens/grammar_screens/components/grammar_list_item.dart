@@ -1,13 +1,10 @@
-import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/utils/formatter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
-import 'package:flutter/widgets.dart';
 
 class GrammarListItem extends StatelessWidget {
-  final Grammar grammar;
+  final Map<String, dynamic> grammar;
   const GrammarListItem({required this.grammar});
 
   @override
@@ -25,11 +22,11 @@ class GrammarListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText.medium(
-                  grammar.pronunciation,
+                  grammar["pronunciation"],
                   textColor: Styles.textColor,
                 ),
                 MyText.xlarge(
-                  grammar.grammar,
+                  grammar["grammar"],
                   textColor: Styles.textColor,
                 ),
               ],
@@ -39,7 +36,7 @@ class GrammarListItem extends StatelessWidget {
           Expanded(
             flex: 2,
             child: MyText.medium(
-              Formatter.capitalizeFirstLetter(grammar.translation ?? ""),
+              Formatter.capitalizeFirstLetter(grammar["translation"] ?? ""),
               fontWeight: Styles.wSemiBold,
               textColor: Styles.textColor,
             ),

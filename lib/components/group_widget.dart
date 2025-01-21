@@ -3,9 +3,9 @@ import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/global.dart';
 
 class GroupWidget extends StatelessWidget {
-  final String name;
-  final int total;
-  final int studied;
+  final dynamic name;
+  final dynamic total;
+  final dynamic studied;
   final bool isPaid;
 
   const GroupWidget({required this.name, required this.total, required this.studied, this.isPaid = false});

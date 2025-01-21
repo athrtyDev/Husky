@@ -8,6 +8,7 @@ import 'package:diyi/screens/payment_screen.dart';
 import 'package:diyi/screens/policy_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_result_screen.dart';
 import 'package:diyi/screens/practice_screens/grammar_practice_screen.dart';
+import 'package:diyi/screens/practice_screens/vocabulary_group_practice_screen.dart';
 import 'package:diyi/screens/practice_screens/vocabulary_practice_result_screen.dart';
 import 'package:diyi/screens/speaking_screens/speaking_home_screen.dart';
 import 'package:diyi/screens/studyChina_screens/study_china_detail_screen.dart';
@@ -53,6 +54,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => GrammarPracticeScreen(args: settings.arguments));
       case '/practice_result_screens':
         return MaterialPageRoute(builder: (_) => VocabularyPracticeResultScreen());
+      case '/vocabulary_group_practice_screens':
+        return MaterialPageRoute(builder: (_) => VocabularyGroupPracticeScreen(args: settings.arguments));
       case '/grammar_practice_result_screens':
         return MaterialPageRoute(builder: (_) => GrammarPracticeResultScreen());
       case '/payment_choice_screen':

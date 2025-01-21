@@ -76,7 +76,7 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        this.text ?? "",
+        this.text == null ? "" : this.text.toString(),
         style: TextStyle(
             fontFamily: 'Mulish',
             fontWeight: this.fontWeight ?? Styles.wSemiBold,

@@ -3,7 +3,6 @@ import 'package:diyi/components/button.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/components/word_big_container.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/providers/tts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -20,8 +19,8 @@ class VocabularyDetailScreen extends StatefulWidget {
 }
 
 class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
-  late Vocabulary vocabulary;
-  late List<Vocabulary> listVocabulary;
+  late Map<String, dynamic> vocabulary;
+  late List<Map<String, dynamic>> listVocabulary;
   late int vocabularyIndex;
   late String title;
 
@@ -50,9 +49,9 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                 child: Column(
                   children: [
                     WordBigContainer(
-                      text: vocabulary.word!,
-                      pronunciation: vocabulary.pronunciation,
-                      translation: vocabulary.translation,
+                      text: vocabulary["word"],
+                      pronunciation: vocabulary["pronunciation"],
+                      translation: vocabulary["translation"],
                     ),
                     SizedBox(height: 30),
                     Padding(
@@ -60,21 +59,21 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (vocabulary.example1 != null && vocabulary.example1 != "")
+                          if (vocabulary["example1"] != null && vocabulary["example1"] != "")
                             MyText.large("Жишээ өгүүлбэр:", fontWeight: Styles.wSemiBold),
                           SizedBox(height: 20),
-                          if (vocabulary.example1 != null && vocabulary.example1 != "")
+                          if (vocabulary["example1"] != null && vocabulary["example1"] != "")
                             _exampleWidget(
-                              vocabulary.example1!,
-                              vocabulary.example1Pronunciation!,
-                              vocabulary.example1Translation!,
+                              vocabulary["example1"],
+                              vocabulary["example1_pronunciation"],
+                              vocabulary["example1_translation"],
                             ),
                           SizedBox(height: 20),
-                          if (vocabulary.example2 != null && vocabulary.example2 != "")
+                          if (vocabulary["example2"] != null && vocabulary["example2"] != "")
                             _exampleWidget(
-                              vocabulary.example2!,
-                              vocabulary.example2Pronunciation!,
-                              vocabulary.example2Translation!,
+                              vocabulary["example2"],
+                              vocabulary["example2_pronunciation"],
+                              vocabulary["example2_translation"],
                             ),
                         ],
                       ),
@@ -206,22 +205,23 @@ class _VocabularyDetailScreenState extends State<VocabularyDetailScreen> {
                           ? Wrap(
                               children: [
                                 MyText.large(
-                                  text.split(vocabulary.word!)[0] ?? "",
+                                  text.split(vocabulary["word"])[0],
                                   fontWeight: Styles.wNormal,
                                   textColor: Styles.baseColor,
                                   letterSpacing: 0.5,
                                 ),
-                                if (text.contains(vocabulary.word!)) MyText.large(vocabulary.word, textColor: Styles.orangeColor),
-                                if (text.split(vocabulary.word!).length > 1)
+                                if (text.contains(vocabulary["word"]))
+                                  MyText.large(vocabulary["word"], textColor: Styles.orangeColor),
+                                if (text.split(vocabulary["word"]).length > 1)
                                   MyText.large(
-                                    text.split(vocabulary.word!)[1] ?? "",
+                                    text.split(vocabulary["word"])[1],
                                     fontWeight: Styles.wNormal,
                                     textColor: Styles.baseColor,
                                   ),
                               ],
                             )
                           : MyText.large(
-                              text ?? "",
+                              text,
                               fontWeight: Styles.wSemiBold,
                               textColor: Styles.baseColor,
                             ),

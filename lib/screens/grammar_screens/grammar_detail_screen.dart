@@ -3,7 +3,6 @@ import 'package:diyi/components/button.dart';
 import 'package:diyi/components/tts_speed_icon.dart';
 import 'package:diyi/components/voice_icon.dart';
 import 'package:diyi/components/word_big_container.dart';
-import 'package:diyi/core/classes/Grammar.dart';
 import 'package:diyi/providers/tts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
@@ -20,8 +19,8 @@ class GrammarDetailScreen extends StatefulWidget {
 }
 
 class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
-  late Grammar grammar;
-  late List<Grammar> listGrammar;
+  late Map<String, dynamic> grammar;
+  late List<Map<String, dynamic>> listGrammar;
   late int grammarIndex;
   late String title;
 
@@ -52,8 +51,8 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                 child: Column(
                   children: [
                     WordBigContainer(
-                      text: grammar.grammar ?? "",
-                      pronunciation: grammar.pronunciation,
+                      text: grammar["grammar"] ?? "",
+                      pronunciation: grammar["pronunciation"],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
@@ -65,26 +64,26 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                           Container(
                             color: Styles.textColor10,
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            child: MyText.large(grammar.tailbar, fontWeight: Styles.wSemiBold),
+                            child: MyText.large(grammar["tailbar"], fontWeight: Styles.wSemiBold),
                           ),
                           SizedBox(height: 40),
-                          if (grammar.example1 != null && grammar.example1 != "")
+                          if (grammar["example1"] != null && grammar["example1"] != "")
                             MyText.large("Жишээ өгүүлбэр:", fontWeight: Styles.wSemiBold),
                           SizedBox(height: 20),
-                          if (grammar.example1 != null && grammar.example1 != "")
+                          if (grammar["example1"] != null && grammar["example1"] != "")
                             _exampleWidget(
-                                grammar.example1 ?? "",
-                                grammar.example1Pronunciation ?? "",
-                                grammar.example1Translation ?? "",
+                                grammar["example1"] ?? "",
+                                grammar["example1_pronunciation"] ?? "",
+                                grammar["example1_translation"] ?? "",
                                 Provider.of<TtsProvider>(context, listen: true).hidePronunciation1,
                                 Provider.of<TtsProvider>(context, listen: true).hideTranslation1,
                                 1),
                           SizedBox(height: 20),
-                          if (grammar.example2 != null && grammar.example2 != "")
+                          if (grammar["example2"] != null && grammar["example2"] != "")
                             _exampleWidget(
-                                grammar.example2 ?? "",
-                                grammar.example2Pronunciation ?? "",
-                                grammar.example2Translation ?? "",
+                                grammar["example2"] ?? "",
+                                grammar["example2_pronunciation"] ?? "",
+                                grammar["example2_translation"] ?? "",
                                 Provider.of<TtsProvider>(context, listen: true).hidePronunciation2,
                                 Provider.of<TtsProvider>(context, listen: true).hideTranslation2,
                                 2),
@@ -216,14 +215,14 @@ class _GrammarDetailScreenState extends State<GrammarDetailScreen> {
                           ? Wrap(
                               children: [
                                 MyText.large(
-                                  text.split(grammar.grammar ?? "")[0],
+                                  text.split(grammar["grammar"] ?? "")[0],
                                   fontWeight: Styles.wNormal,
                                   letterSpacing: 0.5,
                                 ),
-                                if (grammar.grammar != null && text.contains(grammar.grammar!))
-                                  MyText.large(grammar.grammar, textColor: Styles.orangeColor),
-                                if (grammar.grammar != null && text.split(grammar.grammar!).length > 1)
-                                  MyText.large(text.split(grammar.grammar ?? "")[1], fontWeight: Styles.wNormal),
+                                if (grammar["grammar"] != null && text.contains(grammar["grammar"]))
+                                  MyText.large(grammar["grammar"], textColor: Styles.orangeColor),
+                                if (grammar["grammar"] != null && text.split(grammar["grammar"] ?? "").length > 1)
+                                  MyText.large(text.split(grammar["grammar"] ?? "")[1], fontWeight: Styles.wNormal),
                               ],
                             )
                           : MyText.large(text, fontWeight: Styles.wNormal),

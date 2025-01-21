@@ -1,7 +1,6 @@
 import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/components/voice_icon.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/tts_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
@@ -138,9 +137,9 @@ class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResul
     );
   }
 
-  _vocabularyTile(Vocabulary vocabulary) {
-    return InkWell(
-      onTap: () => Provider.of<TtsProvider>(context, listen: false).speak(vocabulary.word),
+  _vocabularyTile(Map<String, dynamic> vocabulary) {
+    return GestureDetector(
+      onTap: () => Provider.of<TtsProvider>(context, listen: false).speak(vocabulary["word"]),
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
@@ -153,12 +152,12 @@ class _VocabularyPracticeResultScreenState extends State<VocabularyPracticeResul
           children: [
             Column(
               children: [
-                MyText.medium("${vocabulary.pronunciation}"),
-                MyText.xlarge("${vocabulary.word}", fontWeight: Styles.wNormal),
+                MyText.medium("${vocabulary["pronunciation"]}"),
+                MyText.xlarge("${vocabulary["word"]}", fontWeight: Styles.wNormal),
               ],
             ),
             SizedBox(width: 30),
-            Expanded(child: MyText.medium("${vocabulary.translation}")),
+            Expanded(child: MyText.medium("${vocabulary["translation"]}")),
             VoiceIcon(isWhite: false),
           ],
         ),

@@ -30,7 +30,7 @@ class _HomePracticeState extends State<HomePractice> {
   }
 
   Widget exerciseTile(String title, String menuType) {
-    return InkWell(
+    return GestureDetector(
       onTap: () async {
         if (menuType == MenuType.videoLesson)
           return;

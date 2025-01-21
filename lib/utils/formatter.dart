@@ -5,7 +5,7 @@ class Formatter {
   }
 
   static String capitalizeFirstLetter(String str) {
-    if (str == null || str == "") return "";
+    if (str == "") return "";
     return "${str[0].toUpperCase()}${str.substring(1).toLowerCase()}";
   }
 

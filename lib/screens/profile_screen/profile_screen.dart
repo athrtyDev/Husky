@@ -3,7 +3,6 @@ import 'package:diyi/components/button.dart';
 import 'package:diyi/components/my_text.dart';
 import 'package:diyi/global/constants.dart';
 import 'package:diyi/global/global.dart';
-import 'package:diyi/global/style.dart';
 import 'package:diyi/providers/grammar_practice_provider.dart';
 import 'package:diyi/providers/user_provider.dart';
 import 'package:diyi/providers/vocabulary_practice_provider.dart';
@@ -233,10 +232,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
-  _separator() {
-    return Container(width: MediaQuery.of(context).size.width, height: 0.3, color: Styles.textColor30);
-  }
-
   Future<void> deleteUser() async {
     return showDialog<void>(
       context: context,
@@ -272,7 +267,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _hskWidget(String hsk) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Provider.of<UserProvider>(context, listen: false).setHsk(hsk);
         Provider.of<VocabularyPracticeProvider>(context, listen: false).clearPracticeList();

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:diyi/components/my_app_bar.dart';
 import 'package:diyi/global/style.dart';
 import 'package:diyi/screens/vocabulary_screens/components/vocabulary_list_item.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/vocabulary_provider.dart';
 
 class VocabularyListScreen extends StatefulWidget {
@@ -37,8 +37,15 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText("Нийт ${Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary!.length} үг:",
-                        fontWeight: Styles.wBold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyText(
+                            "Нийт ${Provider.of<VocabularyProvider>(context, listen: true).listSelectedVocabulary!.length} үг:",
+                            fontWeight: Styles.wBold),
+                        testIcon(),
+                      ],
+                    ),
                     SizedBox(height: 15),
                     Expanded(
                       child: SingleChildScrollView(
@@ -68,5 +75,30 @@ class _VocabularyListScreenState extends State<VocabularyListScreen> {
                   ],
                 ),
               ));
+  }
+
+  Widget testIcon() {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/vocabulary_group_practice_screens', arguments: {
+          'list_vocabulary': Provider.of<VocabularyProvider>(context, listen: false).listSelectedVocabulary,
+          'app_bar_name': headerName,
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          border: Border.all(color: Styles.baseColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            MyText("Тест", fontWeight: Styles.wBold),
+            SizedBox(width: 5),
+            SvgPicture.asset("assets/icons/test.svg", height: 20, width: 20),
+          ],
+        ),
+      ),
+    );
   }
 }

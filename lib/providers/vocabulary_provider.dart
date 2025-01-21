@@ -1,23 +1,20 @@
 import 'package:diyi/core/api.dart';
-import 'package:diyi/core/classes/Vocabulary.dart';
-import 'package:diyi/core/classes/VocabularyGroup.dart';
-import 'package:diyi/core/classes/VocabularyLevel.dart';
 import 'package:flutter/foundation.dart';
 
 class VocabularyProvider with ChangeNotifier {
-  List<VocabularyLevel>? listLevel;
-  List<VocabularyGroup>? listAllGroup;
+  List<Map<String, dynamic>>? listLevel;
+  List<Map<String, dynamic>>? listAllGroup;
 
   String? selectedLevel;
-  List<VocabularyGroup>? listSelectedGroup;
-  List<Vocabulary>? listSelectedVocabulary;
+  List<Map<String, dynamic>>? listSelectedGroup;
+  List<Map<String, dynamic>>? listSelectedVocabulary;
 
   Future<void> cacheAllData() async {
     Api _api = Api();
     if (listLevel == null) listLevel = await _api.getVocabularyLevel();
     if (listAllGroup == null) {
       listAllGroup = await _api.getVocabularyGroup();
-      listAllGroup!.sort((a, b) => int.parse(a.groupName!).compareTo(int.parse(b.groupName!)));
+      listAllGroup!.sort((a, b) => int.parse(a["groupName"].toString()).compareTo(int.parse(b["groupName"].toString())));
     }
     notifyListeners();
   }
@@ -26,7 +23,7 @@ class VocabularyProvider with ChangeNotifier {
     selectedLevel = hsk;
     listSelectedGroup = [];
     for (var item in listAllGroup!) {
-      if (item.hsk == hsk) {
+      if (item["hsk"] == hsk) {
         listSelectedGroup!.add(item);
       }
     }
